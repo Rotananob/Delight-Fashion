@@ -1,0 +1,273 @@
+import { Product, Category } from "@/types";
+
+export const MOCK_CATEGORIES: Category[] = [
+  {
+    id: "cat_tshirts",
+    name: "T-Shirts",
+    slug: "t-shirts",
+    description: "Heavyweight organic cotton & silk-blend luxury tees.",
+    orderIndex: 1,
+    isActive: true,
+  },
+  {
+    id: "cat_jackets",
+    name: "Jackets & Outerwear",
+    slug: "jackets",
+    description: "Tailored bombers, leather jackets & lightweight rain coats.",
+    orderIndex: 2,
+    isActive: true,
+  },
+  {
+    id: "cat_pants",
+    name: "Pants & Trousers",
+    slug: "pants",
+    description: "Structured pleated trousers & relaxed linen blend pants.",
+    orderIndex: 3,
+    isActive: true,
+  },
+  {
+    id: "cat_inner_work",
+    name: "Inner & Work Wear",
+    slug: "inner-work",
+    description: "Refined base layers, dress shirts & daily essentials.",
+    orderIndex: 4,
+    isActive: true,
+  },
+];
+
+export const MOCK_PRODUCTS: Product[] = [
+  {
+    id: "prod_tee_01",
+    title: "Delight Royal Crest Heavyweight Tee",
+    slug: "delight-royal-crest-heavyweight-tee",
+    categoryId: "cat_tshirts",
+    price: 45.0,
+    compareAtPrice: 60.0,
+    description:
+      "Crafted from 280 GSM combed organic cotton with our subtle gold-foil embroidered crown emblem on the chest. Tailored relaxed fit designed for Phnom Penh's tropical climate.",
+    images: [
+      {
+        id: "img_tee_01_1",
+        url: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&q=80",
+        alt: "Delight Royal Crest Tee - Black Front",
+        isPrimary: true,
+      },
+      {
+        id: "img_tee_01_2",
+        url: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=800&q=80",
+        alt: "Delight Royal Crest Tee - Back View",
+      },
+    ],
+    variants: {
+      "M-Black": { size: "M", color: "Black", colorHex: "#0A0A0A", stock: 15, sku: "TEE01-M-BLK" },
+      "L-Black": { size: "L", color: "Black", colorHex: "#0A0A0A", stock: 20, sku: "TEE01-L-BLK" },
+      "XL-Black": { size: "XL", color: "Black", colorHex: "#0A0A0A", stock: 8, sku: "TEE01-XL-BLK" },
+      "M-Gold": { size: "M", color: "Gold Dust", colorHex: "#D4AF37", stock: 10, sku: "TEE01-M-GLD" },
+    },
+    totalStock: 53,
+    availableSizes: ["M", "L", "XL"],
+    availableColors: ["Black", "Gold Dust"],
+    isFeatured: true,
+    isBestSeller: true,
+    status: "active",
+    createdAt: "2026-08-01T10:00:00Z",
+  },
+  {
+    id: "prod_tee_02",
+    title: "Minimalist Silk-Blend Pocket T-Shirt",
+    slug: "minimalist-silk-blend-pocket-tshirt",
+    categoryId: "cat_tshirts",
+    price: 38.0,
+    description:
+      "An ultra-soft jersey cotton blend with 15% Mulberry silk for exceptional drape and breathability. Features a reinforced chest pocket with a subtle gold bar rivet.",
+    images: [
+      {
+        id: "img_tee_02_1",
+        url: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=800&q=80",
+        alt: "Minimalist Silk-Blend Pocket T-Shirt - Charcoal",
+        isPrimary: true,
+      },
+    ],
+    variants: {
+      "S-Charcoal": { size: "S", color: "Charcoal", colorHex: "#262626", stock: 12, sku: "TEE02-S-CHR" },
+      "M-Charcoal": { size: "M", color: "Charcoal", colorHex: "#262626", stock: 18, sku: "TEE02-M-CHR" },
+      "L-Charcoal": { size: "L", color: "Charcoal", colorHex: "#262626", stock: 14, sku: "TEE02-L-CHR" },
+    },
+    totalStock: 44,
+    availableSizes: ["S", "M", "L"],
+    availableColors: ["Charcoal"],
+    isFeatured: false,
+    isBestSeller: false,
+    status: "active",
+  },
+  {
+    id: "prod_jacket_01",
+    title: "Angkor Obsidian Bomber Jacket",
+    slug: "angkor-obsidian-bomber-jacket",
+    categoryId: "cat_jackets",
+    price: 145.0,
+    compareAtPrice: 180.0,
+    description:
+      "A masterpiece of luxury utility. Water-resistant matte nylon shell with custom gold-plated YKK zippers and breathable silk-satin inner lining.",
+    images: [
+      {
+        id: "img_jkt_01_1",
+        url: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&q=80",
+        alt: "Angkor Obsidian Bomber Jacket - Black",
+        isPrimary: true,
+      },
+      {
+        id: "img_jkt_01_2",
+        url: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=800&q=80",
+        alt: "Angkor Obsidian Bomber Jacket - Detail",
+      },
+    ],
+    variants: {
+      "M-Obsidian": { size: "M", color: "Obsidian Black", colorHex: "#050505", stock: 7, sku: "JKT01-M-OBS" },
+      "L-Obsidian": { size: "L", color: "Obsidian Black", colorHex: "#050505", stock: 11, sku: "JKT01-L-OBS" },
+      "XL-Obsidian": { size: "XL", color: "Obsidian Black", colorHex: "#050505", stock: 4, sku: "JKT01-XL-OBS" },
+    },
+    totalStock: 22,
+    availableSizes: ["M", "L", "XL"],
+    availableColors: ["Obsidian Black"],
+    isFeatured: true,
+    isBestSeller: true,
+    status: "active",
+  },
+  {
+    id: "prod_jacket_02",
+    title: "Chamkar Mon Tailored Work Coat",
+    slug: "chamkar-mon-tailored-work-coat",
+    categoryId: "cat_jackets",
+    price: 120.0,
+    description:
+      "Minimalist chore jacket cut from premium Japanese twill. Clean structured collar and concealed horn buttons with gold internal piping.",
+    images: [
+      {
+        id: "img_jkt_02_1",
+        url: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&q=80",
+        alt: "Chamkar Mon Tailored Work Coat",
+        isPrimary: true,
+      },
+    ],
+    variants: {
+      "M-Navy": { size: "M", color: "Midnight Navy", colorHex: "#0f172a", stock: 10, sku: "JKT02-M-NVY" },
+      "L-Navy": { size: "L", color: "Midnight Navy", colorHex: "#0f172a", stock: 8, sku: "JKT02-L-NVY" },
+    },
+    totalStock: 18,
+    availableSizes: ["M", "L"],
+    availableColors: ["Midnight Navy"],
+    isFeatured: false,
+    status: "active",
+  },
+  {
+    id: "prod_pants_01",
+    title: "Sangkat Pleated Trousers",
+    slug: "sangkat-pleated-trousers",
+    categoryId: "cat_pants",
+    price: 85.0,
+    compareAtPrice: 110.0,
+    description:
+      "High-rise double pleated trousers crafted from wrinkle-resistant wool-blend flannel. Designed to drape flawlessly over loafers or clean white sneakers.",
+    images: [
+      {
+        id: "img_pnt_01_1",
+        url: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=800&q=80",
+        alt: "Sangkat Pleated Trousers",
+        isPrimary: true,
+      },
+    ],
+    variants: {
+      "M-Black": { size: "M", color: "Black", colorHex: "#0A0A0A", stock: 14, sku: "PNT01-M-BLK" },
+      "L-Black": { size: "L", color: "Black", colorHex: "#0A0A0A", stock: 19, sku: "PNT01-L-BLK" },
+      "XL-Black": { size: "XL", color: "Black", colorHex: "#0A0A0A", stock: 6, sku: "PNT01-XL-BLK" },
+    },
+    totalStock: 39,
+    availableSizes: ["M", "L", "XL"],
+    availableColors: ["Black"],
+    isFeatured: true,
+    isBestSeller: false,
+    status: "active",
+  },
+  {
+    id: "prod_pants_02",
+    title: "Phnom Penh Linen Drawstring Trousers",
+    slug: "phnom-penh-linen-drawstring-trousers",
+    categoryId: "cat_pants",
+    price: 75.0,
+    description:
+      "Breathable 100% Normandy linen trousers with an elasticized drawstring waist and subtle gold aglets. Perfect for warm evening outings in Cambodia.",
+    images: [
+      {
+        id: "img_pnt_02_1",
+        url: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=800&q=80",
+        alt: "Linen Drawstring Trousers",
+        isPrimary: true,
+      },
+    ],
+    variants: {
+      "S-Sand": { size: "S", color: "Sand Gold", colorHex: "#d6c29a", stock: 9, sku: "PNT02-S-SND" },
+      "M-Sand": { size: "M", color: "Sand Gold", colorHex: "#d6c29a", stock: 15, sku: "PNT02-M-SND" },
+      "L-Sand": { size: "L", color: "Sand Gold", colorHex: "#d6c29a", stock: 12, sku: "PNT02-L-SND" },
+    },
+    totalStock: 36,
+    availableSizes: ["S", "M", "L"],
+    availableColors: ["Sand Gold"],
+    isFeatured: false,
+    status: "active",
+  },
+  {
+    id: "prod_inner_01",
+    title: "Bespoke Royal Oxford Dress Shirt",
+    slug: "bespoke-royal-oxford-dress-shirt",
+    categoryId: "cat_inner_work",
+    price: 95.0,
+    description:
+      "An executive workwear staple. Crisp 120-thread count Egyptian cotton with Mother of Pearl buttons and structured spread collar.",
+    images: [
+      {
+        id: "img_in_01_1",
+        url: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800&q=80",
+        alt: "Royal Oxford Dress Shirt - White",
+        isPrimary: true,
+      },
+    ],
+    variants: {
+      "M-White": { size: "M", color: "Pure White", colorHex: "#FFFFFF", stock: 25, sku: "SHT01-M-WHT" },
+      "L-White": { size: "L", color: "Pure White", colorHex: "#FFFFFF", stock: 30, sku: "SHT01-L-WHT" },
+      "XL-White": { size: "XL", color: "Pure White", colorHex: "#FFFFFF", stock: 18, sku: "SHT01-XL-WHT" },
+    },
+    totalStock: 73,
+    availableSizes: ["M", "L", "XL"],
+    availableColors: ["Pure White"],
+    isFeatured: true,
+    isBestSeller: true,
+    status: "active",
+  },
+  {
+    id: "prod_inner_02",
+    title: "Silk-Modal Seamless Inner Tank (2-Pack)",
+    slug: "silk-modal-seamless-inner-tank-2pack",
+    categoryId: "cat_inner_work",
+    price: 48.0,
+    description:
+      "Ultra-thin breathable inner layers crafted from natural wood modal and silk fibers. Anti-odor treatment designed for daily comfort under jackets and shirts.",
+    images: [
+      {
+        id: "img_in_02_1",
+        url: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=800&q=80",
+        alt: "Silk-Modal Seamless Inner Tank",
+        isPrimary: true,
+      },
+    ],
+    variants: {
+      "M-Black": { size: "M", color: "Black", colorHex: "#0A0A0A", stock: 20, sku: "TNK01-M-BLK" },
+      "L-Black": { size: "L", color: "Black", colorHex: "#0A0A0A", stock: 22, sku: "TNK01-L-BLK" },
+    },
+    totalStock: 42,
+    availableSizes: ["M", "L"],
+    availableColors: ["Black"],
+    isFeatured: false,
+    status: "active",
+  },
+];
