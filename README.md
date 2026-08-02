@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="public/logo.jpg" alt="Delight Fashion Logo" width="200" style="border-radius: 50%"/>
+</div>
+
 # 🏛️ Delight Fashion - Men's Premium E-Commerce System (Phnom Penh, Cambodia)
 
 ![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)
@@ -62,18 +66,13 @@ Welcome to **Delight Fashion**, a production-ready, mobile-first, high-end men's
 ## 🗺️ Project Phases Roadmap
 
 - [x] **Phase 1: Project Architecture & Core Infrastructure Setup** *(Completed)*
-  - Initialized Next.js 16 App Router + TypeScript + Tailwind CSS v4 + ESLint.
-  - Configured Firebase Client (`client.ts`) & Admin Modular SDK (`admin.ts`).
-  - Implemented Cloudinary image optimization utilities & signed signature generators (`cloudinary.ts`).
-  - Created standardized API / Server Action response wrappers (`response.ts`) & domain interfaces (`types/index.ts`).
-  - Implemented production Firestore Security Rules (`firestore.rules`).
-- [ ] **Phase 2: Design System, Theme & Shared Components**
-- [ ] **Phase 3: Firebase Authentication & Security IAM**
-- [ ] **Phase 4: Product Management & Cloudinary Asset Pipeline**
-- [ ] **Phase 5: Customer Storefront & Catalog Experience**
-- [ ] **Phase 6: Shopping Cart, Checkout & Transactional Order Engine**
-- [ ] **Phase 7: Order Management & Multi-Channel Notification Engine**
-- [ ] **Phase 8: Quality Assurance, Security Audit & Production Launch**
+- [x] **Phase 2: Design System, Theme & Shared Components** *(Completed)*
+- [x] **Phase 3: Firebase Authentication & Security IAM** *(Completed)*
+- [x] **Phase 4: Product Management & Cloudinary Asset Pipeline** *(Completed)*
+- [x] **Phase 5: Customer Storefront & Catalog Experience** *(Completed)*
+- [x] **Phase 6: Shopping Cart, Checkout & Transactional Order Engine** *(Completed)*
+- [x] **Phase 7: Order Management & Multi-Channel Notification Engine** *(Completed)*
+- [x] **Phase 8: Quality Assurance, Security Audit & Production Launch** *(Completed)*
 
 ---
 

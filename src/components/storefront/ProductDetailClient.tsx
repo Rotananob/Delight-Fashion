@@ -6,9 +6,10 @@ import { useCart } from "@/features/cart/CartContext";
 import { Button } from "@/components/ui/Button";
 import { ShoppingBag, ChevronRight, Check } from "lucide-react";
 import { twMerge } from "tailwind-merge";
+import { ProductReviews } from "./ProductReviews";
 
 export const ProductDetailClient: React.FC<{ product: Product }> = ({ product }) => {
-  const { addItem, toggleCart } = useCart();
+  const { addItem } = useCart();
   
   const [selectedImage, setSelectedImage] = useState(
     product.images.find(i => i.isPrimary) || product.images[0]
@@ -30,25 +31,17 @@ export const ProductDetailClient: React.FC<{ product: Product }> = ({ product })
     // Simulate slight network delay for premium feel
     await new Promise(r => setTimeout(r, 400));
     
-    addItem({
-      productId: product.id,
-      title: product.title,
-      price: product.price,
-      size: selectedSize,
-      color: selectedColor,
-      quantity,
-      image: selectedImage?.url || "",
-    });
+    addItem(product, selectedSize, selectedColor, quantity);
     
     setIsAdding(false);
-    toggleCart(); // Open cart drawer
+    alert("Added to Cart!"); // Basic feedback since Cart drawer isn't auto-toggling
   };
 
   return (
-    <div className="flex flex-col lg:flex-row gap-12 xl:gap-16">
-      
-      {/* Media Gallery */}
-      <div className="flex-1 flex flex-col-reverse md:flex-row gap-4">
+    <div className="flex flex-col gap-16">
+      <div className="flex flex-col lg:flex-row gap-12 xl:gap-16">
+        {/* Media Gallery */}
+        <div className="flex-1 flex flex-col-reverse md:flex-row gap-4">
         {/* Thumbnails */}
         {product.images.length > 1 && (
           <div className="flex md:flex-col gap-3 overflow-x-auto md:overflow-y-auto md:w-24 shrink-0 no-scrollbar">
@@ -221,6 +214,12 @@ export const ProductDetailClient: React.FC<{ product: Product }> = ({ product })
           </div>
 
         </div>
+      </div>
+      </div>
+      
+      {/* Product Reviews Section placed below the main product details */}
+      <div className="w-full">
+        <ProductReviews productId={product.id} />
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import { initializeApp, getApps, getApp, FirebaseApp } from "firebase/app";
 import { getAuth, Auth } from "firebase/auth";
-import { getFirestore, Firestore } from "firebase/firestore";
+import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager, Firestore } from "firebase/firestore";
 import { getMessaging, Messaging, isSupported } from "firebase/messaging";
 
 const firebaseConfig = {
@@ -16,7 +16,11 @@ const firebaseConfig = {
 // Initialize Firebase SDK (Client-side singleton pattern)
 const app: FirebaseApp = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const auth: Auth = getAuth(app);
-const db: Firestore = getFirestore(app);
+
+// Initialize Firestore with offline persistence
+const db: Firestore = initializeFirestore(app, {
+  localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() })
+});
 
 // Helper to safely get Firebase Cloud Messaging instance in browser environments
 const getMessagingInstance = async (): Promise<Messaging | null> => {

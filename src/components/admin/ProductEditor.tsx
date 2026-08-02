@@ -26,7 +26,7 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ initialProduct }) 
   const [price, setPrice] = useState(initialProduct?.price.toString() || "");
   const [compareAtPrice, setCompareAtPrice] = useState(initialProduct?.compareAtPrice?.toString() || "");
   const [description, setDescription] = useState(initialProduct?.description || "");
-  const [status, setStatus] = useState<"active" | "draft" | "archived">(initialProduct?.status || "active");
+  const [status, setStatus] = useState<"active" | "draft">(initialProduct?.status || "active");
   const [isFeatured, setIsFeatured] = useState(initialProduct?.isFeatured || false);
   
   // Media State
@@ -247,7 +247,6 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ initialProduct }) 
                 >
                   <option value="active">Active (Visible)</option>
                   <option value="draft">Draft (Hidden)</option>
-                  <option value="archived">Archived</option>
                 </select>
               </div>
 

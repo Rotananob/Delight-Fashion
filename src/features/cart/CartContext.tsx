@@ -2,6 +2,8 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { Product, OrderItem } from "@/types";
+import { useAuth } from "@/features/auth/AuthContext";
+import { getCloudCartAction, syncCloudCartAction } from "@/app/actions/cartActions";
 
 export interface CartContextType {
   items: OrderItem[];
@@ -22,10 +24,12 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  const { user } = useAuth();
   const [items, setItems] = useState<OrderItem[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isCloudSynced, setIsCloudSynced] = useState(false);
 
-  // Load from localStorage
+  // 1. Load from localStorage immediately on mount
   useEffect(() => {
     try {
       const stored = localStorage.getItem(CART_STORAGE_KEY);
@@ -39,16 +43,86 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }, []);
 
-  // Save to localStorage
+  // Handle Logout Reset
+  useEffect(() => {
+    if (!user) {
+      setIsCloudSynced(false);
+    }
+  }, [user]);
+
+  // 2. When a user is authenticated, fetch their cloud cart and merge
+  useEffect(() => {
+    let active = true;
+
+    const syncWithCloud = async () => {
+      // Only do this once per session when user becomes available
+      if (user && isLoaded && !isCloudSynced) {
+        try {
+          const res = await getCloudCartAction();
+          if (res.success && active) {
+            const cloudItems = res.items || [];
+            
+            // Merge Logic: Local + Cloud
+            // If the item exists in both, take the maximum quantity to prevent infinite addition on reload
+            const mergedMap = new Map<string, OrderItem>();
+            
+            // Add cloud items first
+            cloudItems.forEach(item => {
+              mergedMap.set(item.variantKey, item);
+            });
+
+            // Add local items
+            // Need to use the current state of items, not from the closure if it changed, 
+            // but `items` is in the dependency array (implicitly via set state, wait, we don't put it in deps to avoid loops)
+            items.forEach(item => {
+              if (mergedMap.has(item.variantKey)) {
+                const existing = mergedMap.get(item.variantKey)!;
+                existing.quantity = Math.max(existing.quantity, item.quantity);
+              } else {
+                mergedMap.set(item.variantKey, item);
+              }
+            });
+
+            const mergedItems = Array.from(mergedMap.values());
+            
+            setItems(mergedItems);
+            setIsCloudSynced(true);
+            
+            // Push merged cart back to cloud
+            await syncCloudCartAction(mergedItems);
+          }
+        } catch (error) {
+          console.error("Cloud cart sync error:", error);
+        }
+      }
+    };
+
+    syncWithCloud();
+
+    return () => { active = false; };
+  // We explicitly DO NOT include `items` here so it doesn't re-run the initial sync continuously
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, isLoaded, isCloudSynced]);
+
+  // 3. Save to localStorage AND Cloud whenever items change
   useEffect(() => {
     if (isLoaded) {
+      // Always save to local storage for speed
       try {
         localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
       } catch (e) {
         console.warn("localStorage cart save error:", e);
       }
+
+      // If user is logged in, debounce save to cloud (wait 1 second after last click)
+      if (user && isCloudSynced) {
+        const timeoutId = setTimeout(() => {
+          syncCloudCartAction(items).catch(err => console.error("Failed to sync cart:", err));
+        }, 1000);
+        return () => clearTimeout(timeoutId);
+      }
     }
-  }, [items, isLoaded]);
+  }, [items, isLoaded, user, isCloudSynced]);
 
   const addItem = (
     product: Product,

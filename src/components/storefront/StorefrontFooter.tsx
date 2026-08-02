@@ -9,12 +9,16 @@ export const StorefrontFooter: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-white/10">
           {/* Brand Col */}
           <div className="flex flex-col gap-4">
-            <Link href="/" className="flex items-center gap-2 group select-none">
-              <Crown className="w-5 h-5 text-[#D4AF37]" />
-              <span className="text-xl font-bold tracking-[0.2em] text-white uppercase">
+            <div className="flex items-center gap-2">
+              <img 
+                src="/logo.jpg" 
+                alt="Delight Fashion Logo" 
+                className="w-8 h-8 object-contain rounded-full border border-[#D4AF37]/30" 
+              />
+              <span className="text-xl font-bold tracking-[0.2em] text-white uppercase font-sans">
                 DELIGHT <span className="text-[#D4AF37]">FASHION</span>
               </span>
-            </Link>
+            </div>
             <p className="text-xs text-white/60 leading-relaxed">
               Phnom Penh&apos;s premier destination for luxury men&apos;s clothing. Tailored structured silhouettes, modern outerwear, and refined daily wear.
             </p>

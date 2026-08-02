@@ -59,14 +59,15 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
     >
       <div className="flex flex-col gap-6">
         {/* Brand Badge */}
-        <div className="flex items-center gap-2 px-1 pb-4 border-b border-white/10">
-          <Crown className="w-5 h-5 text-[#D4AF37]" />
-          <div className="flex flex-col">
-            <span className="text-sm font-bold tracking-widest text-white uppercase">
+        <div className="p-4 border-b border-white/10 flex items-center justify-between sticky top-0 bg-[#0E0E0E] z-10">
+          <div className="flex items-center gap-2">
+            <img 
+              src="/logo.jpg" 
+              alt="Delight Fashion Logo" 
+              className="w-8 h-8 object-contain rounded-full border border-[#D4AF37]/30" 
+            />
+            <span className="text-lg font-bold tracking-[0.2em] text-white uppercase font-sans">
               DELIGHT <span className="text-[#D4AF37]">FASHION</span>
-            </span>
-            <span className="text-[10px] text-white/50 uppercase tracking-widest">
-              Phnom Penh • Cambodia
             </span>
           </div>
         </div>

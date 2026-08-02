@@ -93,7 +93,8 @@ export interface OrderStatusHistoryItem {
 
 export interface Order {
   id: string;
-  userId: string;
+  orderCode?: string;
+  customerId: string;
   customerEmail: string;
   shippingAddress: UserAddress;
   items: OrderItem[];

@@ -21,6 +21,7 @@ const NAV_LINKS = [
   { label: "Jackets", href: "/products?category=jackets" },
   { label: "Pants", href: "/products?category=pants" },
   { label: "Inner & Work", href: "/products?category=inner-work" },
+  { label: "Track Orders", href: "/orders" },
   { label: "All Collection", href: "/products" },
 ];
 
@@ -76,7 +77,11 @@ export const StorefrontHeader: React.FC<StorefrontHeaderProps> = ({
           className="flex flex-col items-center lg:items-start group select-none"
         >
           <div className="flex items-center gap-2">
-            <Crown className="w-5 h-5 text-[#D4AF37] transition-transform group-hover:scale-110 duration-300" />
+            <img 
+              src="/logo.jpg" 
+              alt="Delight Fashion Logo" 
+              className="w-10 h-10 object-contain rounded-full border border-[#D4AF37]/30 group-hover:scale-105 transition-transform duration-300" 
+            />
             <span className="text-xl sm:text-2xl font-bold tracking-[0.2em] text-white uppercase font-sans">
               DELIGHT <span className="text-[#D4AF37]">FASHION</span>
             </span>

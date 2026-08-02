@@ -187,7 +187,7 @@ export const ImageUploadWidget: React.FC<ImageUploadWidgetProps> = ({
                 )}
                 <Button
                   type="button"
-                  variant="danger"
+                  variant="outline"
                   size="sm"
                   onClick={() => removeImage(img.id)}
                   className="w-full text-[10px] h-7"

@@ -40,7 +40,11 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
       {/* Brand Header */}
       <div className="flex items-center justify-between px-6 py-5 border-b border-white/10">
         <Link href="/" className="flex items-center gap-2.5">
-          <Crown className="w-5 h-5 text-[#D4AF37]" />
+          <img 
+            src="/logo.jpg" 
+            alt="Delight Fashion Logo" 
+            className="w-8 h-8 object-contain rounded-full border border-[#D4AF37]/30" 
+          />
           <div className="flex flex-col">
             <span className="text-sm font-bold tracking-[0.2em] text-white uppercase">
               DELIGHT <span className="text-[#D4AF37]">ADMIN</span>

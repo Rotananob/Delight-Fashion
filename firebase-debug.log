@@ -1,38 +1,38 @@
-[debug] [2026-08-02T16:55:36.161Z] ----------------------------------------------------------------------
-[debug] [2026-08-02T16:55:36.167Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Dell Latitute3490\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
-[debug] [2026-08-02T16:55:36.167Z] CLI Version:   15.22.4
-[debug] [2026-08-02T16:55:36.168Z] Platform:      win32
-[debug] [2026-08-02T16:55:36.168Z] Node Version:  v20.11.0
-[debug] [2026-08-02T16:55:36.168Z] Detected Agent: unknown
-[debug] [2026-08-02T16:55:36.168Z] Time:          Sun Aug 02 2026 23:55:36 GMT+0700 (Indochina Time)
-[debug] [2026-08-02T16:55:36.169Z] ----------------------------------------------------------------------
+[debug] [2026-08-02T17:55:27.288Z] ----------------------------------------------------------------------
+[debug] [2026-08-02T17:55:27.295Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Dell Latitute3490\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting
+[debug] [2026-08-02T17:55:27.296Z] CLI Version:   15.22.4
+[debug] [2026-08-02T17:55:27.296Z] Platform:      win32
+[debug] [2026-08-02T17:55:27.296Z] Node Version:  v20.11.0
+[debug] [2026-08-02T17:55:27.297Z] Detected Agent: antigravity
+[debug] [2026-08-02T17:55:27.297Z] Time:          Mon Aug 03 2026 00:55:27 GMT+0700 (Indochina Time)
+[debug] [2026-08-02T17:55:27.297Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2026-08-02T16:55:39.752Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2026-08-02T16:55:39.753Z] > authorizing via signed-in user (xflowstudio5@gmail.com)
-[debug] [2026-08-02T16:55:39.754Z] [iam] checking project delight-fashion for permissions ["firebase.projects.get","firebasehosting.sites.update"]
-[debug] [2026-08-02T16:55:39.756Z] Checked if tokens are valid: true, expires at: 1785692545015
-[debug] [2026-08-02T16:55:39.757Z] Checked if tokens are valid: true, expires at: 1785692545015
-[debug] [2026-08-02T16:55:39.759Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions [none]
-[debug] [2026-08-02T16:55:39.759Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions  x-goog-user-project=delight-fashion
-[debug] [2026-08-02T16:55:39.759Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
-[debug] [2026-08-02T16:55:41.735Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions 200
-[debug] [2026-08-02T16:55:41.736Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
-[debug] [2026-08-02T16:55:41.737Z] Checked if tokens are valid: true, expires at: 1785692545015
-[debug] [2026-08-02T16:55:41.737Z] Checked if tokens are valid: true, expires at: 1785692545015
-[debug] [2026-08-02T16:55:41.738Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/delight-fashion [none]
-[debug] [2026-08-02T16:55:43.512Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/delight-fashion 200
-[debug] [2026-08-02T16:55:43.512Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/delight-fashion {"projectId":"delight-fashion","projectNumber":"254861094885","displayName":"Delight-Fashion","name":"projects/delight-fashion","resources":{"hostingSite":"delight-fashion","realtimeDatabaseInstance":"delight-fashion-default-rtdb"},"state":"ACTIVE","labels":{"firebase":"enabled"},"etag":"1_4eda1199-f688-4973-a74e-548c478f0fbc"}
-[debug] [2026-08-02T16:55:53.171Z] defaultcredentials: writing to file C:\Users\Dell Latitute3490\AppData\Roaming\firebase\xflowstudio5_gmail_com_application_default_credentials.json
-[debug] [2026-08-02T16:55:53.175Z] Checked if tokens are valid: true, expires at: 1785692545015
-[debug] [2026-08-02T16:55:53.175Z] Checked if tokens are valid: true, expires at: 1785692545015
-[debug] [2026-08-02T16:55:53.177Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites pageToken=&pageSize=10
-[debug] [2026-08-02T16:55:55.567Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites 200
-[debug] [2026-08-02T16:55:55.567Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites {"sites":[{"name":"projects/delight-fashion/sites/delight-fashion","defaultUrl":"https://delight-fashion.web.app","appId":"1:254861094885:web:c155c64500288a1f9d490c","type":"DEFAULT_SITE"},{"name":"projects/delight-fashion/sites/delight-fashion-kh","defaultUrl":"https://delight-fashion-kh.web.app","appId":"1:254861094885:web:98fbc7d9260ea46e9d490c","type":"USER_SITE"}]}
-[debug] [2026-08-02T16:55:55.568Z] Checked if tokens are valid: true, expires at: 1785692545015
-[debug] [2026-08-02T16:55:55.568Z] Checked if tokens are valid: true, expires at: 1785692545015
-[debug] [2026-08-02T16:55:55.568Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:254861094885:web:c155c64500288a1f9d490c/config [none]
-[debug] [2026-08-02T16:55:57.095Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:254861094885:web:c155c64500288a1f9d490c/config 200
-[debug] [2026-08-02T16:55:57.096Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:254861094885:web:c155c64500288a1f9d490c/config {"projectId":"delight-fashion","appId":"1:254861094885:web:c155c64500288a1f9d490c","databaseURL":"https://delight-fashion-default-rtdb.asia-southeast1.firebasedatabase.app","storageBucket":"delight-fashion.firebasestorage.app","apiKey":"AIzaSyDL8IeKhS58N57LfJqamZD0re1fmqkCAZs","authDomain":"delight-fashion.firebaseapp.com","messagingSenderId":"254861094885","measurementId":"G-Y3MGWNRHNY","projectNumber":"254861094885","version":"2"}
+[debug] [2026-08-02T17:55:32.194Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-08-02T17:55:32.195Z] > authorizing via signed-in user (xflowstudio5@gmail.com)
+[debug] [2026-08-02T17:55:32.197Z] [iam] checking project delight-fashion for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2026-08-02T17:55:32.200Z] Checked if tokens are valid: true, expires at: 1785695261859
+[debug] [2026-08-02T17:55:32.201Z] Checked if tokens are valid: true, expires at: 1785695261859
+[debug] [2026-08-02T17:55:32.203Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions [none]
+[debug] [2026-08-02T17:55:32.204Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions  x-goog-user-project=delight-fashion
+[debug] [2026-08-02T17:55:32.205Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-08-02T17:55:34.010Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions 200
+[debug] [2026-08-02T17:55:34.011Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-08-02T17:55:34.013Z] Checked if tokens are valid: true, expires at: 1785695261859
+[debug] [2026-08-02T17:55:34.014Z] Checked if tokens are valid: true, expires at: 1785695261859
+[debug] [2026-08-02T17:55:34.015Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/delight-fashion [none]
+[debug] [2026-08-02T17:55:35.622Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/delight-fashion 200
+[debug] [2026-08-02T17:55:35.622Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/delight-fashion {"projectId":"delight-fashion","projectNumber":"254861094885","displayName":"Delight-Fashion","name":"projects/delight-fashion","resources":{"hostingSite":"delight-fashion","realtimeDatabaseInstance":"delight-fashion-default-rtdb"},"state":"ACTIVE","labels":{"firebase":"enabled"},"etag":"1_4eda1199-f688-4973-a74e-548c478f0fbc"}
+[debug] [2026-08-02T17:55:45.764Z] defaultcredentials: writing to file C:\Users\Dell Latitute3490\AppData\Roaming\firebase\xflowstudio5_gmail_com_application_default_credentials.json
+[debug] [2026-08-02T17:55:45.768Z] Checked if tokens are valid: true, expires at: 1785695261859
+[debug] [2026-08-02T17:55:45.769Z] Checked if tokens are valid: true, expires at: 1785695261859
+[debug] [2026-08-02T17:55:45.770Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites pageToken=&pageSize=10
+[debug] [2026-08-02T17:55:47.735Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites 200
+[debug] [2026-08-02T17:55:47.735Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites {"sites":[{"name":"projects/delight-fashion/sites/delight-fashion","defaultUrl":"https://delight-fashion.web.app","appId":"1:254861094885:web:c155c64500288a1f9d490c","type":"DEFAULT_SITE"},{"name":"projects/delight-fashion/sites/delight-fashion-kh","defaultUrl":"https://delight-fashion-kh.web.app","appId":"1:254861094885:web:98fbc7d9260ea46e9d490c","type":"USER_SITE"}]}
+[debug] [2026-08-02T17:55:47.735Z] Checked if tokens are valid: true, expires at: 1785695261859
+[debug] [2026-08-02T17:55:47.735Z] Checked if tokens are valid: true, expires at: 1785695261859
+[debug] [2026-08-02T17:55:47.736Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:254861094885:web:c155c64500288a1f9d490c/config [none]
+[debug] [2026-08-02T17:55:49.439Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:254861094885:web:c155c64500288a1f9d490c/config 200
+[debug] [2026-08-02T17:55:49.439Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:254861094885:web:c155c64500288a1f9d490c/config {"projectId":"delight-fashion","appId":"1:254861094885:web:c155c64500288a1f9d490c","databaseURL":"https://delight-fashion-default-rtdb.asia-southeast1.firebasedatabase.app","storageBucket":"delight-fashion.firebasestorage.app","apiKey":"AIzaSyDL8IeKhS58N57LfJqamZD0re1fmqkCAZs","authDomain":"delight-fashion.firebaseapp.com","messagingSenderId":"254861094885","measurementId":"G-Y3MGWNRHNY","projectNumber":"254861094885","version":"2"}
 [info] 
    Thank you for trying our early preview of Next.js support on Firebase Hosting.
    During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
@@ -44,11 +44,11 @@
 
    We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
 
-[debug] [2026-08-02T16:56:21.583Z] Checked if tokens are valid: true, expires at: 1785692545015
-[debug] [2026-08-02T16:56:21.583Z] Checked if tokens are valid: true, expires at: 1785692545015
-[debug] [2026-08-02T16:56:21.584Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites/delight-fashion [none]
-[debug] [2026-08-02T16:56:23.398Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites/delight-fashion 200
-[debug] [2026-08-02T16:56:23.399Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites/delight-fashion {"name":"projects/delight-fashion/sites/delight-fashion","defaultUrl":"https://delight-fashion.web.app","appId":"1:254861094885:web:c155c64500288a1f9d490c","type":"DEFAULT_SITE"}
+[debug] [2026-08-02T17:56:05.703Z] Checked if tokens are valid: true, expires at: 1785695261859
+[debug] [2026-08-02T17:56:05.704Z] Checked if tokens are valid: true, expires at: 1785695261859
+[debug] [2026-08-02T17:56:05.704Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites/delight-fashion [none]
+[debug] [2026-08-02T17:56:07.606Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites/delight-fashion 200
+[debug] [2026-08-02T17:56:07.607Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites/delight-fashion {"name":"projects/delight-fashion/sites/delight-fashion","defaultUrl":"https://delight-fashion.web.app","appId":"1:254861094885:web:c155c64500288a1f9d490c","type":"DEFAULT_SITE"}
 [info] ▲ Next.js 16.2.12 (Turbopack)
 
 [info] - Environments: .env.local
@@ -56,128 +56,53 @@
 
 [info]   Creating an optimized production build ...
 
-[debug] [2026-08-02T17:01:28.826Z] ----------------------------------------------------------------------
-[debug] [2026-08-02T17:01:28.831Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Dell Latitute3490\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting
-[debug] [2026-08-02T17:01:28.831Z] CLI Version:   15.22.4
-[debug] [2026-08-02T17:01:28.832Z] Platform:      win32
-[debug] [2026-08-02T17:01:28.832Z] Node Version:  v20.11.0
-[debug] [2026-08-02T17:01:28.832Z] Detected Agent: unknown
-[debug] [2026-08-02T17:01:28.832Z] Time:          Mon Aug 03 2026 00:01:28 GMT+0700 (Indochina Time)
-[debug] [2026-08-02T17:01:28.833Z] ----------------------------------------------------------------------
-[debug] 
-[debug] [2026-08-02T17:01:32.938Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2026-08-02T17:01:32.939Z] > authorizing via signed-in user (xflowstudio5@gmail.com)
-[debug] [2026-08-02T17:01:32.939Z] [iam] checking project delight-fashion for permissions ["firebase.projects.get","firebasehosting.sites.update"]
-[debug] [2026-08-02T17:01:32.942Z] Checked if tokens are valid: true, expires at: 1785692545015
-[debug] [2026-08-02T17:01:32.942Z] Checked if tokens are valid: true, expires at: 1785692545015
-[debug] [2026-08-02T17:01:32.944Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions [none]
-[debug] [2026-08-02T17:01:32.945Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions  x-goog-user-project=delight-fashion
-[debug] [2026-08-02T17:01:32.945Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
-[debug] [2026-08-02T17:01:35.155Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions 200
-[debug] [2026-08-02T17:01:35.155Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
-[debug] [2026-08-02T17:01:35.156Z] Checked if tokens are valid: true, expires at: 1785692545015
-[debug] [2026-08-02T17:01:35.156Z] Checked if tokens are valid: true, expires at: 1785692545015
-[debug] [2026-08-02T17:01:35.157Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/delight-fashion [none]
-[debug] [2026-08-02T17:01:36.564Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/delight-fashion 200
-[debug] [2026-08-02T17:01:36.564Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/delight-fashion {"projectId":"delight-fashion","projectNumber":"254861094885","displayName":"Delight-Fashion","name":"projects/delight-fashion","resources":{"hostingSite":"delight-fashion","realtimeDatabaseInstance":"delight-fashion-default-rtdb"},"state":"ACTIVE","labels":{"firebase":"enabled"},"etag":"1_4eda1199-f688-4973-a74e-548c478f0fbc"}
-[debug] [2026-08-02T17:01:46.819Z] defaultcredentials: writing to file C:\Users\Dell Latitute3490\AppData\Roaming\firebase\xflowstudio5_gmail_com_application_default_credentials.json
-[debug] [2026-08-02T17:01:46.827Z] Checked if tokens are valid: true, expires at: 1785692545015
-[debug] [2026-08-02T17:01:46.828Z] Checked if tokens are valid: true, expires at: 1785692545015
-[debug] [2026-08-02T17:01:46.829Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites pageToken=&pageSize=10
-[debug] [2026-08-02T17:01:49.893Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites 200
-[debug] [2026-08-02T17:01:49.893Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites {"sites":[{"name":"projects/delight-fashion/sites/delight-fashion","defaultUrl":"https://delight-fashion.web.app","appId":"1:254861094885:web:c155c64500288a1f9d490c","type":"DEFAULT_SITE"},{"name":"projects/delight-fashion/sites/delight-fashion-kh","defaultUrl":"https://delight-fashion-kh.web.app","appId":"1:254861094885:web:98fbc7d9260ea46e9d490c","type":"USER_SITE"}]}
-[debug] [2026-08-02T17:01:49.894Z] Checked if tokens are valid: true, expires at: 1785692545015
-[debug] [2026-08-02T17:01:49.895Z] Checked if tokens are valid: true, expires at: 1785692545015
-[debug] [2026-08-02T17:01:49.895Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:254861094885:web:c155c64500288a1f9d490c/config [none]
-[debug] [2026-08-02T17:01:52.140Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:254861094885:web:c155c64500288a1f9d490c/config 200
-[debug] [2026-08-02T17:01:52.141Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:254861094885:web:c155c64500288a1f9d490c/config {"projectId":"delight-fashion","appId":"1:254861094885:web:c155c64500288a1f9d490c","databaseURL":"https://delight-fashion-default-rtdb.asia-southeast1.firebasedatabase.app","storageBucket":"delight-fashion.firebasestorage.app","apiKey":"AIzaSyDL8IeKhS58N57LfJqamZD0re1fmqkCAZs","authDomain":"delight-fashion.firebaseapp.com","messagingSenderId":"254861094885","measurementId":"G-Y3MGWNRHNY","projectNumber":"254861094885","version":"2"}
-[info] 
-   Thank you for trying our early preview of Next.js support on Firebase Hosting.
-   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
-   The integration is known to work with Next.js version 12 - 16.0. You may encounter errors.
-
-   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
-   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
-   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
-
-   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
-
-[debug] [2026-08-02T17:02:12.797Z] Checked if tokens are valid: true, expires at: 1785692545015
-[debug] [2026-08-02T17:02:12.797Z] Checked if tokens are valid: true, expires at: 1785692545015
-[debug] [2026-08-02T17:02:12.798Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites/delight-fashion [none]
-[debug] [2026-08-02T17:02:14.970Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites/delight-fashion 200
-[debug] [2026-08-02T17:02:14.971Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites/delight-fashion {"name":"projects/delight-fashion/sites/delight-fashion","defaultUrl":"https://delight-fashion.web.app","appId":"1:254861094885:web:c155c64500288a1f9d490c","type":"DEFAULT_SITE"}
-[info] ▲ Next.js 16.2.12 (Turbopack)
-
-[info] - Environments: .env.local
-
-
-[info]   Creating an optimized production build ...
-
-[info] ✓ Compiled successfully in 39.0s
+[info] ✓ Compiled successfully in 23.3s
 
 [info]   Running TypeScript ...
 
 [info] Failed to type check.
 
 
-[info] ./src/app/products/[slug]/page.tsx:65:15
-Type error: Type '{ schema: { "@context": string; "@type": string; name: string; image: string[]; description: string; sku: string; offers: { "@type": string; url: string; priceCurrency: string; price: string; itemCondition: string; availability: string; }; }; }' is not assignable to type 'IntrinsicAttributes & JsonLdProps'.
-  Property 'schema' does not exist on type 'IntrinsicAttributes & JsonLdProps'.
+[info] ./src/components/admin/ImageUploadWidget.tsx:190:19
+Type error: Type '"danger"' is not assignable to type '"gold" | "outline" | "primary" | "secondary" | "ghost" | undefined'.
 
-  63 |   return (
-  64 |     <StorefrontLayoutShell>
-> 65 |       <JsonLd schema={schema} />
-     |               ^
-  66 |       
-  67 |       {/* Breadcrumbs */}
-  68 |       <div className="border-b border-white/5 bg-[#0A0A0A]">
+  188 |                 <Button
+  189 |                   type="button"
+> 190 |                   variant="danger"
+      |                   ^
+  191 |                   size="sm"
+  192 |                   onClick={() => removeImage(img.id)}
+  193 |                   className="w-full text-[10px] h-7"
 
 [info] Next.js build worker exited with code: 1 and signal: null
 
-[debug] [2026-08-02T17:03:33.011Z] Error: ENOENT: no such file or directory, open 'D:\WEB Development\Delight-Fashion\.next\export-marker.json'
+[debug] [2026-08-02T17:57:01.042Z] Error: ENOENT: no such file or directory, open 'D:\WEB Development\Delight-Fashion\.next\export-marker.json'
 [error] 
 [error] Error: An unexpected error has occurred.
-[debug] [2026-08-02T17:18:47.227Z] ----------------------------------------------------------------------
-[debug] [2026-08-02T17:18:47.231Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Dell Latitute3490\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting
-[debug] [2026-08-02T17:18:47.232Z] CLI Version:   15.22.4
-[debug] [2026-08-02T17:18:47.232Z] Platform:      win32
-[debug] [2026-08-02T17:18:47.232Z] Node Version:  v20.11.0
-[debug] [2026-08-02T17:18:47.232Z] Detected Agent: unknown
-[debug] [2026-08-02T17:18:47.233Z] Time:          Mon Aug 03 2026 00:18:47 GMT+0700 (Indochina Time)
-[debug] [2026-08-02T17:18:47.233Z] ----------------------------------------------------------------------
+[debug] [2026-08-02T17:59:03.902Z] ----------------------------------------------------------------------
+[debug] [2026-08-02T17:59:03.910Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Dell Latitute3490\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting
+[debug] [2026-08-02T17:59:03.911Z] CLI Version:   15.22.4
+[debug] [2026-08-02T17:59:03.911Z] Platform:      win32
+[debug] [2026-08-02T17:59:03.911Z] Node Version:  v20.11.0
+[debug] [2026-08-02T17:59:03.911Z] Detected Agent: antigravity
+[debug] [2026-08-02T17:59:03.911Z] Time:          Mon Aug 03 2026 00:59:03 GMT+0700 (Indochina Time)
+[debug] [2026-08-02T17:59:03.912Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2026-08-02T17:18:50.532Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2026-08-02T17:18:50.533Z] > authorizing via signed-in user (xflowstudio5@gmail.com)
-[debug] [2026-08-02T17:18:50.533Z] [iam] checking project delight-fashion for permissions ["firebase.projects.get","firebasehosting.sites.update"]
-[debug] [2026-08-02T17:18:50.535Z] Checked if tokens are valid: true, expires at: 1785692545015
-[debug] [2026-08-02T17:18:50.535Z] Checked if tokens are valid: true, expires at: 1785692545015
-[debug] [2026-08-02T17:18:50.536Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions [none]
-[debug] [2026-08-02T17:18:50.537Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions  x-goog-user-project=delight-fashion
-[debug] [2026-08-02T17:18:50.537Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
-[debug] [2026-08-02T17:19:01.999Z] *** [apiv2] error from fetch(https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions, {"headers":{},"method":"POST","body":"{\"permissions\":[\"firebase.projects.get\",\"firebasehosting.sites.update\"]}"}): FetchError: request to https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions failed, reason: getaddrinfo ENOTFOUND cloudresourcemanager.googleapis.com
-[debug] [2026-08-02T17:19:02.004Z] [iam] error while checking permissions, command may fail: Failed to make request to https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions
-[debug] [2026-08-02T17:19:02.009Z] Checked if tokens are valid: true, expires at: 1785692545015
-[debug] [2026-08-02T17:19:02.010Z] Checked if tokens are valid: true, expires at: 1785692545015
-[debug] [2026-08-02T17:19:02.013Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/delight-fashion [none]
-[debug] [2026-08-02T17:19:13.417Z] *** [apiv2] error from fetch(https://firebase.googleapis.com/v1beta1/projects/delight-fashion, {"headers":{},"method":"GET","signal":{"reason":""}}): FetchError: request to https://firebase.googleapis.com/v1beta1/projects/delight-fashion failed, reason: getaddrinfo ENOTFOUND firebase.googleapis.com
-[debug] [2026-08-02T17:19:13.418Z] Failed to make request to https://firebase.googleapis.com/v1beta1/projects/delight-fashion (original: request to https://firebase.googleapis.com/v1beta1/projects/delight-fashion failed, reason: getaddrinfo ENOTFOUND firebase.googleapis.com)
-[debug] [2026-08-02T17:19:13.424Z] Checked if tokens are valid: true, expires at: 1785692545015
-[debug] [2026-08-02T17:19:13.425Z] Checked if tokens are valid: true, expires at: 1785692545015
-[debug] [2026-08-02T17:19:13.425Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/delight-fashion [none]
-[debug] [2026-08-02T17:19:18.661Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/delight-fashion 200
-[debug] [2026-08-02T17:19:18.661Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/delight-fashion {"projectId":"delight-fashion","projectNumber":"254861094885","displayName":"Delight-Fashion","name":"projects/delight-fashion","resources":{"hostingSite":"delight-fashion","realtimeDatabaseInstance":"delight-fashion-default-rtdb"},"state":"ACTIVE","labels":{"firebase":"enabled"},"etag":"1_4eda1199-f688-4973-a74e-548c478f0fbc"}
-[debug] [2026-08-02T17:19:35.680Z] defaultcredentials: writing to file C:\Users\Dell Latitute3490\AppData\Roaming\firebase\xflowstudio5_gmail_com_application_default_credentials.json
-[debug] [2026-08-02T17:19:35.685Z] Checked if tokens are valid: true, expires at: 1785692545015
-[debug] [2026-08-02T17:19:35.685Z] Checked if tokens are valid: true, expires at: 1785692545015
-[debug] [2026-08-02T17:19:35.687Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites pageToken=&pageSize=10
-[debug] [2026-08-02T17:19:38.083Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites 200
-[debug] [2026-08-02T17:19:38.083Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites {"sites":[{"name":"projects/delight-fashion/sites/delight-fashion","defaultUrl":"https://delight-fashion.web.app","appId":"1:254861094885:web:c155c64500288a1f9d490c","type":"DEFAULT_SITE"},{"name":"projects/delight-fashion/sites/delight-fashion-kh","defaultUrl":"https://delight-fashion-kh.web.app","appId":"1:254861094885:web:98fbc7d9260ea46e9d490c","type":"USER_SITE"}]}
-[debug] [2026-08-02T17:19:38.084Z] Checked if tokens are valid: true, expires at: 1785692545015
-[debug] [2026-08-02T17:19:38.084Z] Checked if tokens are valid: true, expires at: 1785692545015
-[debug] [2026-08-02T17:19:38.085Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:254861094885:web:c155c64500288a1f9d490c/config [none]
-[debug] [2026-08-02T17:19:39.594Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:254861094885:web:c155c64500288a1f9d490c/config 200
-[debug] [2026-08-02T17:19:39.595Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:254861094885:web:c155c64500288a1f9d490c/config {"projectId":"delight-fashion","appId":"1:254861094885:web:c155c64500288a1f9d490c","databaseURL":"https://delight-fashion-default-rtdb.asia-southeast1.firebasedatabase.app","storageBucket":"delight-fashion.firebasestorage.app","apiKey":"AIzaSyDL8IeKhS58N57LfJqamZD0re1fmqkCAZs","authDomain":"delight-fashion.firebaseapp.com","messagingSenderId":"254861094885","measurementId":"G-Y3MGWNRHNY","projectNumber":"254861094885","version":"2"}
+[debug] [2026-08-02T17:59:08.942Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-08-02T17:59:08.943Z] > authorizing via signed-in user (xflowstudio5@gmail.com)
+[debug] [2026-08-02T17:59:08.943Z] [iam] checking project delight-fashion for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2026-08-02T17:59:08.946Z] Checked if tokens are valid: true, expires at: 1785695261859
+[debug] [2026-08-02T17:59:08.947Z] Checked if tokens are valid: true, expires at: 1785695261859
+[debug] [2026-08-02T17:59:08.951Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions [none]
+[debug] [2026-08-02T17:59:08.952Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions  x-goog-user-project=delight-fashion
+[debug] [2026-08-02T17:59:08.952Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-08-02T17:59:10.896Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions 200
+[debug] [2026-08-02T17:59:10.897Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-08-02T17:59:10.898Z] Checked if tokens are valid: true, expires at: 1785695261859
+[debug] [2026-08-02T17:59:10.898Z] Checked if tokens are valid: true, expires at: 1785695261859
+[debug] [2026-08-02T17:59:10.899Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/delight-fashion [none]
+[debug] [2026-08-02T17:59:12.976Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/delight-fashion 200
+[debug] [2026-08-02T17:59:12.976Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/delight-fashion {"projectId":"delight-fashion","projectNumber":"254861094885","displayName":"Delight-Fashion","name":"projects/delight-fashion","resources":{"hostingSite":"delight-fashion","realtimeDatabaseInstance":"delight-fashion-default-rtdb"},"state":"ACTIVE","labels":{"firebase":"enabled"},"etag":"1_4eda1199-f688-4973-a74e-548c478f0fbc"}
 [info] 
    Thank you for trying our early preview of Next.js support on Firebase Hosting.
    During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
@@ -189,11 +114,11 @@ Type error: Type '{ schema: { "@context": string; "@type": string; name: string;
 
    We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
 
-[debug] [2026-08-02T17:19:57.148Z] Checked if tokens are valid: true, expires at: 1785692545015
-[debug] [2026-08-02T17:19:57.149Z] Checked if tokens are valid: true, expires at: 1785692545015
-[debug] [2026-08-02T17:19:57.149Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites/delight-fashion [none]
-[debug] [2026-08-02T17:19:59.344Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites/delight-fashion 200
-[debug] [2026-08-02T17:19:59.344Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites/delight-fashion {"name":"projects/delight-fashion/sites/delight-fashion","defaultUrl":"https://delight-fashion.web.app","appId":"1:254861094885:web:c155c64500288a1f9d490c","type":"DEFAULT_SITE"}
+[debug] [2026-08-02T17:59:48.007Z] Checked if tokens are valid: true, expires at: 1785695261859
+[debug] [2026-08-02T17:59:48.008Z] Checked if tokens are valid: true, expires at: 1785695261859
+[debug] [2026-08-02T17:59:48.008Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites/delight-fashion [none]
+[debug] [2026-08-02T17:59:50.806Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites/delight-fashion 200
+[debug] [2026-08-02T17:59:50.807Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites/delight-fashion {"name":"projects/delight-fashion/sites/delight-fashion","defaultUrl":"https://delight-fashion.web.app","appId":"1:254861094885:web:c155c64500288a1f9d490c","type":"DEFAULT_SITE"}
 [info] ▲ Next.js 16.2.12 (Turbopack)
 
 [info] - Environments: .env.local
@@ -201,73 +126,65 @@ Type error: Type '{ schema: { "@context": string; "@type": string; name: string;
 
 [info]   Creating an optimized production build ...
 
-[info] ✓ Compiled successfully in 16.5s
+[info] ✓ Compiled successfully in 13.5s
 
 [info]   Running TypeScript ...
 
 [info] Failed to type check.
 
 
-[info] ./src/app/products/[slug]/page.tsx:65:15
-Type error: Type '{ schema: { "@context": string; "@type": string; name: string; image: string[]; description: string; sku: string; offers: { "@type": string; url: string; priceCurrency: string; price: string; itemCondition: string; availability: string; }; }; }' is not assignable to type 'IntrinsicAttributes & JsonLdProps'.
-  Property 'schema' does not exist on type 'IntrinsicAttributes & JsonLdProps'.
+[info] ./src/components/admin/ProductEditor.tsx:90:7
+Type error: Type '"active" | "draft" | "archived"' is not assignable to type '"active" | "draft"'.
+  Type '"archived"' is not assignable to type '"active" | "draft"'.
 
-  63 |   return (
-  64 |     <StorefrontLayoutShell>
-> 65 |       <JsonLd schema={schema} />
-     |               ^
-  66 |       
-  67 |       {/* Breadcrumbs */}
-  68 |       <div className="border-b border-white/5 bg-[#0A0A0A]">
+  88 |       availableColors: colorArr,
+  89 |       totalStock,
+> 90 |       status,
+     |       ^
+  91 |       isFeatured,
+  92 |       isBestSeller: initialProduct?.isBestSeller || false,
+  93 |     };
 
 [info] Next.js build worker exited with code: 1 and signal: null
 
-[debug] [2026-08-02T17:20:38.435Z] Error: Timed out.
-    at Timeout._onTimeout (C:\Users\Dell Latitute3490\AppData\Roaming\npm\node_modules\firebase-tools\lib\utils.js:313:49)
-    at listOnTimeout (node:internal/timers:573:17)
-    at process.processTimers (node:internal/timers:514:7)
+[debug] [2026-08-02T18:00:21.285Z] Error: ENOENT: no such file or directory, open 'D:\WEB Development\Delight-Fashion\.next\export-marker.json'
 [error] 
 [error] Error: An unexpected error has occurred.
-[debug] [2026-08-02T17:27:38.632Z] ----------------------------------------------------------------------
-[debug] [2026-08-02T17:27:38.636Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Dell Latitute3490\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
-[debug] [2026-08-02T17:27:38.636Z] CLI Version:   15.22.4
-[debug] [2026-08-02T17:27:38.637Z] Platform:      win32
-[debug] [2026-08-02T17:27:38.637Z] Node Version:  v20.11.0
-[debug] [2026-08-02T17:27:38.637Z] Detected Agent: unknown
-[debug] [2026-08-02T17:27:38.637Z] Time:          Mon Aug 03 2026 00:27:38 GMT+0700 (Indochina Time)
-[debug] [2026-08-02T17:27:38.637Z] ----------------------------------------------------------------------
+[debug] [2026-08-02T18:05:13.033Z] ----------------------------------------------------------------------
+[debug] [2026-08-02T18:05:13.038Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Dell Latitute3490\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting
+[debug] [2026-08-02T18:05:13.038Z] CLI Version:   15.22.4
+[debug] [2026-08-02T18:05:13.039Z] Platform:      win32
+[debug] [2026-08-02T18:05:13.039Z] Node Version:  v20.11.0
+[debug] [2026-08-02T18:05:13.039Z] Detected Agent: antigravity
+[debug] [2026-08-02T18:05:13.039Z] Time:          Mon Aug 03 2026 01:05:13 GMT+0700 (Indochina Time)
+[debug] [2026-08-02T18:05:13.039Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2026-08-02T17:27:41.499Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2026-08-02T17:27:41.499Z] > authorizing via signed-in user (xflowstudio5@gmail.com)
-[debug] [2026-08-02T17:27:41.500Z] [iam] checking project delight-fashion for permissions ["firebase.projects.get","firebasehosting.sites.update"]
-[debug] [2026-08-02T17:27:41.502Z] Checked if tokens are valid: false, expires at: 1785692545015
-[debug] [2026-08-02T17:27:41.503Z] Checked if tokens are valid: false, expires at: 1785692545015
-[debug] [2026-08-02T17:27:41.503Z] > refreshing access token with scopes: []
-[debug] [2026-08-02T17:27:41.507Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
-[debug] [2026-08-02T17:27:41.507Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
-[debug] [2026-08-02T17:27:42.858Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
-[debug] [2026-08-02T17:27:42.859Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
-[debug] [2026-08-02T17:27:42.882Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions [none]
-[debug] [2026-08-02T17:27:42.882Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions  x-goog-user-project=delight-fashion
-[debug] [2026-08-02T17:27:42.882Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
-[debug] [2026-08-02T17:27:44.558Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions 200
-[debug] [2026-08-02T17:27:44.558Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
-[debug] [2026-08-02T17:27:44.559Z] Checked if tokens are valid: true, expires at: 1785695261859
-[debug] [2026-08-02T17:27:44.559Z] Checked if tokens are valid: true, expires at: 1785695261859
-[debug] [2026-08-02T17:27:44.559Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/delight-fashion [none]
-[debug] [2026-08-02T17:27:46.704Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/delight-fashion 200
-[debug] [2026-08-02T17:27:46.704Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/delight-fashion {"projectId":"delight-fashion","projectNumber":"254861094885","displayName":"Delight-Fashion","name":"projects/delight-fashion","resources":{"hostingSite":"delight-fashion","realtimeDatabaseInstance":"delight-fashion-default-rtdb"},"state":"ACTIVE","labels":{"firebase":"enabled"},"etag":"1_4eda1199-f688-4973-a74e-548c478f0fbc"}
-[debug] [2026-08-02T17:27:53.720Z] defaultcredentials: writing to file C:\Users\Dell Latitute3490\AppData\Roaming\firebase\xflowstudio5_gmail_com_application_default_credentials.json
-[debug] [2026-08-02T17:27:53.724Z] Checked if tokens are valid: true, expires at: 1785695261859
-[debug] [2026-08-02T17:27:53.724Z] Checked if tokens are valid: true, expires at: 1785695261859
-[debug] [2026-08-02T17:27:53.725Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites pageToken=&pageSize=10
-[debug] [2026-08-02T17:27:56.567Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites 200
-[debug] [2026-08-02T17:27:56.567Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites {"sites":[{"name":"projects/delight-fashion/sites/delight-fashion","defaultUrl":"https://delight-fashion.web.app","appId":"1:254861094885:web:c155c64500288a1f9d490c","type":"DEFAULT_SITE"},{"name":"projects/delight-fashion/sites/delight-fashion-kh","defaultUrl":"https://delight-fashion-kh.web.app","appId":"1:254861094885:web:98fbc7d9260ea46e9d490c","type":"USER_SITE"}]}
-[debug] [2026-08-02T17:27:56.567Z] Checked if tokens are valid: true, expires at: 1785695261859
-[debug] [2026-08-02T17:27:56.567Z] Checked if tokens are valid: true, expires at: 1785695261859
-[debug] [2026-08-02T17:27:56.568Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:254861094885:web:c155c64500288a1f9d490c/config [none]
-[debug] [2026-08-02T17:27:57.905Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:254861094885:web:c155c64500288a1f9d490c/config 200
-[debug] [2026-08-02T17:27:57.905Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:254861094885:web:c155c64500288a1f9d490c/config {"projectId":"delight-fashion","appId":"1:254861094885:web:c155c64500288a1f9d490c","databaseURL":"https://delight-fashion-default-rtdb.asia-southeast1.firebasedatabase.app","storageBucket":"delight-fashion.firebasestorage.app","apiKey":"AIzaSyDL8IeKhS58N57LfJqamZD0re1fmqkCAZs","authDomain":"delight-fashion.firebaseapp.com","messagingSenderId":"254861094885","measurementId":"G-Y3MGWNRHNY","projectNumber":"254861094885","version":"2"}
+[debug] [2026-08-02T18:05:16.659Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-08-02T18:05:16.660Z] > authorizing via signed-in user (xflowstudio5@gmail.com)
+[debug] [2026-08-02T18:05:16.660Z] [iam] checking project delight-fashion for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2026-08-02T18:05:16.662Z] Checked if tokens are valid: true, expires at: 1785695261859
+[debug] [2026-08-02T18:05:16.663Z] Checked if tokens are valid: true, expires at: 1785695261859
+[debug] [2026-08-02T18:05:16.664Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions [none]
+[debug] [2026-08-02T18:05:16.664Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions  x-goog-user-project=delight-fashion
+[debug] [2026-08-02T18:05:16.665Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-08-02T18:05:19.920Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions 200
+[debug] [2026-08-02T18:05:19.920Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-08-02T18:05:19.921Z] Checked if tokens are valid: true, expires at: 1785695261859
+[debug] [2026-08-02T18:05:19.921Z] Checked if tokens are valid: true, expires at: 1785695261859
+[debug] [2026-08-02T18:05:19.921Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/delight-fashion [none]
+[debug] [2026-08-02T18:05:21.128Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/delight-fashion 200
+[debug] [2026-08-02T18:05:21.129Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/delight-fashion {"projectId":"delight-fashion","projectNumber":"254861094885","displayName":"Delight-Fashion","name":"projects/delight-fashion","resources":{"hostingSite":"delight-fashion","realtimeDatabaseInstance":"delight-fashion-default-rtdb"},"state":"ACTIVE","labels":{"firebase":"enabled"},"etag":"1_4eda1199-f688-4973-a74e-548c478f0fbc"}
+[debug] [2026-08-02T18:05:29.427Z] defaultcredentials: writing to file C:\Users\Dell Latitute3490\AppData\Roaming\firebase\xflowstudio5_gmail_com_application_default_credentials.json
+[debug] [2026-08-02T18:05:29.433Z] Checked if tokens are valid: true, expires at: 1785695261859
+[debug] [2026-08-02T18:05:29.433Z] Checked if tokens are valid: true, expires at: 1785695261859
+[debug] [2026-08-02T18:05:29.434Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites pageToken=&pageSize=10
+[debug] [2026-08-02T18:05:33.307Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites 200
+[debug] [2026-08-02T18:05:33.307Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites {"sites":[{"name":"projects/delight-fashion/sites/delight-fashion","defaultUrl":"https://delight-fashion.web.app","appId":"1:254861094885:web:c155c64500288a1f9d490c","type":"DEFAULT_SITE"},{"name":"projects/delight-fashion/sites/delight-fashion-kh","defaultUrl":"https://delight-fashion-kh.web.app","appId":"1:254861094885:web:98fbc7d9260ea46e9d490c","type":"USER_SITE"}]}
+[debug] [2026-08-02T18:05:33.308Z] Checked if tokens are valid: true, expires at: 1785695261859
+[debug] [2026-08-02T18:05:33.308Z] Checked if tokens are valid: true, expires at: 1785695261859
+[debug] [2026-08-02T18:05:33.308Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:254861094885:web:c155c64500288a1f9d490c/config [none]
+[debug] [2026-08-02T18:05:37.365Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:254861094885:web:c155c64500288a1f9d490c/config 200
+[debug] [2026-08-02T18:05:37.366Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:254861094885:web:c155c64500288a1f9d490c/config {"projectId":"delight-fashion","appId":"1:254861094885:web:c155c64500288a1f9d490c","databaseURL":"https://delight-fashion-default-rtdb.asia-southeast1.firebasedatabase.app","storageBucket":"delight-fashion.firebasestorage.app","apiKey":"AIzaSyDL8IeKhS58N57LfJqamZD0re1fmqkCAZs","authDomain":"delight-fashion.firebaseapp.com","messagingSenderId":"254861094885","measurementId":"G-Y3MGWNRHNY","projectNumber":"254861094885","version":"2"}
 [info] 
    Thank you for trying our early preview of Next.js support on Firebase Hosting.
    During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
@@ -279,11 +196,11 @@ Type error: Type '{ schema: { "@context": string; "@type": string; name: string;
 
    We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
 
-[debug] [2026-08-02T17:28:20.531Z] Checked if tokens are valid: true, expires at: 1785695261859
-[debug] [2026-08-02T17:28:20.531Z] Checked if tokens are valid: true, expires at: 1785695261859
-[debug] [2026-08-02T17:28:20.532Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites/delight-fashion [none]
-[debug] [2026-08-02T17:28:26.924Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites/delight-fashion 200
-[debug] [2026-08-02T17:28:26.925Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites/delight-fashion {"name":"projects/delight-fashion/sites/delight-fashion","defaultUrl":"https://delight-fashion.web.app","appId":"1:254861094885:web:c155c64500288a1f9d490c","type":"DEFAULT_SITE"}
+[debug] [2026-08-02T18:05:52.750Z] Checked if tokens are valid: true, expires at: 1785695261859
+[debug] [2026-08-02T18:05:52.751Z] Checked if tokens are valid: true, expires at: 1785695261859
+[debug] [2026-08-02T18:05:52.751Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites/delight-fashion [none]
+[debug] [2026-08-02T18:05:55.401Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites/delight-fashion 200
+[debug] [2026-08-02T18:05:55.401Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites/delight-fashion {"name":"projects/delight-fashion/sites/delight-fashion","defaultUrl":"https://delight-fashion.web.app","appId":"1:254861094885:web:c155c64500288a1f9d490c","type":"DEFAULT_SITE"}
 [info] ▲ Next.js 16.2.12 (Turbopack)
 
 [info] - Environments: .env.local
@@ -291,65 +208,69 @@ Type error: Type '{ schema: { "@context": string; "@type": string; name: string;
 
 [info]   Creating an optimized production build ...
 
-[info] ✓ Compiled successfully in 32.0s
+[info] ✓ Compiled successfully in 15.8s
 
 [info]   Running TypeScript ...
 
 [info] Failed to type check.
 
 
-[info] ./src/app/products/[slug]/page.tsx:65:15
-Type error: Type '{ schema: { "@context": string; "@type": string; name: string; image: string[]; description: string; sku: string; offers: { "@type": string; url: string; priceCurrency: string; price: string; itemCondition: string; availability: string; }; }; }' is not assignable to type 'IntrinsicAttributes & JsonLdProps'.
-  Property 'schema' does not exist on type 'IntrinsicAttributes & JsonLdProps'.
+[info] ./src/components/storefront/CatalogClient.tsx:24:12
+Type error: Property 'onAddToCart' is missing in type '{ key: string; product: Product; onQuickView: (p: Product) => void; }' but required in type 'ProductCardProps'.
 
-  63 |   return (
-  64 |     <StorefrontLayoutShell>
-> 65 |       <JsonLd schema={schema} />
-     |               ^
-  66 |       
-  67 |       {/* Breadcrumbs */}
-  68 |       <div className="border-b border-white/5 bg-[#0A0A0A]">
+  22 |       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12">
+  23 |         {products.map((product) => (
+> 24 |           <ProductCard
+     |            ^
+  25 |             key={product.id}
+  26 |             product={product}
+  27 |             onQuickView={(p) => setQuickViewProduct(p)}
 
 [info] Next.js build worker exited with code: 1 and signal: null
 
-[debug] [2026-08-02T17:29:28.751Z] Error: ENOENT: no such file or directory, open 'D:\WEB Development\Delight-Fashion\.next\export-marker.json'
+[debug] [2026-08-02T18:06:28.435Z] Error: ENOENT: no such file or directory, open 'D:\WEB Development\Delight-Fashion\.next\export-marker.json'
 [error] 
 [error] Error: An unexpected error has occurred.
-[debug] [2026-08-02T17:30:04.676Z] ----------------------------------------------------------------------
-[debug] [2026-08-02T17:30:04.685Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Dell Latitute3490\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting
-[debug] [2026-08-02T17:30:04.686Z] CLI Version:   15.22.4
-[debug] [2026-08-02T17:30:04.687Z] Platform:      win32
-[debug] [2026-08-02T17:30:04.687Z] Node Version:  v20.11.0
-[debug] [2026-08-02T17:30:04.687Z] Detected Agent: unknown
-[debug] [2026-08-02T17:30:04.688Z] Time:          Mon Aug 03 2026 00:30:04 GMT+0700 (Indochina Time)
-[debug] [2026-08-02T17:30:04.688Z] ----------------------------------------------------------------------
+[debug] [2026-08-02T18:15:02.162Z] ----------------------------------------------------------------------
+[debug] [2026-08-02T18:15:02.167Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Dell Latitute3490\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting
+[debug] [2026-08-02T18:15:02.167Z] CLI Version:   15.22.4
+[debug] [2026-08-02T18:15:02.167Z] Platform:      win32
+[debug] [2026-08-02T18:15:02.168Z] Node Version:  v20.11.0
+[debug] [2026-08-02T18:15:02.168Z] Detected Agent: antigravity
+[debug] [2026-08-02T18:15:02.168Z] Time:          Mon Aug 03 2026 01:15:02 GMT+0700 (Indochina Time)
+[debug] [2026-08-02T18:15:02.169Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2026-08-02T17:30:08.375Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2026-08-02T17:30:08.376Z] > authorizing via signed-in user (xflowstudio5@gmail.com)
-[debug] [2026-08-02T17:30:08.377Z] [iam] checking project delight-fashion for permissions ["firebase.projects.get","firebasehosting.sites.update"]
-[debug] [2026-08-02T17:30:08.381Z] Checked if tokens are valid: true, expires at: 1785695261859
-[debug] [2026-08-02T17:30:08.382Z] Checked if tokens are valid: true, expires at: 1785695261859
-[debug] [2026-08-02T17:30:08.387Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions [none]
-[debug] [2026-08-02T17:30:08.388Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions  x-goog-user-project=delight-fashion
-[debug] [2026-08-02T17:30:08.388Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
-[debug] [2026-08-02T17:30:11.303Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions 200
-[debug] [2026-08-02T17:30:11.303Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
-[debug] [2026-08-02T17:30:11.304Z] Checked if tokens are valid: true, expires at: 1785695261859
-[debug] [2026-08-02T17:30:11.304Z] Checked if tokens are valid: true, expires at: 1785695261859
-[debug] [2026-08-02T17:30:11.305Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/delight-fashion [none]
-[debug] [2026-08-02T17:30:15.673Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/delight-fashion 200
-[debug] [2026-08-02T17:30:15.673Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/delight-fashion {"projectId":"delight-fashion","projectNumber":"254861094885","displayName":"Delight-Fashion","name":"projects/delight-fashion","resources":{"hostingSite":"delight-fashion","realtimeDatabaseInstance":"delight-fashion-default-rtdb"},"state":"ACTIVE","labels":{"firebase":"enabled"},"etag":"1_4eda1199-f688-4973-a74e-548c478f0fbc"}
-[debug] [2026-08-02T17:30:25.613Z] defaultcredentials: writing to file C:\Users\Dell Latitute3490\AppData\Roaming\firebase\xflowstudio5_gmail_com_application_default_credentials.json
-[debug] [2026-08-02T17:30:25.623Z] Checked if tokens are valid: true, expires at: 1785695261859
-[debug] [2026-08-02T17:30:25.624Z] Checked if tokens are valid: true, expires at: 1785695261859
-[debug] [2026-08-02T17:30:25.626Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites pageToken=&pageSize=10
-[debug] [2026-08-02T17:30:27.925Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites 200
-[debug] [2026-08-02T17:30:27.925Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites {"sites":[{"name":"projects/delight-fashion/sites/delight-fashion","defaultUrl":"https://delight-fashion.web.app","appId":"1:254861094885:web:c155c64500288a1f9d490c","type":"DEFAULT_SITE"},{"name":"projects/delight-fashion/sites/delight-fashion-kh","defaultUrl":"https://delight-fashion-kh.web.app","appId":"1:254861094885:web:98fbc7d9260ea46e9d490c","type":"USER_SITE"}]}
-[debug] [2026-08-02T17:30:27.926Z] Checked if tokens are valid: true, expires at: 1785695261859
-[debug] [2026-08-02T17:30:27.926Z] Checked if tokens are valid: true, expires at: 1785695261859
-[debug] [2026-08-02T17:30:27.926Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:254861094885:web:c155c64500288a1f9d490c/config [none]
-[debug] [2026-08-02T17:30:30.074Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:254861094885:web:c155c64500288a1f9d490c/config 200
-[debug] [2026-08-02T17:30:30.074Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:254861094885:web:c155c64500288a1f9d490c/config {"projectId":"delight-fashion","appId":"1:254861094885:web:c155c64500288a1f9d490c","databaseURL":"https://delight-fashion-default-rtdb.asia-southeast1.firebasedatabase.app","storageBucket":"delight-fashion.firebasestorage.app","apiKey":"AIzaSyDL8IeKhS58N57LfJqamZD0re1fmqkCAZs","authDomain":"delight-fashion.firebaseapp.com","messagingSenderId":"254861094885","measurementId":"G-Y3MGWNRHNY","projectNumber":"254861094885","version":"2"}
+[debug] [2026-08-02T18:15:05.260Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-08-02T18:15:05.261Z] > authorizing via signed-in user (xflowstudio5@gmail.com)
+[debug] [2026-08-02T18:15:05.262Z] [iam] checking project delight-fashion for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2026-08-02T18:15:05.264Z] Checked if tokens are valid: false, expires at: 1785695261859
+[debug] [2026-08-02T18:15:05.265Z] Checked if tokens are valid: false, expires at: 1785695261859
+[debug] [2026-08-02T18:15:05.266Z] > refreshing access token with scopes: []
+[debug] [2026-08-02T18:15:05.272Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-08-02T18:15:05.273Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-08-02T18:15:06.236Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-08-02T18:15:06.236Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-08-02T18:15:06.247Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions [none]
+[debug] [2026-08-02T18:15:06.247Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions  x-goog-user-project=delight-fashion
+[debug] [2026-08-02T18:15:06.247Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-08-02T18:15:08.374Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions 200
+[debug] [2026-08-02T18:15:08.374Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/delight-fashion:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-08-02T18:15:08.375Z] Checked if tokens are valid: true, expires at: 1785698105236
+[debug] [2026-08-02T18:15:08.375Z] Checked if tokens are valid: true, expires at: 1785698105236
+[debug] [2026-08-02T18:15:08.375Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/delight-fashion [none]
+[debug] [2026-08-02T18:15:09.881Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/delight-fashion 200
+[debug] [2026-08-02T18:15:09.881Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/delight-fashion {"projectId":"delight-fashion","projectNumber":"254861094885","displayName":"Delight-Fashion","name":"projects/delight-fashion","resources":{"hostingSite":"delight-fashion","realtimeDatabaseInstance":"delight-fashion-default-rtdb"},"state":"ACTIVE","labels":{"firebase":"enabled"},"etag":"1_4eda1199-f688-4973-a74e-548c478f0fbc"}
+[debug] [2026-08-02T18:15:16.914Z] defaultcredentials: writing to file C:\Users\Dell Latitute3490\AppData\Roaming\firebase\xflowstudio5_gmail_com_application_default_credentials.json
+[debug] [2026-08-02T18:15:16.917Z] Checked if tokens are valid: true, expires at: 1785698105236
+[debug] [2026-08-02T18:15:16.917Z] Checked if tokens are valid: true, expires at: 1785698105236
+[debug] [2026-08-02T18:15:16.918Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites pageToken=&pageSize=10
+[debug] [2026-08-02T18:15:19.313Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites 200
+[debug] [2026-08-02T18:15:19.314Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites {"sites":[{"name":"projects/delight-fashion/sites/delight-fashion","defaultUrl":"https://delight-fashion.web.app","appId":"1:254861094885:web:c155c64500288a1f9d490c","type":"DEFAULT_SITE"},{"name":"projects/delight-fashion/sites/delight-fashion-kh","defaultUrl":"https://delight-fashion-kh.web.app","appId":"1:254861094885:web:98fbc7d9260ea46e9d490c","type":"USER_SITE"}]}
+[debug] [2026-08-02T18:15:19.314Z] Checked if tokens are valid: true, expires at: 1785698105236
+[debug] [2026-08-02T18:15:19.314Z] Checked if tokens are valid: true, expires at: 1785698105236
+[debug] [2026-08-02T18:15:19.314Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:254861094885:web:c155c64500288a1f9d490c/config [none]
+[debug] [2026-08-02T18:15:20.883Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:254861094885:web:c155c64500288a1f9d490c/config 200
+[debug] [2026-08-02T18:15:20.883Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:254861094885:web:c155c64500288a1f9d490c/config {"projectId":"delight-fashion","appId":"1:254861094885:web:c155c64500288a1f9d490c","databaseURL":"https://delight-fashion-default-rtdb.asia-southeast1.firebasedatabase.app","storageBucket":"delight-fashion.firebasestorage.app","apiKey":"AIzaSyDL8IeKhS58N57LfJqamZD0re1fmqkCAZs","authDomain":"delight-fashion.firebaseapp.com","messagingSenderId":"254861094885","measurementId":"G-Y3MGWNRHNY","projectNumber":"254861094885","version":"2"}
 [info] 
    Thank you for trying our early preview of Next.js support on Firebase Hosting.
    During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
@@ -361,11 +282,11 @@ Type error: Type '{ schema: { "@context": string; "@type": string; name: string;
 
    We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
 
-[debug] [2026-08-02T17:30:48.131Z] Checked if tokens are valid: true, expires at: 1785695261859
-[debug] [2026-08-02T17:30:48.131Z] Checked if tokens are valid: true, expires at: 1785695261859
-[debug] [2026-08-02T17:30:48.131Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites/delight-fashion [none]
-[debug] [2026-08-02T17:30:50.119Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites/delight-fashion 200
-[debug] [2026-08-02T17:30:50.120Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites/delight-fashion {"name":"projects/delight-fashion/sites/delight-fashion","defaultUrl":"https://delight-fashion.web.app","appId":"1:254861094885:web:c155c64500288a1f9d490c","type":"DEFAULT_SITE"}
+[debug] [2026-08-02T18:15:36.219Z] Checked if tokens are valid: true, expires at: 1785698105236
+[debug] [2026-08-02T18:15:36.219Z] Checked if tokens are valid: true, expires at: 1785698105236
+[debug] [2026-08-02T18:15:36.220Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites/delight-fashion [none]
+[debug] [2026-08-02T18:15:37.845Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites/delight-fashion 200
+[debug] [2026-08-02T18:15:37.845Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/delight-fashion/sites/delight-fashion {"name":"projects/delight-fashion/sites/delight-fashion","defaultUrl":"https://delight-fashion.web.app","appId":"1:254861094885:web:c155c64500288a1f9d490c","type":"DEFAULT_SITE"}
 [info] ▲ Next.js 16.2.12 (Turbopack)
 
 [info] - Environments: .env.local
@@ -373,27 +294,26 @@ Type error: Type '{ schema: { "@context": string; "@type": string; name: string;
 
 [info]   Creating an optimized production build ...
 
-[info] ✓ Compiled successfully in 24.1s
+[info] ✓ Compiled successfully in 15.0s
 
 [info]   Running TypeScript ...
 
 [info] Failed to type check.
 
 
-[info] ./src/app/products/[slug]/page.tsx:65:15
-Type error: Type '{ schema: { "@context": string; "@type": string; name: string; image: string[]; description: string; sku: string; offers: { "@type": string; url: string; priceCurrency: string; price: string; itemCondition: string; availability: string; }; }; }' is not assignable to type 'IntrinsicAttributes & JsonLdProps'.
-  Property 'schema' does not exist on type 'IntrinsicAttributes & JsonLdProps'.
+[info] ./src/components/storefront/ProductDetailClient.tsx:33:5
+Type error: Expected 3-4 arguments, but got 1.
 
-  63 |   return (
-  64 |     <StorefrontLayoutShell>
-> 65 |       <JsonLd schema={schema} />
-     |               ^
-  66 |       
-  67 |       {/* Breadcrumbs */}
-  68 |       <div className="border-b border-white/5 bg-[#0A0A0A]">
+  31 |     await new Promise(r => setTimeout(r, 400));
+  32 |     
+> 33 |     addItem({
+     |     ^
+  34 |       productId: product.id,
+  35 |       title: product.title,
+  36 |       price: product.price,
 
 [info] Next.js build worker exited with code: 1 and signal: null
 
-[debug] [2026-08-02T17:31:43.746Z] Error: ENOENT: no such file or directory, open 'D:\WEB Development\Delight-Fashion\.next\export-marker.json'
+[debug] [2026-08-02T18:16:12.881Z] Error: ENOENT: no such file or directory, open 'D:\WEB Development\Delight-Fashion\.next\export-marker.json'
 [error] 
 [error] Error: An unexpected error has occurred.

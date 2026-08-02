@@ -60,18 +60,32 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
               </div>
             </div>
 
-            <Button
-              variant="outline"
-              size="sm"
-              leftIcon={<LogOut className="w-4 h-4" />}
-              onClick={() => {
-                logout();
-                onClose();
-              }}
-              className="w-full mt-2"
-            >
-              Sign Out
-            </Button>
+            <div className="flex flex-col gap-2 mt-2">
+              <Button
+                variant="gold"
+                size="sm"
+                leftIcon={<UserCheck className="w-4 h-4" />}
+                onClick={() => {
+                  onClose();
+                  window.location.href = "/profile";
+                }}
+                className="w-full"
+              >
+                My Profile
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                leftIcon={<LogOut className="w-4 h-4" />}
+                onClick={() => {
+                  logout();
+                  onClose();
+                }}
+                className="w-full"
+              >
+                Sign Out
+              </Button>
+            </div>
           </div>
         ) : (
           <>

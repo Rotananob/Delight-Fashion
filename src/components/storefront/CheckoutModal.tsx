@@ -70,7 +70,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
       const newOrder: Order = {
         id: res.orderId!,
-        userId: user?.id || "guest_customer",
+        customerId: user?.id || "guest_customer",
         customerEmail: email,
         shippingAddress: {
           id: "addr_checkout",
