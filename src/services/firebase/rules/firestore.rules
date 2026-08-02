@@ -1,0 +1,56 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // 🛡️ Helper Functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && 
+        (request.auth.token.admin == true || request.auth.token.role == 'admin');
+    }
+
+    // 👤 Users Collection: Customers read/write own profile; Admins read all
+    match /users/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow create: if isAuthenticated() && request.auth.uid == userId;
+      allow update: if isOwner(userId) && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['role', 'id']);
+      allow delete: if isAdmin();
+    }
+
+    // 📦 Categories Collection: Public read; Admin-only write
+    match /categories/{categoryId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // 👔 Products Collection: Public read for active items; Admin-only write
+    match /products/{productId} {
+      allow read: if resource.data.status == 'active' || isAdmin();
+      allow write: if isAdmin();
+    }
+
+    // 🛒 Orders Collection: Customers read own orders; Create via valid schema; Admin full control
+    match /orders/{orderId} {
+      allow read: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if isAuthenticated() && 
+                    request.resource.data.userId == request.auth.uid &&
+                    request.resource.data.status == 'Pending';
+      allow update: if isAdmin() || (isOwner(resource.data.userId) && request.resource.data.status == 'Cancelled' && resource.data.status == 'Pending');
+      allow delete: if isAdmin();
+    }
+
+    // ⭐ Reviews Collection: Public read; Authenticated users create; Admins moderate
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if isAdmin() || (isAuthenticated() && resource.data.userId == request.auth.uid);
+    }
+  }
+}

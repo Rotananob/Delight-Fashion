@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #ffffff;
+  --brand-black: #0a0a0a;
+  --brand-charcoal: #171717;
+  --brand-gold: #d4af37;
+  --brand-gold-light: #e6c86e;
+  --brand-gold-dark: #b59020;
+  --brand-white: #ffffff;
+  --brand-offwhite: #f9f9f9;
+  --brand-gray: #737373;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-brand-black: var(--brand-black);
+  --color-brand-charcoal: var(--brand-charcoal);
+  --color-brand-gold: var(--brand-gold);
+  --color-brand-gold-light: var(--brand-gold-light);
+  --color-brand-gold-dark: var(--brand-gold-dark);
+  --color-brand-white: var(--brand-white);
+  --color-brand-offwhite: var(--brand-offwhite);
+  --color-brand-gray: var(--brand-gray);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom Luxury Scrollbar & Micro-animations */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #d4af37;
+}
