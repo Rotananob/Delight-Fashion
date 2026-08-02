@@ -94,3 +94,24 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
   const found = MOCK_PRODUCTS.find((p) => p.slug === slug);
   return found || null;
 }
+
+/**
+ * Fetches a single product by ID.
+ */
+export async function getProductById(id: string): Promise<Product | null> {
+  if (isFirebaseReady()) {
+    try {
+      const docRef = doc(db, "products", id);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        return { id: docSnap.id, ...docSnap.data() } as Product;
+      }
+    } catch (error) {
+      console.warn("Firestore getProductById fallback to mock:", error);
+    }
+  }
+
+  const found = MOCK_PRODUCTS.find((p) => p.id === id);
+  return found || null;
+}
+

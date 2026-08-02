@@ -2,6 +2,18 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { UserRole, UserProfile } from "@/types";
+import { auth, db } from "@/services/firebase/client";
+import {
+  signInWithPopup,
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signOut as firebaseSignOut,
+  onAuthStateChanged,
+  User as FirebaseUser,
+} from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { createSessionAction, clearSessionAction } from "@/app/actions/authActions";
+import Cookies from "js-cookie";
 
 export interface AuthContextType {
   user: UserProfile | null;
@@ -50,61 +62,134 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [user, setUser] = useState<UserProfile | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Initialize with Mock Admin or Mock Customer from localStorage if present (fallback to null)
+  // Check if we are running in Mock Mode (no real Firebase API Keys)
+  const isMockMode = !process.env.NEXT_PUBLIC_FIREBASE_API_KEY || process.env.NEXT_PUBLIC_FIREBASE_API_KEY === "mock_api_key" || process.env.NEXT_PUBLIC_FIREBASE_API_KEY.includes("mock");
+
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem("delight_fashion_mock_user");
-      if (stored === "admin") {
-        setUser(MOCK_ADMIN);
-      } else if (stored === "customer") {
-        setUser(MOCK_CUSTOMER);
+    if (isMockMode) {
+      try {
+        const stored = localStorage.getItem("delight_fashion_mock_user");
+        if (stored === "admin") setUser(MOCK_ADMIN);
+        else if (stored === "customer") setUser(MOCK_CUSTOMER);
+        else setUser(null);
+      } catch (e) {
+        console.warn("Mock auth error:", e);
+      } finally {
+        setIsLoading(false);
+      }
+      return;
+    }
+
+    // Real Firebase Auth Listener
+    const unsubscribe = onAuthStateChanged(auth, async (fbUser: FirebaseUser | null) => {
+      if (fbUser) {
+        try {
+          // Fetch profile from Firestore
+          const userDoc = await getDoc(doc(db, "users", fbUser.uid));
+          if (userDoc.exists()) {
+            setUser(userDoc.data() as UserProfile);
+          } else {
+            // Fallback if sync hasn't completed yet
+            setUser({
+              id: fbUser.uid,
+              email: fbUser.email || "",
+              displayName: fbUser.displayName || fbUser.email?.split("@")[0] || "User",
+              role: "customer",
+              createdAt: new Date().toISOString(),
+            });
+          }
+        } catch (error) {
+          console.error("Failed to fetch user profile:", error);
+        }
       } else {
         setUser(null);
       }
-    } catch (e) {
-      console.warn("localStorage read error:", e);
-    } finally {
       setIsLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, [isMockMode]);
+
+  const handleServerSession = async (fbUser: FirebaseUser) => {
+    const idToken = await fbUser.getIdToken();
+    const res = await createSessionAction(idToken);
+    if (!res.success) {
+      console.error("Failed to establish server session");
+    } else {
+      // Set a client-side indicator cookie (not secure, just for middleware routing)
+      Cookies.set("delight_has_session", "true", { expires: 5 });
     }
-  }, []);
+  };
 
   const loginWithGoogle = async () => {
     setIsLoading(true);
-    // Simulate network latency for mock auth
-    await new Promise((r) => setTimeout(r, 600));
-    setUser(MOCK_CUSTOMER);
-    localStorage.setItem("delight_fashion_mock_user", "customer");
+    if (isMockMode) {
+      await new Promise((r) => setTimeout(r, 600));
+      setUser(MOCK_CUSTOMER);
+      localStorage.setItem("delight_fashion_mock_user", "customer");
+      Cookies.set("delight_has_session", "true", { expires: 5 });
+    } else {
+      try {
+        const provider = new GoogleAuthProvider();
+        const result = await signInWithPopup(auth, provider);
+        await handleServerSession(result.user);
+      } catch (error) {
+        console.error("Google Auth Error:", error);
+      }
+    }
     setIsLoading(false);
   };
 
-  const loginWithEmail = async (email: string) => {
+  const loginWithEmail = async (email: string, pass: string) => {
     setIsLoading(true);
-    await new Promise((r) => setTimeout(r, 600));
-    const role: UserRole = email.includes("admin") || email.includes("owner") ? "admin" : "customer";
-    const selectedUser = role === "admin" ? MOCK_ADMIN : MOCK_CUSTOMER;
-    setUser(selectedUser);
-    localStorage.setItem("delight_fashion_mock_user", role);
+    if (isMockMode) {
+      await new Promise((r) => setTimeout(r, 600));
+      const role: UserRole = email.includes("admin") || email.includes("owner") ? "admin" : "customer";
+      const selectedUser = role === "admin" ? MOCK_ADMIN : MOCK_CUSTOMER;
+      setUser(selectedUser);
+      localStorage.setItem("delight_fashion_mock_user", role);
+      Cookies.set("delight_has_session", "true", { expires: 5 });
+    } else {
+      try {
+        const result = await signInWithEmailAndPassword(auth, email, pass);
+        await handleServerSession(result.user);
+      } catch (error) {
+        console.error("Email Auth Error:", error);
+        throw error;
+      }
+    }
     setIsLoading(false);
   };
 
   const logout = async () => {
     setIsLoading(true);
-    await new Promise((r) => setTimeout(r, 300));
-    setUser(null);
-    localStorage.removeItem("delight_fashion_mock_user");
+    if (isMockMode) {
+      await new Promise((r) => setTimeout(r, 300));
+      setUser(null);
+      localStorage.removeItem("delight_fashion_mock_user");
+    } else {
+      try {
+        await firebaseSignOut(auth);
+        await clearSessionAction();
+      } catch (error) {
+        console.error("Logout Error:", error);
+      }
+    }
+    Cookies.remove("delight_has_session");
     setIsLoading(false);
   };
 
   const toggleMockUser = (role: UserRole | null) => {
+    if (!isMockMode) return;
     if (!role) {
       setUser(null);
       localStorage.removeItem("delight_fashion_mock_user");
-    } else if (role === "admin") {
-      setUser(MOCK_ADMIN);
-      localStorage.setItem("delight_fashion_mock_user", "admin");
+      Cookies.remove("delight_has_session");
     } else {
-      setUser(MOCK_CUSTOMER);
-      localStorage.setItem("delight_fashion_mock_user", "customer");
+      const selected = role === "admin" ? MOCK_ADMIN : MOCK_CUSTOMER;
+      setUser(selected);
+      localStorage.setItem("delight_fashion_mock_user", role);
+      Cookies.set("delight_has_session", "true", { expires: 5 });
     }
   };
 
