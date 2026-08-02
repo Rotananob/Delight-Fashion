@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/Input";
 import { useCart } from "@/features/cart/CartContext";
 import { useAuth } from "@/features/auth/AuthContext";
 import { PaymentMethod, Order } from "@/types";
+import { placeOrderAction } from "@/app/actions/orderActions";
 import {
   CheckCircle2,
   QrCode,
@@ -50,43 +51,60 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate network validation and server action latency
-    await new Promise((r) => setTimeout(r, 1000));
-
-    const orderId = `ORD-${Math.floor(100000 + Math.random() * 900000)}`;
-    const newOrder: Order = {
-      id: orderId,
-      userId: user?.id || "guest_customer",
-      customerEmail: email,
-      shippingAddress: {
-        id: "addr_checkout",
-        fullName,
-        phone,
-        addressLine1,
-        district,
-        city,
-      },
-      items: [...items],
-      subtotal,
-      shippingFee,
-      totalAmount,
-      paymentMethod,
-      status: "Pending",
-      statusHistory: [
-        {
-          status: "Pending",
-          timestamp: new Date().toISOString(),
-          note: `Order placed via ${paymentMethod}. Awaiting dispatch from Phnom Penh showroom.`,
+    try {
+      const res = await placeOrderAction({
+        items,
+        customerInfo: {
+          fullName,
+          phone,
+          address: `${addressLine1}, ${district}, ${city}`,
         },
-      ],
-      telegramNotified: true,
-      createdAt: new Date().toISOString(),
-    };
+        paymentMethod: paymentMethod === "ABA_QR" ? "aba_qr" : "cod",
+        shippingFee,
+        totalAmount,
+      });
 
-    setConfirmedOrder(newOrder);
-    setIsSubmitting(false);
-    clearCart();
-    onOrderSuccess(newOrder);
+      if (!res.success) {
+        throw new Error(res.error);
+      }
+
+      const newOrder: Order = {
+        id: res.orderId!,
+        userId: user?.id || "guest_customer",
+        customerEmail: email,
+        shippingAddress: {
+          id: "addr_checkout",
+          fullName,
+          phone,
+          addressLine1,
+          district,
+          city,
+        },
+        items: [...items],
+        subtotal,
+        shippingFee,
+        totalAmount,
+        paymentMethod,
+        status: "Pending",
+        statusHistory: [
+          {
+            status: "Pending",
+            timestamp: new Date().toISOString(),
+            note: `Order placed via ${paymentMethod}. Awaiting dispatch from Phnom Penh showroom.`,
+          },
+        ],
+        telegramNotified: false, // We will handle Telegram notifications in Phase 7
+        createdAt: new Date().toISOString(),
+      };
+
+      setConfirmedOrder(newOrder);
+      clearCart();
+      onOrderSuccess(newOrder);
+    } catch (error: any) {
+      alert(`Checkout failed: ${error.message}`);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const resetAndClose = () => {

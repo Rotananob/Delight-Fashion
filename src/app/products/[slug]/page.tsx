@@ -62,7 +62,7 @@ export default async function ProductDetailPage({
 
   return (
     <StorefrontLayoutShell>
-      <JsonLd schema={schema} />
+      <JsonLd data={schema} />
       
       {/* Breadcrumbs */}
       <div className="border-b border-white/5 bg-[#0A0A0A]">
