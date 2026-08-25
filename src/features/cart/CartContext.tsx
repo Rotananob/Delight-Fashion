@@ -34,11 +34,13 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     try {
       const stored = localStorage.getItem(CART_STORAGE_KEY);
       if (stored) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setItems(JSON.parse(stored));
       }
     } catch (e) {
       console.warn("localStorage cart load error:", e);
     } finally {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsLoaded(true);
     }
   }, []);
@@ -46,6 +48,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   // Handle Logout Reset
   useEffect(() => {
     if (!user) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsCloudSynced(false);
     }
   }, [user]);

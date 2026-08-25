@@ -7,3 +7,5 @@ export * from "./ProductQuickViewModal";
 export * from "./CartDrawer";
 export * from "./CheckoutModal";
 export * from "./StorefrontLayoutShell";
+export * from "./LiveSearchModal";
+export * from "./ProductFilterSidebar";

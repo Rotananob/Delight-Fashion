@@ -9,6 +9,7 @@ import { CheckoutModal } from "./CheckoutModal";
 import { AuthModal } from "@/features/auth/AuthModal";
 import { useCart } from "@/features/cart/CartContext";
 import { Order } from "@/types";
+import { LiveSearchModal } from "./LiveSearchModal";
 
 export interface StorefrontLayoutShellProps {
   children: React.ReactNode;
@@ -22,6 +23,7 @@ export const StorefrontLayoutShell: React.FC<StorefrontLayoutShellProps> = ({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const handleOrderSuccess = (order: Order) => {
     console.log("Order submitted successfully:", order);
@@ -34,6 +36,7 @@ export const StorefrontLayoutShell: React.FC<StorefrontLayoutShellProps> = ({
         onOpenCart={() => setIsCartOpen(true)}
         onOpenMobileMenu={() => setIsMobileMenuOpen(true)}
         onOpenAuthModal={() => setIsAuthOpen(true)}
+        onOpenSearch={() => setIsSearchOpen(true)}
       />
 
       <main className="flex-1 w-full">{children}</main>
@@ -62,6 +65,11 @@ export const StorefrontLayoutShell: React.FC<StorefrontLayoutShellProps> = ({
         isOpen={isCheckoutOpen}
         onClose={() => setIsCheckoutOpen(false)}
         onOrderSuccess={handleOrderSuccess}
+      />
+
+      <LiveSearchModal 
+        isOpen={isSearchOpen} 
+        onClose={() => setIsSearchOpen(false)} 
       />
     </div>
   );

@@ -7,11 +7,12 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
   signOut as firebaseSignOut,
   onAuthStateChanged,
   User as FirebaseUser,
 } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { createSessionAction, clearSessionAction } from "@/app/actions/authActions";
 import Cookies from "js-cookie";
 
@@ -21,6 +22,7 @@ export interface AuthContextType {
   isAdmin: boolean;
   loginWithGoogle: () => Promise<void>;
   loginWithEmail: (email: string, pass: string) => Promise<void>;
+  registerWithEmail: (email: string, pass: string) => Promise<void>;
   logout: () => Promise<void>;
   toggleMockUser: (role: UserRole | null) => void;
 }
@@ -69,8 +71,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     if (isMockMode) {
       try {
         const stored = localStorage.getItem("delight_fashion_mock_user");
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         if (stored === "admin") setUser(MOCK_ADMIN);
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         else if (stored === "customer") setUser(MOCK_CUSTOMER);
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         else setUser(null);
       } catch (e) {
         console.warn("Mock auth error:", e);
@@ -161,6 +166,33 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     setIsLoading(false);
   };
 
+  const registerWithEmail = async (email: string, pass: string) => {
+    setIsLoading(true);
+    if (isMockMode) {
+      await new Promise((r) => setTimeout(r, 600));
+      setUser(MOCK_CUSTOMER);
+      localStorage.setItem("delight_fashion_mock_user", "customer");
+      Cookies.set("delight_has_session", "true", { expires: 5 });
+    } else {
+      try {
+        const result = await createUserWithEmailAndPassword(auth, email, pass);
+        // Create initial profile in Firestore
+        await setDoc(doc(db, "users", result.user.uid), {
+          id: result.user.uid,
+          email: result.user.email,
+          displayName: result.user.email?.split("@")[0] || "User",
+          role: "customer",
+          createdAt: new Date().toISOString(),
+        });
+        await handleServerSession(result.user);
+      } catch (error) {
+        console.error("Register Error:", error);
+        throw error;
+      }
+    }
+    setIsLoading(false);
+  };
+
   const logout = async () => {
     setIsLoading(true);
     if (isMockMode) {
@@ -203,6 +235,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         isAdmin,
         loginWithGoogle,
         loginWithEmail,
+        registerWithEmail,
         logout,
         toggleMockUser,
       }}

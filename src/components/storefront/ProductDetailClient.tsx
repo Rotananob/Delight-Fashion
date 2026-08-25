@@ -7,8 +7,10 @@ import { Button } from "@/components/ui/Button";
 import { ShoppingBag, ChevronRight, Check } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 import { ProductReviews } from "./ProductReviews";
+import { ProductCard } from "./ProductCard";
+import { ProductQuickViewModal } from "./ProductQuickViewModal";
 
-export const ProductDetailClient: React.FC<{ product: Product }> = ({ product }) => {
+export const ProductDetailClient: React.FC<{ product: Product, relatedProducts?: Product[] }> = ({ product, relatedProducts = [] }) => {
   const { addItem } = useCart();
   
   const [selectedImage, setSelectedImage] = useState(
@@ -19,6 +21,20 @@ export const ProductDetailClient: React.FC<{ product: Product }> = ({ product })
   const [selectedColor, setSelectedColor] = useState<string>(product.availableColors[0] || "");
   const [quantity, setQuantity] = useState(1);
   const [isAdding, setIsAdding] = useState(false);
+  const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
+
+  const handleQuickView = (p: Product) => {
+    setQuickViewProduct(p);
+  };
+
+  const handleRelatedAddToCart = (
+    p: Product,
+    size: string,
+    color: string,
+    qty = 1
+  ) => {
+    addItem(p, size, color, qty);
+  };
 
   // Check Variant Stock
   const variantKey = `${selectedSize}-${selectedColor}`;
@@ -217,10 +233,41 @@ export const ProductDetailClient: React.FC<{ product: Product }> = ({ product })
       </div>
       </div>
       
+      {/* Related Products Section */}
+      {relatedProducts.length > 0 && (
+        <section className="w-full pt-16 border-t border-white/5">
+          <div className="flex flex-col items-center mb-12 text-center">
+            <h2 className="text-2xl font-bold uppercase tracking-widest text-white">
+              You May Also Like
+            </h2>
+            <div className="w-12 h-[1px] bg-[#D4AF37]/50 mt-4" />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {relatedProducts.map((p) => (
+              <ProductCard
+                key={p.id}
+                product={p}
+                onQuickView={handleQuickView}
+                onAddToCart={(prod, s, c) => handleRelatedAddToCart(prod, s, c, 1)}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
       {/* Product Reviews Section placed below the main product details */}
       <div className="w-full">
         <ProductReviews productId={product.id} />
       </div>
+
+      {/* Quick View Modal for Related Products */}
+      <ProductQuickViewModal
+        product={quickViewProduct}
+        isOpen={!!quickViewProduct}
+        onClose={() => setQuickViewProduct(null)}
+        onAddToCart={handleRelatedAddToCart}
+      />
     </div>
   );
 };

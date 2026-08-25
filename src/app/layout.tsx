@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Dangrek } from "next/font/google";
 import "./globals.css";
 import { generateSeoMetadata } from "@/utils/seo";
 import { ClientProviders } from "@/components/providers/ClientProviders";
@@ -14,6 +14,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const dangrek = Dangrek({
+  weight: "400",
+  variable: "--font-dangrek",
+  subsets: ["khmer", "latin"],
+});
+
 export const metadata: Metadata = generateSeoMetadata();
 
 export default function RootLayout({
@@ -24,7 +30,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${dangrek.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-[#0E0E0E] text-white">
         <ClientProviders>{children}</ClientProviders>

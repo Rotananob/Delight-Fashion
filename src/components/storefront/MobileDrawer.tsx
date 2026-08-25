@@ -66,7 +66,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
               alt="Delight Fashion Logo" 
               className="w-8 h-8 object-contain rounded-full border border-[#D4AF37]/30" 
             />
-            <span className="text-lg font-bold tracking-[0.2em] text-white uppercase font-sans">
+            <span className="text-base sm:text-lg font-bold tracking-[0.1em] sm:tracking-[0.2em] text-white uppercase font-sans">
               DELIGHT <span className="text-[#D4AF37]">FASHION</span>
             </span>
           </div>

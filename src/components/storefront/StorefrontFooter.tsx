@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import { Crown, MapPin, Phone, Clock, Send, ShieldCheck } from "lucide-react";
+import Image from "next/image";
+import { MapPin, Phone, Clock, Send, ShieldCheck } from "lucide-react";
 
 export const StorefrontFooter: React.FC = () => {
   return (
@@ -10,12 +11,14 @@ export const StorefrontFooter: React.FC = () => {
           {/* Brand Col */}
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-2">
-              <img 
+              <Image 
                 src="/logo.jpg" 
                 alt="Delight Fashion Logo" 
+                width={32}
+                height={32}
                 className="w-8 h-8 object-contain rounded-full border border-[#D4AF37]/30" 
               />
-              <span className="text-xl font-bold tracking-[0.2em] text-white uppercase font-sans">
+              <span className="text-base sm:text-xl font-bold tracking-[0.1em] sm:tracking-[0.2em] text-white uppercase font-sans">
                 DELIGHT <span className="text-[#D4AF37]">FASHION</span>
               </span>
             </div>

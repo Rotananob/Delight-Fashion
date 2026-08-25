@@ -80,7 +80,7 @@ export async function getProducts(options: {
 export async function getProductBySlug(slug: string): Promise<Product | null> {
   if (isFirebaseReady()) {
     try {
-      const q = query(collection(db, "products"), where("slug", "==", slug));
+      const q = query(collection(db, "products"), where("slug", "==", slug), where("status", "==", "active"));
       const snap = await getDocs(q);
       if (!snap.empty) {
         const docSnap = snap.docs[0];

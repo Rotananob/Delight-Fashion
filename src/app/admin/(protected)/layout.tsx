@@ -20,7 +20,7 @@ export default async function AdminLayout({
   if (!isMockMode) {
     const session = await getSessionServer();
     if (!session) {
-      redirect("/?auth=login");
+      redirect("/admin/login");
     }
 
     // Check custom claims for Admin Role

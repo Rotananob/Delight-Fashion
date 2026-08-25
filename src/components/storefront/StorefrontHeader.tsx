@@ -2,10 +2,13 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Search, ShoppingBag, User, Menu, Crown } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 import { Badge } from "@/components/ui/Badge";
+import { useLanguage } from "@/features/i18n/LanguageContext";
+import { useAuth } from "@/features/auth/AuthContext";
 
 export interface StorefrontHeaderProps {
   cartItemCount?: number;
@@ -31,8 +34,10 @@ export const StorefrontHeader: React.FC<StorefrontHeaderProps> = ({
   onOpenMobileMenu,
   onOpenSearch,
   onOpenAuthModal,
-}) => {
+  }) => {
   const pathname = usePathname();
+  const { t, language, setLanguage } = useLanguage();
+  const { user } = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -77,12 +82,14 @@ export const StorefrontHeader: React.FC<StorefrontHeaderProps> = ({
           className="flex flex-col items-center lg:items-start group select-none"
         >
           <div className="flex items-center gap-2">
-            <img 
+            <Image 
               src="/logo.jpg" 
               alt="Delight Fashion Logo" 
+              width={40}
+              height={40}
               className="w-10 h-10 object-contain rounded-full border border-[#D4AF37]/30 group-hover:scale-105 transition-transform duration-300" 
             />
-            <span className="text-xl sm:text-2xl font-bold tracking-[0.2em] text-white uppercase font-sans">
+            <span className="text-sm sm:text-xl md:text-2xl font-bold tracking-[0.1em] sm:tracking-[0.2em] text-white uppercase font-sans">
               DELIGHT <span className="text-[#D4AF37]">FASHION</span>
             </span>
           </div>
@@ -118,21 +125,28 @@ export const StorefrontHeader: React.FC<StorefrontHeaderProps> = ({
         {/* Right: Action Buttons (Search, Account, Cart) */}
         <div className="flex items-center gap-1 sm:gap-3">
           <button
+            onClick={() => setLanguage(language === 'en' ? 'km' : 'en')}
+            className="p-2 text-xs font-bold uppercase tracking-wider text-white/80 hover:text-[#D4AF37] hover:bg-white/5 rounded-sm transition-colors flex items-center gap-1"
+            aria-label="Switch Language"
+          >
+            {language === 'en' ? 'KH' : 'EN'}
+          </button>
+          <button
             onClick={onOpenSearch}
             className="hidden lg:flex items-center gap-2 px-3 py-1.5 text-xs text-white/60 hover:text-[#D4AF37] hover:bg-white/5 rounded-sm transition-colors border border-white/10"
             aria-label="Search items"
           >
             <Search className="w-4 h-4 text-[#D4AF37]" />
-            <span className="uppercase tracking-wider">Search</span>
+            <span className="uppercase tracking-wider">{t('header.search')}</span>
           </button>
 
-          <button
-            onClick={onOpenAuthModal}
+          <Link
+            href={user ? "/profile" : "/login"}
             className="p-2 text-white/80 hover:text-[#D4AF37] hover:bg-white/5 rounded-sm transition-colors"
             aria-label="Account profile"
           >
             <User className="w-5 h-5" />
-          </button>
+          </Link>
 
           <button
             onClick={onOpenCart}

@@ -1,6 +1,6 @@
 import React from "react";
 import { notFound } from "next/navigation";
-import { getProductBySlug } from "@/services/productService";
+import { getProductBySlug, getProducts } from "@/services/productService";
 import { StorefrontLayoutShell } from "@/components/storefront/StorefrontLayoutShell";
 import { generateSeoMetadata } from "@/utils/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -42,6 +42,12 @@ export default async function ProductDetailPage({
     notFound();
   }
 
+  // Fetch related products (same category, exclude current)
+  const allProducts = await getProducts();
+  const relatedProducts = allProducts
+    .filter((p) => p.categoryId === product.categoryId && p.id !== product.id)
+    .slice(0, 4); // Limit to 4 related products
+
   const primaryImage = product.images.find(img => img.isPrimary) || product.images[0];
   const schema = {
     "@context": "https://schema.org",
@@ -76,7 +82,7 @@ export default async function ProductDetailPage({
       </div>
 
       <div className="pt-8 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <ProductDetailClient product={product} />
+        <ProductDetailClient product={product} relatedProducts={relatedProducts} />
       </div>
     </StorefrontLayoutShell>
   );

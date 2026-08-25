@@ -6,11 +6,12 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { StorefrontHomeClient } from "@/components/storefront/StorefrontHomeClient";
 import { ProductCard } from "@/components/storefront/ProductCard";
 import { CatalogClient } from "@/components/storefront/CatalogClient";
+import { ProductFilterSidebar } from "@/components/storefront/ProductFilterSidebar";
 
 export async function generateMetadata({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string; filter?: string }>;
+  searchParams: Promise<{ category?: string; filter?: string; size?: string; color?: string }>;
 }) {
   const params = await searchParams;
   let title = "Shop All Collections | Delight Fashion";
@@ -29,7 +30,7 @@ export async function generateMetadata({
 export default async function ProductsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string; filter?: string }>;
+  searchParams: Promise<{ category?: string; filter?: string; size?: string; color?: string }>;
 }) {
   const params = await searchParams;
   const categories = await getCategories();
@@ -43,6 +44,16 @@ export default async function ProductsPage({
   // Basic sorting simulation (new arrivals)
   if (params.filter === "new") {
     products.reverse(); // Mock new arrivals logic
+  }
+
+  // Filter by size
+  if (params.size) {
+    products = products.filter(p => p.availableSizes?.includes(params.size as string));
+  }
+
+  // Filter by color
+  if (params.color) {
+    products = products.filter(p => p.availableColors?.includes(params.color as string));
   }
 
   return (
@@ -76,6 +87,8 @@ export default async function ProductsPage({
                 ))}
               </ul>
             </div>
+            
+            <ProductFilterSidebar />
           </aside>
 
           {/* Product Grid Client */}
