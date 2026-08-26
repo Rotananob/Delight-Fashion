@@ -48,6 +48,12 @@ export function generateSeoMetadata({
       index: !noIndex,
       follow: !noIndex,
     },
+    manifest: "/manifest.json",
+    appleWebApp: {
+      capable: true,
+      statusBarStyle: "default",
+      title: fullTitle,
+    },
     openGraph: {
       title: fullTitle,
       description,

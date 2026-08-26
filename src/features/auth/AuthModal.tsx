@@ -60,20 +60,20 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
       <div className="flex flex-col gap-6 relative">
         
         {user ? (
-          <div className="p-5 rounded-sm bg-[#111] border border-white/10 flex flex-col gap-4 shadow-lg">
+          <div className="p-5 rounded-sm bg-white border border-border flex flex-col gap-4 shadow-lg">
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#8B7322] text-[#0A0A0A] font-bold flex items-center justify-center text-lg shadow-inner shadow-black/50">
                 {user.displayName.charAt(0).toUpperCase()}
               </div>
               <div className="flex flex-col">
-                <span className="text-base font-bold text-white uppercase tracking-wider">
+                <span className="text-base font-bold text-foreground uppercase tracking-wider">
                   {user.displayName}
                 </span>
-                <span className="text-sm text-white/50">{user.email}</span>
+                <span className="text-sm text-foreground/50">{user.email}</span>
               </div>
             </div>
 
-            <div className="flex flex-col gap-3 mt-4 pt-4 border-t border-white/5">
+            <div className="flex flex-col gap-3 mt-4 pt-4 border-t border-border">
               <Button
                 variant="gold"
                 size="md"
@@ -139,11 +139,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
             </form>
 
             <div className="relative flex py-1 items-center">
-              <div className="flex-grow border-t border-white/10"></div>
-              <span className="flex-shrink mx-4 text-white/40 text-xs uppercase tracking-widest">
+              <div className="flex-grow border-t border-border"></div>
+              <span className="flex-shrink mx-4 text-foreground/40 text-xs uppercase tracking-widest">
                 OR
               </span>
-              <div className="flex-grow border-t border-white/10"></div>
+              <div className="flex-grow border-t border-border"></div>
             </div>
 
             <Button
@@ -151,7 +151,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
               size="md"
               isLoading={isSubmitting}
               onClick={handleGoogleLogin}
-              className="w-full font-bold flex items-center justify-center gap-2 hover:bg-white/10"
+              className="w-full font-bold flex items-center justify-center gap-2 hover:bg-black/10"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24">
                 <path
@@ -178,7 +178,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
               <button
                 type="button"
                 onClick={() => setIsLoginView(!isLoginView)}
-                className="text-xs text-white/60 hover:text-[#D4AF37] uppercase tracking-wider transition-colors"
+                className="text-xs text-foreground/60 hover:text-[#D4AF37] uppercase tracking-wider transition-colors"
               >
                 {isLoginView 
                   ? "Don't have an account? Register" 

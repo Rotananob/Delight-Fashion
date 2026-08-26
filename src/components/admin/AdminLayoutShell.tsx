@@ -16,7 +16,7 @@ export const AdminLayoutShell: React.FC<AdminLayoutShellProps> = ({
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#0E0E0E] text-white flex">
+    <div className="min-h-screen bg-background text-foreground flex">
       {/* Sidebar (Desktop + Mobile Modal) */}
       <AdminSidebar
         isOpen={mobileSidebarOpen}

@@ -20,15 +20,15 @@ export default function ErrorBoundary({
       <div className="w-16 h-16 bg-rose-500/10 rounded-full flex items-center justify-center mb-6">
         <AlertTriangle className="w-8 h-8 text-rose-500" />
       </div>
-      <h2 className="text-2xl font-bold uppercase tracking-widest text-white mb-4">
+      <h2 className="text-2xl font-bold uppercase tracking-widest text-foreground mb-4">
         Something went wrong
       </h2>
-      <p className="text-white/60 max-w-md mx-auto mb-8 text-sm">
+      <p className="text-foreground/60 max-w-md mx-auto mb-8 text-sm">
         We encountered an unexpected error while loading this section.
       </p>
       <button
         onClick={() => reset()}
-        className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-6 py-2.5 rounded-sm font-semibold uppercase tracking-wider transition-colors border border-white/10"
+        className="flex items-center gap-2 bg-black/10 hover:bg-white/20 text-foreground px-6 py-2.5 rounded-sm font-semibold uppercase tracking-wider transition-colors border border-border"
       >
         <RefreshCw className="w-4 h-4" />
         Try Again

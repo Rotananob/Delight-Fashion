@@ -62,20 +62,20 @@ export const LiveSearchModal: React.FC<LiveSearchModalProps> = ({ isOpen, onClos
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-[#0A0A0A]/95 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="w-full border-b border-white/10 p-4 sm:p-6 lg:p-8">
+      <div className="w-full border-b border-border p-4 sm:p-6 lg:p-8">
         <div className="max-w-7xl mx-auto flex items-center gap-4">
-          <SearchIcon className="w-6 h-6 text-white/50" />
+          <SearchIcon className="w-6 h-6 text-foreground/50" />
           <input
             id="live-search-input"
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search products..."
-            className="flex-1 bg-transparent border-none outline-none text-xl sm:text-3xl text-white placeholder:text-white/30"
+            className="flex-1 bg-transparent border-none outline-none text-xl sm:text-3xl text-foreground placeholder:text-foreground/30"
           />
           <button
             onClick={onClose}
-            className="p-2 text-white/70 hover:text-[#D4AF37] transition-colors rounded-full hover:bg-white/5"
+            className="p-2 text-foreground/70 hover:text-[#D4AF37] transition-colors rounded-full hover:bg-black/5"
             aria-label="Close search"
           >
             <X className="w-8 h-8" />
@@ -86,7 +86,7 @@ export const LiveSearchModal: React.FC<LiveSearchModalProps> = ({ isOpen, onClos
       <div className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
         <div className="max-w-7xl mx-auto">
           {isLoading ? (
-            <div className="flex flex-col items-center justify-center py-20 text-white/50">
+            <div className="flex flex-col items-center justify-center py-20 text-foreground/50">
               <Loader2 className="w-8 h-8 animate-spin mb-4" />
               <p>Searching...</p>
             </div>
@@ -99,12 +99,12 @@ export const LiveSearchModal: React.FC<LiveSearchModalProps> = ({ isOpen, onClos
               ))}
             </div>
           ) : query.trim() !== "" ? (
-            <div className="flex flex-col items-center justify-center py-20 text-white/50">
+            <div className="flex flex-col items-center justify-center py-20 text-foreground/50">
               <p className="text-xl">No products found for "{query}"</p>
               <p className="text-sm mt-2">Try checking your spelling or using more general terms</p>
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center py-20 text-white/30">
+            <div className="flex flex-col items-center justify-center py-20 text-foreground/30">
               <p className="text-xl">Start typing to search products</p>
             </div>
           )}

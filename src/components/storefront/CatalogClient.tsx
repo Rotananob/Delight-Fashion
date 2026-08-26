@@ -13,8 +13,8 @@ export const CatalogClient: React.FC<{ products: Product[] }> = ({ products }) =
   if (products.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-24 text-center">
-        <h2 className="text-xl font-bold uppercase tracking-widest text-white mb-2">No Products Found</h2>
-        <p className="text-sm text-white/50">This collection is currently being updated. Check back soon.</p>
+        <h2 className="text-xl font-bold uppercase tracking-widest text-foreground mb-2">No Products Found</h2>
+        <p className="text-sm text-foreground/50">This collection is currently being updated. Check back soon.</p>
       </div>
     );
   }

@@ -13,7 +13,7 @@ export const Card: React.FC<CardProps> = ({
   ...props
 }) => {
   const baseStyles =
-    "bg-[#111111] border border-white/10 rounded-sm transition-all duration-300 overflow-hidden";
+    "bg-white border border-border rounded-sm transition-all duration-300 overflow-hidden";
 
   const variantStyles = {
     default: "",

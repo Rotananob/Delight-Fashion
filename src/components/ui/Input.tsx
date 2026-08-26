@@ -30,7 +30,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={inputId}
-            className="text-xs font-medium tracking-wider text-white/80 uppercase select-none"
+            className="text-xs sm:text-sm font-medium tracking-wider text-foreground/80 uppercase select-none leading-loose font-khmer"
           >
             {label}
           </label>
@@ -38,7 +38,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
         <div className="relative flex items-center">
           {leftIcon && (
-            <div className="absolute left-3.5 text-white/40 pointer-events-none">
+            <div className="absolute left-3.5 text-foreground/40 pointer-events-none">
               {leftIcon}
             </div>
           )}
@@ -47,7 +47,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             id={inputId}
             className={twMerge(
-              "w-full bg-[#171717] border border-white/10 rounded-sm px-4 py-2.5 text-sm text-white placeholder:text-white/30 transition-all duration-200 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] disabled:opacity-50 disabled:cursor-not-allowed",
+              "w-full bg-white border border-border rounded-sm px-4 py-3 sm:py-3.5 text-base leading-relaxed text-foreground placeholder:text-foreground/30 transition-all duration-200 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] disabled:opacity-50 disabled:cursor-not-allowed font-khmer",
               leftIcon && "pl-10",
               rightIcon && "pr-10",
               error && "border-rose-500 focus:border-rose-500 focus:ring-rose-500",
@@ -57,7 +57,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           />
 
           {rightIcon && (
-            <div className="absolute right-3.5 text-white/40">
+            <div className="absolute right-3.5 text-foreground/40">
               {rightIcon}
             </div>
           )}
@@ -67,7 +67,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           <span className="text-xs text-rose-400 font-normal">{error}</span>
         )}
         {!error && helperText && (
-          <span className="text-xs text-white/40 font-normal">{helperText}</span>
+          <span className="text-xs text-foreground/40 font-normal">{helperText}</span>
         )}
       </div>
     );

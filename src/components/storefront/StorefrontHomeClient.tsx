@@ -38,7 +38,7 @@ export const StorefrontHomeClient: React.FC<StorefrontHomeClientProps> = ({
           <span className="text-[#D4AF37] text-xs font-bold uppercase tracking-[0.2em] mb-2">
             Signature Pieces
           </span>
-          <h2 className="text-3xl font-extrabold uppercase tracking-widest text-white">
+          <h2 className="text-3xl font-extrabold uppercase tracking-widest text-foreground">
             Featured Collection
           </h2>
           <div className="w-16 h-[2px] bg-[#D4AF37] mt-4" />
@@ -56,9 +56,9 @@ export const StorefrontHomeClient: React.FC<StorefrontHomeClientProps> = ({
         </div>
       </section>
 
-      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/5">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-border">
         <div className="flex flex-col items-center mb-12 text-center">
-          <h2 className="text-2xl font-bold uppercase tracking-widest text-white">
+          <h2 className="text-2xl font-bold uppercase tracking-widest text-foreground">
             Latest Arrivals
           </h2>
           <div className="w-12 h-[1px] bg-[#D4AF37]/50 mt-4" />

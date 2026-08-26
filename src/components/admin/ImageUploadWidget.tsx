@@ -112,7 +112,7 @@ export const ImageUploadWidget: React.FC<ImageUploadWidgetProps> = ({
           "relative border-2 border-dashed rounded-sm p-8 text-center transition-colors flex flex-col items-center justify-center gap-3",
           isUploading
             ? "border-[#D4AF37]/50 bg-[#D4AF37]/5"
-            : "border-white/20 hover:border-[#D4AF37]/50 bg-[#111111]"
+            : "border-white/20 hover:border-[#D4AF37]/50 bg-white"
         )}
       >
         <input
@@ -128,18 +128,18 @@ export const ImageUploadWidget: React.FC<ImageUploadWidgetProps> = ({
         {isUploading ? (
           <>
             <Loader2 className="w-8 h-8 text-[#D4AF37] animate-spin" />
-            <span className="text-sm font-semibold text-white/80 uppercase tracking-widest">
+            <span className="text-sm font-semibold text-foreground/80 uppercase tracking-widest">
               Uploading Assets...
             </span>
           </>
         ) : (
           <>
-            <UploadCloud className="w-8 h-8 text-white/40" />
+            <UploadCloud className="w-8 h-8 text-foreground/40" />
             <div className="flex flex-col gap-1">
-              <span className="text-sm font-bold uppercase tracking-wider text-white">
+              <span className="text-sm font-bold uppercase tracking-wider text-foreground">
                 Drag &amp; Drop Product Images
               </span>
-              <span className="text-xs text-white/50">
+              <span className="text-xs text-foreground/50">
                 Supports JPG, PNG, WEBP (Max {maxImages} images)
               </span>
             </div>

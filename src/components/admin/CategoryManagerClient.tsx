@@ -125,7 +125,7 @@ export const CategoryManagerClient: React.FC<{ initialCategories: Category[] }> 
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold uppercase tracking-widest text-white flex items-center gap-3">
+        <h1 className="text-2xl font-bold uppercase tracking-widest text-foreground flex items-center gap-3">
           <Tags className="w-6 h-6 text-[#D4AF37]" />
           Categories
         </h1>
@@ -137,52 +137,52 @@ export const CategoryManagerClient: React.FC<{ initialCategories: Category[] }> 
       </div>
 
       {isEditing && (
-        <Card variant="bordered" className="p-6 bg-[#111]">
+        <Card variant="bordered" className="p-6 bg-white">
           <h2 className="text-sm font-bold uppercase tracking-widest text-[#D4AF37] mb-4">
             {editingId ? "Edit Category" : "New Category"}
           </h2>
           <form onSubmit={handleSave} className="flex flex-col gap-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
-                <label className="text-xs uppercase tracking-wider text-white/50">Name *</label>
+                <label className="text-xs uppercase tracking-wider text-foreground/50">Name *</label>
                 <input
                   required
                   type="text"
                   value={formData.name}
                   onChange={handleNameChange}
-                  className="bg-[#1A1A1A] border border-white/10 rounded-sm px-4 py-2.5 text-white outline-none focus:border-[#D4AF37] transition-colors"
+                  className="bg-[#1A1A1A] border border-border rounded-sm px-4 py-2.5 text-foreground outline-none focus:border-[#D4AF37] transition-colors"
                 />
               </div>
               <div className="flex flex-col gap-2">
-                <label className="text-xs uppercase tracking-wider text-white/50">Slug * (ID)</label>
+                <label className="text-xs uppercase tracking-wider text-foreground/50">Slug * (ID)</label>
                 <input
                   required
                   disabled={!!editingId} // Don't allow editing slug once created
                   type="text"
                   value={formData.slug}
                   onChange={(e) => setFormData({...formData, slug: e.target.value})}
-                  className="bg-[#1A1A1A] border border-white/10 rounded-sm px-4 py-2.5 text-white/70 outline-none focus:border-[#D4AF37] transition-colors disabled:opacity-50"
+                  className="bg-[#1A1A1A] border border-border rounded-sm px-4 py-2.5 text-foreground/70 outline-none focus:border-[#D4AF37] transition-colors disabled:opacity-50"
                 />
               </div>
             </div>
             
             <div className="flex flex-col gap-2">
-              <label className="text-xs uppercase tracking-wider text-white/50">Description</label>
+              <label className="text-xs uppercase tracking-wider text-foreground/50">Description</label>
               <textarea
                 value={formData.description || ""}
                 onChange={(e) => setFormData({...formData, description: e.target.value})}
-                className="bg-[#1A1A1A] border border-white/10 rounded-sm px-4 py-2.5 text-white outline-none focus:border-[#D4AF37] transition-colors h-24 resize-none"
+                className="bg-[#1A1A1A] border border-border rounded-sm px-4 py-2.5 text-foreground outline-none focus:border-[#D4AF37] transition-colors h-24 resize-none"
               />
             </div>
 
             <div className="flex items-center gap-6">
               <div className="flex flex-col gap-2">
-                <label className="text-xs uppercase tracking-wider text-white/50">Order Index</label>
+                <label className="text-xs uppercase tracking-wider text-foreground/50">Order Index</label>
                 <input
                   type="number"
                   value={formData.orderIndex}
                   onChange={(e) => setFormData({...formData, orderIndex: parseInt(e.target.value) || 0})}
-                  className="bg-[#1A1A1A] border border-white/10 rounded-sm px-4 py-2.5 text-white outline-none focus:border-[#D4AF37] transition-colors w-32"
+                  className="bg-[#1A1A1A] border border-border rounded-sm px-4 py-2.5 text-foreground outline-none focus:border-[#D4AF37] transition-colors w-32"
                 />
               </div>
               
@@ -194,7 +194,7 @@ export const CategoryManagerClient: React.FC<{ initialCategories: Category[] }> 
                     onChange={(e) => setFormData({...formData, isActive: e.target.checked})}
                     className="w-4 h-4 accent-[#D4AF37]"
                   />
-                  <span className="text-sm text-white">Active</span>
+                  <span className="text-sm text-foreground">Active</span>
                 </label>
               </div>
             </div>
@@ -214,7 +214,7 @@ export const CategoryManagerClient: React.FC<{ initialCategories: Category[] }> 
       <Card variant="bordered" className="overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm whitespace-nowrap">
-            <thead className="bg-[#171717] border-b border-white/10 text-white/50 uppercase tracking-widest text-xs">
+            <thead className="bg-gray-50 border-b border-border text-foreground/50 uppercase tracking-widest text-xs">
               <tr>
                 <th className="px-6 py-4 font-semibold">Category Name</th>
                 <th className="px-6 py-4 font-semibold">Slug</th>
@@ -226,17 +226,17 @@ export const CategoryManagerClient: React.FC<{ initialCategories: Category[] }> 
             <tbody className="divide-y divide-white/5">
               {categories.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="px-6 py-12 text-center text-white/40">
+                  <td colSpan={5} className="px-6 py-12 text-center text-foreground/40">
                     No categories found.
                   </td>
                 </tr>
               ) : (
                 categories.sort((a,b) => a.orderIndex - b.orderIndex).map((category: Category) => (
-                  <tr key={category.id} className="hover:bg-white/5 transition-colors">
-                    <td className="px-6 py-4 font-bold text-white">
+                  <tr key={category.id} className="hover:bg-black/5 transition-colors">
+                    <td className="px-6 py-4 font-bold text-foreground">
                       {category.name}
                     </td>
-                    <td className="px-6 py-4 text-white/60 font-mono text-xs">
+                    <td className="px-6 py-4 text-foreground/60 font-mono text-xs">
                       {category.slug}
                     </td>
                     <td className="px-6 py-4">
@@ -246,21 +246,21 @@ export const CategoryManagerClient: React.FC<{ initialCategories: Category[] }> 
                         <Badge variant="dark" size="sm">Draft</Badge>
                       )}
                     </td>
-                    <td className="px-6 py-4 text-white/50">
+                    <td className="px-6 py-4 text-foreground/50">
                       {category.orderIndex}
                     </td>
                     <td className="px-6 py-4 text-right">
                       <div className="flex items-center justify-end gap-2">
                         <button
                           onClick={() => handleEdit(category)}
-                          className="p-2 text-white/60 hover:text-[#D4AF37] hover:bg-white/5 rounded-sm transition-colors"
+                          className="p-2 text-foreground/60 hover:text-[#D4AF37] hover:bg-black/5 rounded-sm transition-colors"
                           title="Edit"
                         >
                           <Edit className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => handleDelete(category.id, category.name)}
-                          className="p-2 text-white/60 hover:text-rose-500 hover:bg-white/5 rounded-sm transition-colors"
+                          className="p-2 text-foreground/60 hover:text-rose-500 hover:bg-black/5 rounded-sm transition-colors"
                           title="Delete"
                         >
                           <Trash2 className="w-4 h-4" />

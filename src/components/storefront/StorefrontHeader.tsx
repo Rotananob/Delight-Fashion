@@ -54,7 +54,7 @@ export const StorefrontHeader: React.FC<StorefrontHeaderProps> = ({
         "sticky top-0 z-40 w-full transition-all duration-300 border-b",
         isScrolled
           ? "bg-[#0A0A0A]/90 backdrop-blur-md border-[#D4AF37]/30 shadow-[0_4px_30px_rgba(0,0,0,0.8)] py-3"
-          : "bg-[#0A0A0A] border-white/10 py-4"
+          : "bg-[#0A0A0A] border-border py-4"
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -62,14 +62,14 @@ export const StorefrontHeader: React.FC<StorefrontHeaderProps> = ({
         <div className="flex items-center gap-3 lg:hidden">
           <button
             onClick={onOpenMobileMenu}
-            className="p-2 text-white/80 hover:text-[#D4AF37] transition-colors"
+            className="p-2 text-foreground/80 hover:text-[#D4AF37] transition-colors"
             aria-label="Open Mobile Menu"
           >
             <Menu className="w-6 h-6" />
           </button>
           <button
             onClick={onOpenSearch}
-            className="p-2 text-white/80 hover:text-[#D4AF37] transition-colors"
+            className="p-2 text-foreground/80 hover:text-[#D4AF37] transition-colors"
             aria-label="Search"
           >
             <Search className="w-5 h-5" />
@@ -89,11 +89,11 @@ export const StorefrontHeader: React.FC<StorefrontHeaderProps> = ({
               height={40}
               className="w-10 h-10 object-contain rounded-full border border-[#D4AF37]/30 group-hover:scale-105 transition-transform duration-300" 
             />
-            <span className="text-sm sm:text-xl md:text-2xl font-bold tracking-[0.1em] sm:tracking-[0.2em] text-white uppercase font-sans">
+            <span className="text-sm sm:text-xl md:text-2xl font-bold tracking-[0.1em] sm:tracking-[0.2em] text-foreground uppercase font-sans">
               DELIGHT <span className="text-[#D4AF37]">FASHION</span>
             </span>
           </div>
-          <span className="text-[9px] tracking-[0.35em] text-white/50 uppercase -mt-1 ml-7">
+          <span className="text-[9px] tracking-[0.35em] text-foreground/50 uppercase -mt-1 ml-7">
             Phnom Penh • Cambodia
           </span>
         </Link>
@@ -110,7 +110,7 @@ export const StorefrontHeader: React.FC<StorefrontHeaderProps> = ({
                   "text-xs font-semibold uppercase tracking-widest transition-colors duration-200 relative py-1",
                   isActive
                     ? "text-[#D4AF37]"
-                    : "text-white/80 hover:text-[#D4AF37]"
+                    : "text-foreground/80 hover:text-[#D4AF37]"
                 )}
               >
                 {link.label}
@@ -126,14 +126,14 @@ export const StorefrontHeader: React.FC<StorefrontHeaderProps> = ({
         <div className="flex items-center gap-1 sm:gap-3">
           <button
             onClick={() => setLanguage(language === 'en' ? 'km' : 'en')}
-            className="p-2 text-xs font-bold uppercase tracking-wider text-white/80 hover:text-[#D4AF37] hover:bg-white/5 rounded-sm transition-colors flex items-center gap-1"
+            className="p-2 text-xs font-bold uppercase tracking-wider text-foreground/80 hover:text-[#D4AF37] hover:bg-black/5 rounded-sm transition-colors flex items-center gap-1"
             aria-label="Switch Language"
           >
             {language === 'en' ? 'KH' : 'EN'}
           </button>
           <button
             onClick={onOpenSearch}
-            className="hidden lg:flex items-center gap-2 px-3 py-1.5 text-xs text-white/60 hover:text-[#D4AF37] hover:bg-white/5 rounded-sm transition-colors border border-white/10"
+            className="hidden lg:flex items-center gap-2 px-3 py-1.5 text-xs text-foreground/60 hover:text-[#D4AF37] hover:bg-black/5 rounded-sm transition-colors border border-border"
             aria-label="Search items"
           >
             <Search className="w-4 h-4 text-[#D4AF37]" />
@@ -142,7 +142,7 @@ export const StorefrontHeader: React.FC<StorefrontHeaderProps> = ({
 
           <Link
             href={user ? "/profile" : "/login"}
-            className="p-2 text-white/80 hover:text-[#D4AF37] hover:bg-white/5 rounded-sm transition-colors"
+            className="p-2 text-foreground/80 hover:text-[#D4AF37] hover:bg-black/5 rounded-sm transition-colors"
             aria-label="Account profile"
           >
             <User className="w-5 h-5" />
@@ -150,7 +150,7 @@ export const StorefrontHeader: React.FC<StorefrontHeaderProps> = ({
 
           <button
             onClick={onOpenCart}
-            className="relative p-2 text-white/80 hover:text-[#D4AF37] hover:bg-white/5 rounded-sm transition-colors"
+            className="relative p-2 text-foreground/80 hover:text-[#D4AF37] hover:bg-black/5 rounded-sm transition-colors"
             aria-label="Shopping Cart"
           >
             <ShoppingBag className="w-5 h-5" />

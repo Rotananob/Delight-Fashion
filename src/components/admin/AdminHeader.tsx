@@ -15,12 +15,12 @@ export const AdminHeader: React.FC<AdminHeaderProps> = ({
   unreadOrderCount = 0,
 }) => {
   return (
-    <header className="sticky top-0 z-20 w-full bg-[#0A0A0A]/90 backdrop-blur-md border-b border-white/10 px-4 sm:px-6 py-3.5 flex items-center justify-between">
+    <header className="sticky top-0 z-20 w-full bg-[#0A0A0A]/90 backdrop-blur-md border-b border-border px-4 sm:px-6 py-3.5 flex items-center justify-between">
       {/* Left: Mobile Toggle & Breadcrumb */}
       <div className="flex items-center gap-3">
         <button
           onClick={onOpenMobileMenu}
-          className="lg:hidden p-2 text-white/80 hover:text-[#D4AF37] transition-colors"
+          className="lg:hidden p-2 text-foreground/80 hover:text-[#D4AF37] transition-colors"
           aria-label="Toggle admin menu"
         >
           <Menu className="w-5 h-5" />
@@ -28,7 +28,7 @@ export const AdminHeader: React.FC<AdminHeaderProps> = ({
 
         <div className="flex items-center gap-2">
           <Shield className="w-4 h-4 text-[#D4AF37]" />
-          <span className="text-xs font-bold uppercase tracking-wider text-white">
+          <span className="text-xs font-bold uppercase tracking-wider text-foreground">
             Delight Fashion Admin Panel
           </span>
           <Badge variant="neutral" size="sm" className="hidden sm:inline-flex">
@@ -42,7 +42,7 @@ export const AdminHeader: React.FC<AdminHeaderProps> = ({
         <Link
           href="/"
           target="_blank"
-          className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[#171717] border border-white/10 text-xs font-semibold text-white/80 hover:text-[#D4AF37] hover:border-[#D4AF37]/50 transition-colors uppercase tracking-wider"
+          className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-gray-50 border border-border text-xs font-semibold text-foreground/80 hover:text-[#D4AF37] hover:border-[#D4AF37]/50 transition-colors uppercase tracking-wider"
         >
           <span>View Store</span>
           <ExternalLink className="w-3.5 h-3.5" />
@@ -51,7 +51,7 @@ export const AdminHeader: React.FC<AdminHeaderProps> = ({
         {/* Telegram Alert / Order Notification Bell */}
         <Link
           href="/admin/orders"
-          className="relative p-2 text-white/80 hover:text-[#D4AF37] transition-colors rounded-sm bg-white/5"
+          className="relative p-2 text-foreground/80 hover:text-[#D4AF37] transition-colors rounded-sm bg-black/5"
           title="New Telegram Order Notifications"
         >
           <Bell className="w-5 h-5" />

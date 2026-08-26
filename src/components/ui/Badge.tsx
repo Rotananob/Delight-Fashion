@@ -20,11 +20,11 @@ export const Badge: React.FC<BadgeProps> = ({
   const variantStyles = {
     gold:
       "bg-[#D4AF37]/15 text-[#D4AF37] border border-[#D4AF37]/30 shadow-[0_0_10px_rgba(212,175,55,0.1)]",
-    dark: "bg-[#171717] text-white/90 border border-white/10",
-    outline: "border border-white/20 text-white/80 bg-transparent",
+    dark: "bg-gray-50 text-foreground/90 border border-border",
+    outline: "border border-white/20 text-foreground/80 bg-transparent",
     success: "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30",
     danger: "bg-rose-500/15 text-rose-400 border border-rose-500/30",
-    neutral: "bg-white/10 text-white/70 border border-white/5",
+    neutral: "bg-black/10 text-foreground/70 border border-border",
   };
 
   const sizeStyles = {

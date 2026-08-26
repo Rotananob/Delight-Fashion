@@ -77,11 +77,11 @@ export const ProductDetailClient: React.FC<{ product: Product, relatedProducts?:
         )}
         
         {/* Main Image */}
-        <div className="flex-1 aspect-[3/4] relative bg-[#111] overflow-hidden">
+        <div className="flex-1 aspect-[3/4] relative bg-white overflow-hidden">
           {selectedImage ? (
             <img src={selectedImage.url} alt={product.title} className="w-full h-full object-cover" />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-white/20">No Image</div>
+            <div className="w-full h-full flex items-center justify-center text-foreground/20">No Image</div>
           )}
         </div>
       </div>
@@ -94,29 +94,29 @@ export const ProductDetailClient: React.FC<{ product: Product, relatedProducts?:
               Signature Collection
             </span>
           )}
-          <h1 className="text-3xl font-extrabold uppercase tracking-widest text-white leading-tight">
+          <h1 className="text-3xl font-extrabold uppercase tracking-widest text-foreground leading-tight">
             {product.title}
           </h1>
           <div className="flex items-center gap-3 mt-2">
-            <span className="text-2xl font-light text-white">${product.price.toFixed(2)}</span>
+            <span className="text-2xl font-light text-foreground">${product.price.toFixed(2)}</span>
             {product.compareAtPrice && (
-              <span className="text-sm line-through text-white/40">${product.compareAtPrice.toFixed(2)}</span>
+              <span className="text-sm line-through text-foreground/40">${product.compareAtPrice.toFixed(2)}</span>
             )}
           </div>
         </div>
 
-        <p className="text-sm text-white/70 leading-relaxed">
+        <p className="text-sm text-foreground/70 leading-relaxed">
           {product.description}
         </p>
 
-        <div className="flex flex-col gap-6 pt-6 border-t border-white/10">
+        <div className="flex flex-col gap-6 pt-6 border-t border-border">
           
           {/* Colors */}
           {product.availableColors.length > 0 && (
             <div className="flex flex-col gap-3">
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-bold uppercase tracking-widest text-white/60">Color</span>
-                <span className="text-[11px] text-white/40">{selectedColor}</span>
+                <span className="text-[11px] font-bold uppercase tracking-widest text-foreground/60">Color</span>
+                <span className="text-[11px] text-foreground/40">{selectedColor}</span>
               </div>
               <div className="flex flex-wrap gap-3">
                 {product.availableColors.map(c => (
@@ -127,7 +127,7 @@ export const ProductDetailClient: React.FC<{ product: Product, relatedProducts?:
                       "px-4 py-2 border text-xs font-semibold uppercase tracking-wider transition-all",
                       selectedColor === c
                         ? "border-[#D4AF37] text-[#D4AF37] bg-[#D4AF37]/5"
-                        : "border-white/20 text-white/60 hover:border-white/50 hover:text-white"
+                        : "border-white/20 text-foreground/60 hover:border-border0 hover:text-foreground"
                     )}
                   >
                     {c}
@@ -141,7 +141,7 @@ export const ProductDetailClient: React.FC<{ product: Product, relatedProducts?:
           {product.availableSizes.length > 0 && (
             <div className="flex flex-col gap-3">
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-bold uppercase tracking-widest text-white/60">Size</span>
+                <span className="text-[11px] font-bold uppercase tracking-widest text-foreground/60">Size</span>
                 <button className="text-[10px] uppercase tracking-widest text-[#D4AF37] hover:underline underline-offset-4">
                   Size Guide
                 </button>
@@ -159,10 +159,10 @@ export const ProductDetailClient: React.FC<{ product: Product, relatedProducts?:
                       className={twMerge(
                         "py-3 border text-sm font-bold transition-all flex items-center justify-center",
                         !hasStock 
-                          ? "opacity-30 cursor-not-allowed border-white/10 text-white/30"
+                          ? "opacity-30 cursor-not-allowed border-border text-foreground/30"
                           : selectedSize === s
                             ? "border-white text-black bg-white"
-                            : "border-white/20 text-white/60 hover:border-white/60"
+                            : "border-white/20 text-foreground/60 hover:border-white/60"
                       )}
                     >
                       {s}
@@ -179,14 +179,14 @@ export const ProductDetailClient: React.FC<{ product: Product, relatedProducts?:
               <div className="flex items-center border border-white/20 h-12">
                 <button 
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  className="w-12 h-full flex items-center justify-center text-white/60 hover:text-white transition-colors"
+                  className="w-12 h-full flex items-center justify-center text-foreground/60 hover:text-foreground transition-colors"
                 >
                   -
                 </button>
                 <span className="w-8 text-center text-sm font-semibold">{quantity}</span>
                 <button 
                   onClick={() => setQuantity(Math.min(stockCount || 10, quantity + 1))}
-                  className="w-12 h-full flex items-center justify-center text-white/60 hover:text-white transition-colors"
+                  className="w-12 h-full flex items-center justify-center text-foreground/60 hover:text-foreground transition-colors"
                   disabled={quantity >= stockCount}
                 >
                   +
@@ -214,16 +214,16 @@ export const ProductDetailClient: React.FC<{ product: Product, relatedProducts?:
             ) : null}
           </div>
 
-          <div className="pt-6 border-t border-white/10 flex flex-col gap-3">
-            <div className="flex items-center gap-3 text-xs text-white/60">
+          <div className="pt-6 border-t border-border flex flex-col gap-3">
+            <div className="flex items-center gap-3 text-xs text-foreground/60">
               <Check className="w-4 h-4 text-emerald-400" />
               <span>Authentic Guarantee</span>
             </div>
-            <div className="flex items-center gap-3 text-xs text-white/60">
+            <div className="flex items-center gap-3 text-xs text-foreground/60">
               <Check className="w-4 h-4 text-emerald-400" />
               <span>Free Delivery in Phnom Penh over $100</span>
             </div>
-            <div className="flex items-center gap-3 text-xs text-white/60">
+            <div className="flex items-center gap-3 text-xs text-foreground/60">
               <Check className="w-4 h-4 text-emerald-400" />
               <span>COD & ABA PayWay Accepted</span>
             </div>
@@ -235,9 +235,9 @@ export const ProductDetailClient: React.FC<{ product: Product, relatedProducts?:
       
       {/* Related Products Section */}
       {relatedProducts.length > 0 && (
-        <section className="w-full pt-16 border-t border-white/5">
+        <section className="w-full pt-16 border-t border-border">
           <div className="flex flex-col items-center mb-12 text-center">
-            <h2 className="text-2xl font-bold uppercase tracking-widest text-white">
+            <h2 className="text-2xl font-bold uppercase tracking-widest text-foreground">
               You May Also Like
             </h2>
             <div className="w-12 h-[1px] bg-[#D4AF37]/50 mt-4" />

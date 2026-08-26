@@ -34,7 +34,7 @@ export const OrderStatusUpdater: React.FC<{ orderId: string; currentStatus: Orde
   };
 
   return (
-    <div className="flex flex-col gap-3 p-4 bg-[#111] border border-white/10 rounded-sm">
+    <div className="flex flex-col gap-3 p-4 bg-white border border-border rounded-sm">
       <h3 className="text-xs font-bold uppercase tracking-widest text-[#D4AF37]">
         Update Order Status
       </h3>
@@ -42,7 +42,7 @@ export const OrderStatusUpdater: React.FC<{ orderId: string; currentStatus: Orde
         <select
           value={status}
           onChange={(e) => setStatus(e.target.value as OrderStatus)}
-          className="flex-1 bg-[#1A1A1A] border border-white/20 focus:border-[#D4AF37] outline-none rounded-sm px-3.5 py-2.5 text-sm text-white transition-colors"
+          className="flex-1 bg-[#1A1A1A] border border-white/20 focus:border-[#D4AF37] outline-none rounded-sm px-3.5 py-2.5 text-sm text-foreground transition-colors"
         >
           <option value="Pending">Pending</option>
           <option value="Confirmed">Confirmed</option>

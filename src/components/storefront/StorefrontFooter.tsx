@@ -5,9 +5,9 @@ import { MapPin, Phone, Clock, Send, ShieldCheck } from "lucide-react";
 
 export const StorefrontFooter: React.FC = () => {
   return (
-    <footer className="w-full bg-[#0A0A0A] border-t border-white/10 text-white/70 pt-16 pb-12">
+    <footer className="w-full bg-[#0A0A0A] border-t border-border text-foreground/70 pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-white/10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-border">
           {/* Brand Col */}
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-2">
@@ -18,11 +18,11 @@ export const StorefrontFooter: React.FC = () => {
                 height={32}
                 className="w-8 h-8 object-contain rounded-full border border-[#D4AF37]/30" 
               />
-              <span className="text-base sm:text-xl font-bold tracking-[0.1em] sm:tracking-[0.2em] text-white uppercase font-sans">
+              <span className="text-base sm:text-xl font-bold tracking-[0.1em] sm:tracking-[0.2em] text-foreground uppercase font-sans">
                 DELIGHT <span className="text-[#D4AF37]">FASHION</span>
               </span>
             </div>
-            <p className="text-xs text-white/60 leading-relaxed">
+            <p className="text-xs text-foreground/60 leading-relaxed">
               Phnom Penh&apos;s premier destination for luxury men&apos;s clothing. Tailored structured silhouettes, modern outerwear, and refined daily wear.
             </p>
             <div className="flex items-center gap-3 pt-2">
@@ -35,7 +35,7 @@ export const StorefrontFooter: React.FC = () => {
 
           {/* Navigation Links */}
           <div className="flex flex-col gap-3">
-            <h4 className="text-sm font-semibold uppercase tracking-widest text-white border-l-2 border-[#D4AF37] pl-3">
+            <h4 className="text-sm font-semibold uppercase tracking-widest text-foreground border-l-2 border-[#D4AF37] pl-3">
               Collections
             </h4>
             <ul className="flex flex-col gap-2.5 text-xs font-medium">
@@ -69,7 +69,7 @@ export const StorefrontFooter: React.FC = () => {
 
           {/* Showroom / Phnom Penh Location */}
           <div className="flex flex-col gap-3">
-            <h4 className="text-sm font-semibold uppercase tracking-widest text-white border-l-2 border-[#D4AF37] pl-3">
+            <h4 className="text-sm font-semibold uppercase tracking-widest text-foreground border-l-2 border-[#D4AF37] pl-3">
               Phnom Penh Showroom
             </h4>
             <div className="flex flex-col gap-3 text-xs">
@@ -92,10 +92,10 @@ export const StorefrontFooter: React.FC = () => {
 
           {/* Payment & Support */}
           <div className="flex flex-col gap-4">
-            <h4 className="text-sm font-semibold uppercase tracking-widest text-white border-l-2 border-[#D4AF37] pl-3">
+            <h4 className="text-sm font-semibold uppercase tracking-widest text-foreground border-l-2 border-[#D4AF37] pl-3">
               Cambodia Payment &amp; Support
             </h4>
-            <p className="text-xs text-white/60">
+            <p className="text-xs text-foreground/60">
               We accept local instant payments via ABA Bank QR, PayWay, and Cash on Delivery (COD) across Phnom Penh and all provinces.
             </p>
             <div className="flex items-center gap-2.5">
@@ -113,15 +113,15 @@ export const StorefrontFooter: React.FC = () => {
         </div>
 
         {/* Bottom Copyright */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-white/40 gap-4">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-foreground/40 gap-4">
           <p>
             &copy; {new Date().getFullYear()} Delight Fashion Co., Ltd. Phnom Penh, Cambodia. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            <Link href="/privacy" className="hover:text-white transition-colors">
+            <Link href="/privacy" className="hover:text-foreground transition-colors">
               Privacy Policy
             </Link>
-            <Link href="/terms" className="hover:text-white transition-colors">
+            <Link href="/terms" className="hover:text-foreground transition-colors">
               Terms of Service
             </Link>
             <Link href="/admin/dashboard" className="text-[#D4AF37]/70 hover:text-[#D4AF37] transition-colors font-medium">

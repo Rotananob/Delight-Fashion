@@ -37,7 +37,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       transition={{ duration: 0.5, ease: "easeOut" }}
       className="h-full"
     >
-      <Card variant="hover" className="group flex flex-col h-full bg-[#111111] overflow-hidden">
+      <Card variant="hover" className="group flex flex-col h-full bg-white overflow-hidden">
         {/* Product Image Box */}
         <div className="relative aspect-[3/4] w-full bg-[#1A1A1A] overflow-hidden">
           <Link href={`/products/${product.slug}`} className="block w-full h-full">
@@ -50,7 +50,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
               />
             ) : (
-              <div className="w-full h-full flex items-center justify-center text-white/30 text-xs uppercase">
+              <div className="w-full h-full flex items-center justify-center text-foreground/30 text-xs uppercase">
                 No Image
               </div>
             )}
@@ -82,7 +82,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               e.stopPropagation();
               toggleItem(product);
             }}
-            className="absolute top-3 right-3 z-20 p-2 rounded-full bg-black/30 backdrop-blur-sm text-white hover:bg-black/50 transition-colors"
+            className="absolute top-3 right-3 z-20 p-2 rounded-full bg-black/30 backdrop-blur-sm text-foreground hover:bg-black/50 transition-colors"
             aria-label="Toggle wishlist"
           >
             <Heart
@@ -116,10 +116,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         </div>
 
         {/* Product Details Box */}
-        <div className="p-4 flex flex-col flex-1 justify-between gap-3 relative z-10 bg-[#111111]">
+        <div className="p-4 flex flex-col flex-1 justify-between gap-3 relative z-10 bg-white">
           <div className="flex flex-col gap-1">
             {/* Colors / Sizes info */}
-            <div className="flex items-center justify-between text-[11px] text-white/50 uppercase tracking-wider">
+            <div className="flex items-center justify-between text-[11px] text-foreground/50 uppercase tracking-wider">
               <span>
                 {product.availableSizes.length} {product.availableSizes.length === 1 ? "Size" : "Sizes"}
               </span>
@@ -131,20 +131,20 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             {/* Title */}
             <Link
               href={`/products/${product.slug}`}
-              className="text-sm font-bold uppercase tracking-wider text-white group-hover:text-[#D4AF37] transition-colors line-clamp-2"
+              className="text-sm font-bold uppercase tracking-wider text-foreground group-hover:text-[#D4AF37] transition-colors line-clamp-2"
             >
               {product.title}
             </Link>
           </div>
 
           {/* Price and Mobile Add Button */}
-          <div className="flex items-center justify-between pt-2 border-t border-white/5">
+          <div className="flex items-center justify-between pt-2 border-t border-border">
             <div className="flex items-baseline gap-2">
               <span className="text-base font-extrabold text-[#D4AF37]">
                 ${product.price.toFixed(2)}
               </span>
               {product.compareAtPrice && (
-                <span className="text-xs text-white/40 line-through">
+                <span className="text-xs text-foreground/40 line-through">
                   ${product.compareAtPrice.toFixed(2)}
                 </span>
               )}

@@ -26,7 +26,7 @@ function FilterSidebarContent() {
   };
 
   return (
-    <div className="space-y-8 mt-10 border-t border-white/10 pt-8">
+    <div className="space-y-8 mt-10 border-t border-border pt-8">
       {/* Size Filter */}
       <div>
         <h3 className="text-sm font-semibold uppercase tracking-wider mb-4">Size</h3>
@@ -92,7 +92,7 @@ function FilterSidebarContent() {
                 <span
                   className={twMerge(
                     "text-sm transition-colors",
-                    isSelected ? "text-[#D4AF37]" : "text-white/70 group-hover:text-white"
+                    isSelected ? "text-[#D4AF37]" : "text-foreground/70 group-hover:text-foreground"
                   )}
                 >
                   {color}
@@ -108,7 +108,7 @@ function FilterSidebarContent() {
 
 export const ProductFilterSidebar = () => {
   return (
-    <Suspense fallback={<div className="h-40 w-full animate-pulse bg-white/5 rounded-md mt-10"></div>}>
+    <Suspense fallback={<div className="h-40 w-full animate-pulse bg-black/5 rounded-md mt-10"></div>}>
       <FilterSidebarContent />
     </Suspense>
   );

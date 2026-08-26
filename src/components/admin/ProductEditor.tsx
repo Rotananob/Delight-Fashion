@@ -111,10 +111,10 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ initialProduct }) 
     <div className="flex flex-col gap-6 max-w-5xl mx-auto pb-12">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <Link href="/admin/products" className="p-2 bg-[#111] hover:bg-white/5 border border-white/10 rounded-sm text-white/60 hover:text-white transition-colors">
+          <Link href="/admin/products" className="p-2 bg-white hover:bg-black/5 border border-border rounded-sm text-foreground/60 hover:text-foreground transition-colors">
             <ArrowLeft className="w-4 h-4" />
           </Link>
-          <h1 className="text-xl font-bold uppercase tracking-widest text-white">
+          <h1 className="text-xl font-bold uppercase tracking-widest text-foreground">
             {initialProduct ? "Edit Product" : "Create New Product"}
           </h1>
         </div>
@@ -127,16 +127,16 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ initialProduct }) 
         {/* Left Column: Main Details */}
         <div className="lg:col-span-2 flex flex-col gap-6">
           <Card variant="bordered" className="p-6 flex flex-col gap-5">
-            <h2 className="text-sm font-bold uppercase tracking-widest text-[#D4AF37] border-b border-white/10 pb-3">
+            <h2 className="text-sm font-bold uppercase tracking-widest text-[#D4AF37] border-b border-border pb-3">
               Basic Information
             </h2>
             <div className="flex flex-col gap-4">
               <Input label="Product Title" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="e.g. Royal Crest Heavyweight Tee" required />
               <Input label="URL Slug" value={slug} onChange={(e) => setSlug(e.target.value)} placeholder="e.g. royal-crest-tee" />
               <div className="flex flex-col gap-1.5">
-                <label className="text-[10px] font-semibold text-white/60 uppercase tracking-widest">Description</label>
+                <label className="text-[10px] font-semibold text-foreground/60 uppercase tracking-widest">Description</label>
                 <textarea
-                  className="w-full bg-[#111111] border border-white/10 focus:border-[#D4AF37] outline-none rounded-sm px-3.5 py-2.5 text-sm text-white min-h-[120px] resize-y"
+                  className="w-full bg-white border border-border focus:border-[#D4AF37] outline-none rounded-sm px-3.5 py-2.5 text-sm text-foreground min-h-[120px] resize-y"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Luxurious men's tee designed in Phnom Penh..."
@@ -146,14 +146,14 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ initialProduct }) 
           </Card>
 
           <Card variant="bordered" className="p-6 flex flex-col gap-5">
-            <h2 className="text-sm font-bold uppercase tracking-widest text-[#D4AF37] border-b border-white/10 pb-3">
+            <h2 className="text-sm font-bold uppercase tracking-widest text-[#D4AF37] border-b border-border pb-3">
               Media & Assets
             </h2>
             <ImageUploadWidget images={images} onChange={setImages} maxImages={6} />
           </Card>
 
           <Card variant="bordered" className="p-6 flex flex-col gap-5">
-            <div className="flex items-center justify-between border-b border-white/10 pb-3">
+            <div className="flex items-center justify-between border-b border-border pb-3">
               <h2 className="text-sm font-bold uppercase tracking-widest text-[#D4AF37]">
                 SKU & Variants Matrix
               </h2>
@@ -168,9 +168,9 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ initialProduct }) 
             </div>
 
             {Object.keys(variants).length > 0 && (
-              <div className="mt-4 border border-white/10 rounded-sm overflow-hidden overflow-x-auto">
+              <div className="mt-4 border border-border rounded-sm overflow-hidden overflow-x-auto">
                 <table className="w-full text-left text-xs whitespace-nowrap">
-                  <thead className="bg-[#171717] text-white/50 uppercase tracking-widest">
+                  <thead className="bg-gray-50 text-foreground/50 uppercase tracking-widest">
                     <tr>
                       <th className="px-4 py-3">Variant (Size - Color)</th>
                       <th className="px-4 py-3">SKU</th>
@@ -179,14 +179,14 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ initialProduct }) 
                   </thead>
                   <tbody className="divide-y divide-white/5">
                     {Object.entries(variants).map(([key, v]) => (
-                      <tr key={key} className="hover:bg-white/5">
+                      <tr key={key} className="hover:bg-black/5">
                         <td className="px-4 py-3 font-semibold">{v.size} - {v.color}</td>
                         <td className="px-4 py-2">
                           <input
                             type="text"
                             value={v.sku}
                             onChange={(e) => handleVariantChange(key, "sku", e.target.value)}
-                            className="bg-[#0A0A0A] border border-white/10 rounded-sm px-2 py-1.5 w-full outline-none focus:border-[#D4AF37]"
+                            className="bg-[#0A0A0A] border border-border rounded-sm px-2 py-1.5 w-full outline-none focus:border-[#D4AF37]"
                           />
                         </td>
                         <td className="px-4 py-2">
@@ -195,7 +195,7 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ initialProduct }) 
                             min="0"
                             value={v.stock}
                             onChange={(e) => handleVariantChange(key, "stock", parseInt(e.target.value) || 0)}
-                            className="bg-[#0A0A0A] border border-white/10 rounded-sm px-2 py-1.5 w-24 outline-none focus:border-[#D4AF37]"
+                            className="bg-[#0A0A0A] border border-border rounded-sm px-2 py-1.5 w-24 outline-none focus:border-[#D4AF37]"
                           />
                         </td>
                       </tr>
@@ -210,7 +210,7 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ initialProduct }) 
         {/* Right Column: Pricing & Organization */}
         <div className="flex flex-col gap-6">
           <Card variant="bordered" className="p-6 flex flex-col gap-5">
-            <h2 className="text-sm font-bold uppercase tracking-widest text-[#D4AF37] border-b border-white/10 pb-3">
+            <h2 className="text-sm font-bold uppercase tracking-widest text-[#D4AF37] border-b border-border pb-3">
               Pricing ($USD)
             </h2>
             <div className="flex flex-col gap-4">
@@ -220,16 +220,16 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ initialProduct }) 
           </Card>
 
           <Card variant="bordered" className="p-6 flex flex-col gap-5">
-            <h2 className="text-sm font-bold uppercase tracking-widest text-[#D4AF37] border-b border-white/10 pb-3">
+            <h2 className="text-sm font-bold uppercase tracking-widest text-[#D4AF37] border-b border-border pb-3">
               Organization
             </h2>
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-1.5">
-                <label className="text-[10px] font-semibold text-white/60 uppercase tracking-widest">Category</label>
+                <label className="text-[10px] font-semibold text-foreground/60 uppercase tracking-widest">Category</label>
                 <select
                   value={categoryId}
                   onChange={(e) => setCategoryId(e.target.value)}
-                  className="w-full bg-[#111111] border border-white/10 focus:border-[#D4AF37] outline-none rounded-sm px-3.5 py-2.5 text-sm text-white"
+                  className="w-full bg-white border border-border focus:border-[#D4AF37] outline-none rounded-sm px-3.5 py-2.5 text-sm text-foreground"
                 >
                   <option value="cat_tshirts">T-Shirts</option>
                   <option value="cat_jackets">Jackets & Outerwear</option>
@@ -239,18 +239,18 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ initialProduct }) 
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-[10px] font-semibold text-white/60 uppercase tracking-widest">Status</label>
+                <label className="text-[10px] font-semibold text-foreground/60 uppercase tracking-widest">Status</label>
                 <select
                   value={status}
                   onChange={(e) => setStatus(e.target.value as any)}
-                  className="w-full bg-[#111111] border border-white/10 focus:border-[#D4AF37] outline-none rounded-sm px-3.5 py-2.5 text-sm text-white"
+                  className="w-full bg-white border border-border focus:border-[#D4AF37] outline-none rounded-sm px-3.5 py-2.5 text-sm text-foreground"
                 >
                   <option value="active">Active (Visible)</option>
                   <option value="draft">Draft (Hidden)</option>
                 </select>
               </div>
 
-              <label className="flex items-center gap-3 p-3 bg-white/5 border border-white/10 rounded-sm cursor-pointer hover:bg-white/10 transition-colors">
+              <label className="flex items-center gap-3 p-3 bg-black/5 border border-border rounded-sm cursor-pointer hover:bg-black/10 transition-colors">
                 <input
                   type="checkbox"
                   checked={isFeatured}
@@ -258,8 +258,8 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ initialProduct }) 
                   className="w-4 h-4 accent-[#D4AF37]"
                 />
                 <div className="flex flex-col">
-                  <span className="text-sm font-semibold text-white">Feature on Homepage</span>
-                  <span className="text-[10px] text-white/50">Display in Signature Pieces grid</span>
+                  <span className="text-sm font-semibold text-foreground">Feature on Homepage</span>
+                  <span className="text-[10px] text-foreground/50">Display in Signature Pieces grid</span>
                 </div>
               </label>
             </div>

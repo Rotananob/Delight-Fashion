@@ -11,7 +11,7 @@ import { useLanguage } from "@/features/i18n/LanguageContext";
 export const HeroSection: React.FC<{ onExploreClick?: () => void }> = () => {
   const { t } = useLanguage();
   return (
-    <section className="relative w-full overflow-hidden bg-gradient-to-b from-[#0A0A0A] via-[#111111] to-[#0A0A0A] border-b border-white/10 py-16 lg:py-24">
+    <section className="relative w-full overflow-hidden bg-gradient-to-b from-[#0A0A0A] via-[#111111] to-[#0A0A0A] border-b border-border py-16 lg:py-24">
       {/* Subtle Luxury Gold Background Shimmer Effect */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-[#D4AF37]/5 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute -bottom-20 right-10 w-[400px] h-[300px] bg-[#D4AF37]/5 rounded-full blur-[120px] pointer-events-none" />
@@ -32,7 +32,7 @@ export const HeroSection: React.FC<{ onExploreClick?: () => void }> = () => {
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white uppercase leading-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground uppercase leading-tight">
               {t('hero.title')} <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27]">
                 {t('hero.titleHighlight')}
@@ -40,7 +40,7 @@ export const HeroSection: React.FC<{ onExploreClick?: () => void }> = () => {
             </h1>
 
             {/* Description */}
-            <p className="text-sm sm:text-base text-white/70 max-w-xl leading-relaxed mx-auto lg:mx-0">
+            <p className="text-sm sm:text-base text-foreground/70 max-w-xl leading-relaxed mx-auto lg:mx-0">
               {t('hero.subtitle')}
             </p>
 
@@ -64,22 +64,22 @@ export const HeroSection: React.FC<{ onExploreClick?: () => void }> = () => {
             </div>
 
             {/* Guarantee Badges */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-8 border-t border-white/10 text-left">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-8 border-t border-border text-left">
               <div className="flex items-center gap-2.5">
                 <Truck className="w-4 h-4 text-[#D4AF37] shrink-0" />
-                <span className="text-xs text-white/70 font-medium">
+                <span className="text-xs text-foreground/70 font-medium">
                   Instant COD / ABA QR
                 </span>
               </div>
               <div className="flex items-center gap-2.5">
                 <ShieldCheck className="w-4 h-4 text-[#D4AF37] shrink-0" />
-                <span className="text-xs text-white/70 font-medium">
+                <span className="text-xs text-foreground/70 font-medium">
                   Phnom Penh Same-Day
                 </span>
               </div>
               <div className="hidden sm:flex items-center gap-2.5">
                 <Crown className="w-4 h-4 text-[#D4AF37] shrink-0" />
-                <span className="text-xs text-white/70 font-medium">
+                <span className="text-xs text-foreground/70 font-medium">
                   Luxury Tailored Fit
                 </span>
               </div>
@@ -107,7 +107,7 @@ export const HeroSection: React.FC<{ onExploreClick?: () => void }> = () => {
                   <span className="text-[10px] text-[#D4AF37] uppercase tracking-widest font-semibold">
                     Featured Piece
                   </span>
-                  <h3 className="text-lg font-bold text-white uppercase">
+                  <h3 className="text-lg font-bold text-foreground uppercase">
                     Silk-Blend Pocket Tee
                   </h3>
                 </div>

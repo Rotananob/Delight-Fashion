@@ -36,7 +36,7 @@ export default async function ProductsPage({
   const categories = await getCategories();
   
   // Fetch filtered products
-  const products = await getProducts({
+  let products = await getProducts({
     categorySlug: params.category,
     featuredOnly: params.filter === "featured",
   });

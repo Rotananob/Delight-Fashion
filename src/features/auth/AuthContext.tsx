@@ -140,6 +140,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         await handleServerSession(result.user);
       } catch (error) {
         console.error("Google Auth Error:", error);
+        throw error;
       }
     }
     setIsLoading(false);

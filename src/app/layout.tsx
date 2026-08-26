@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Dangrek } from "next/font/google";
+import { Geist, Geist_Mono, Suwannaphum } from "next/font/google";
 import "./globals.css";
 import { generateSeoMetadata } from "@/utils/seo";
 import { ClientProviders } from "@/components/providers/ClientProviders";
+import { UpdatePrompt } from "@/components/pwa/UpdatePrompt";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,10 +15,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const dangrek = Dangrek({
-  weight: "400",
-  variable: "--font-dangrek",
-  subsets: ["khmer", "latin"],
+const suwannaphum = Suwannaphum({
+  weight: ["100", "300", "400", "700", "900"],
+  variable: "--font-khmer",
+  subsets: ["khmer"],
 });
 
 export const metadata: Metadata = generateSeoMetadata();
@@ -30,10 +31,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${dangrek.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${suwannaphum.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[#0E0E0E] text-white">
+      <body className="min-h-full flex flex-col bg-background text-foreground transition-colors duration-300">
         <ClientProviders>{children}</ClientProviders>
+        <UpdatePrompt />
       </body>
     </html>
   );

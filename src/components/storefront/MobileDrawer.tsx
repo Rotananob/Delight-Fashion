@@ -36,7 +36,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
       position="left"
       title="DELIGHT FASHION"
       footer={
-        <div className="flex flex-col gap-3 text-xs text-white/70">
+        <div className="flex flex-col gap-3 text-xs text-foreground/70">
           <div className="flex items-center gap-2">
             <MapPin className="w-4 h-4 text-[#D4AF37]" />
             <span>Phnom Penh Showroom • St 271</span>
@@ -59,14 +59,14 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
     >
       <div className="flex flex-col gap-6">
         {/* Brand Badge */}
-        <div className="p-4 border-b border-white/10 flex items-center justify-between sticky top-0 bg-[#0E0E0E] z-10">
+        <div className="p-4 border-b border-border flex items-center justify-between sticky top-0 bg-background z-10">
           <div className="flex items-center gap-2">
             <img 
               src="/logo.jpg" 
               alt="Delight Fashion Logo" 
               className="w-8 h-8 object-contain rounded-full border border-[#D4AF37]/30" 
             />
-            <span className="text-base sm:text-lg font-bold tracking-[0.1em] sm:tracking-[0.2em] text-white uppercase font-sans">
+            <span className="text-base sm:text-lg font-bold tracking-[0.1em] sm:tracking-[0.2em] text-foreground uppercase font-sans">
               DELIGHT <span className="text-[#D4AF37]">FASHION</span>
             </span>
           </div>
@@ -85,7 +85,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                   "flex items-center justify-between px-3 py-3 rounded-sm text-sm font-semibold uppercase tracking-wider transition-colors",
                   isActive
                     ? "bg-[#D4AF37]/15 text-[#D4AF37] border-l-2 border-[#D4AF37]"
-                    : "text-white/80 hover:text-[#D4AF37] hover:bg-white/5"
+                    : "text-foreground/80 hover:text-[#D4AF37] hover:bg-black/5"
                 )}
               >
                 <span>{item.label}</span>

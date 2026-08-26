@@ -45,21 +45,21 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
         items.length > 0 ? (
           <div className="flex flex-col gap-4">
             {/* Subtotal & Delivery Summary */}
-            <div className="flex flex-col gap-2 text-xs border-b border-white/10 pb-3">
-              <div className="flex justify-between text-white/70">
+            <div className="flex flex-col gap-2 text-xs border-b border-border pb-3">
+              <div className="flex justify-between text-foreground/70">
                 <span>Subtotal</span>
-                <span className="text-white font-medium">
+                <span className="text-foreground font-medium">
                   ${subtotal.toFixed(2)}
                 </span>
               </div>
-              <div className="flex justify-between text-white/70">
+              <div className="flex justify-between text-foreground/70">
                 <span>Cambodia Shipping</span>
                 <span className="text-[#D4AF37] font-medium">
                   {shippingFee === 0 ? "FREE" : `$${shippingFee.toFixed(2)}`}
                 </span>
               </div>
               {subtotal < 100 && (
-                <span className="text-[10px] text-white/40 italic">
+                <span className="text-[10px] text-foreground/40 italic">
                   Add ${(100 - subtotal).toFixed(2)} more for Free Delivery in Phnom Penh!
                 </span>
               )}
@@ -67,7 +67,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
 
             {/* Total */}
             <div className="flex justify-between items-baseline">
-              <span className="text-sm font-bold uppercase tracking-wider text-white">
+              <span className="text-sm font-bold uppercase tracking-wider text-foreground">
                 Total Amount
               </span>
               <span className="text-xl font-extrabold text-[#D4AF37]">
@@ -89,7 +89,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               PROCEED TO SECURE CHECKOUT
             </Button>
 
-            <div className="flex items-center justify-center gap-1.5 text-[10px] text-white/50">
+            <div className="flex items-center justify-center gap-1.5 text-[10px] text-foreground/50">
               <ShieldCheck className="w-3.5 h-3.5 text-[#D4AF37]" />
               <span>COD &amp; ABA PayWay QR Supported Across Cambodia</span>
             </div>
@@ -110,7 +110,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
           {items.map((item) => (
             <div
               key={`${item.productId}-${item.variantKey}`}
-              className="flex gap-4 p-3 rounded-sm bg-[#111111] border border-white/5 relative group"
+              className="flex gap-4 p-3 rounded-sm bg-white border border-border relative group"
             >
               {/* Image */}
               <div className="w-20 h-24 bg-[#1A1A1A] rounded-sm overflow-hidden shrink-0">
@@ -124,14 +124,14 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               {/* Details */}
               <div className="flex-1 flex flex-col justify-between min-w-0">
                 <div>
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-white truncate">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-foreground truncate">
                     {item.title}
                   </h4>
-                  <div className="flex items-center gap-2 mt-1 text-[11px] text-white/50 uppercase">
-                    <span className="px-1.5 py-0.5 rounded-sm bg-white/5 border border-white/10">
+                  <div className="flex items-center gap-2 mt-1 text-[11px] text-foreground/50 uppercase">
+                    <span className="px-1.5 py-0.5 rounded-sm bg-black/5 border border-border">
                       Size: {item.size}
                     </span>
-                    <span className="px-1.5 py-0.5 rounded-sm bg-white/5 border border-white/10 truncate">
+                    <span className="px-1.5 py-0.5 rounded-sm bg-black/5 border border-border truncate">
                       {item.color}
                     </span>
                   </div>
@@ -153,11 +153,11 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                           item.quantity - 1
                         )
                       }
-                      className="p-1 text-white/70 hover:text-[#D4AF37] hover:bg-white/5"
+                      className="p-1 text-foreground/70 hover:text-[#D4AF37] hover:bg-black/5"
                     >
                       <Minus className="w-3 h-3" />
                     </button>
-                    <span className="px-2.5 text-xs font-bold text-white">
+                    <span className="px-2.5 text-xs font-bold text-foreground">
                       {item.quantity}
                     </span>
                     <button
@@ -169,7 +169,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                           item.quantity + 1
                         )
                       }
-                      className="p-1 text-white/70 hover:text-[#D4AF37] hover:bg-white/5"
+                      className="p-1 text-foreground/70 hover:text-[#D4AF37] hover:bg-black/5"
                     >
                       <Plus className="w-3 h-3" />
                     </button>
@@ -181,7 +181,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               <button
                 type="button"
                 onClick={() => removeItem(item.productId, item.variantKey)}
-                className="absolute top-2 right-2 p-1 text-white/30 hover:text-rose-400 transition-colors"
+                className="absolute top-2 right-2 p-1 text-foreground/30 hover:text-rose-400 transition-colors"
                 title="Remove item"
               >
                 <Trash2 className="w-3.5 h-3.5" />

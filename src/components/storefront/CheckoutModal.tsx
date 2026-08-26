@@ -130,29 +130,29 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
             <span className="text-xs text-[#D4AF37] font-semibold uppercase tracking-[0.2em]">
               Thank You For Your Order
             </span>
-            <h3 className="text-2xl font-bold uppercase tracking-wider text-white">
+            <h3 className="text-2xl font-bold uppercase tracking-wider text-foreground">
               Order #{confirmedOrder.id}
             </h3>
           </div>
 
-          <p className="text-xs text-white/70 max-w-md leading-relaxed">
+          <p className="text-xs text-foreground/70 max-w-md leading-relaxed">
             Your luxury order has been received! Our Phnom Penh showroom team has been notified via Telegram and will dispatch your items shortly.
           </p>
 
-          <div className="w-full max-w-sm bg-[#111111] border border-white/10 rounded-sm p-4 text-left flex flex-col gap-2 text-xs">
-            <div className="flex justify-between text-white/60">
+          <div className="w-full max-w-sm bg-white border border-border rounded-sm p-4 text-left flex flex-col gap-2 text-xs">
+            <div className="flex justify-between text-foreground/60">
               <span>Customer:</span>
-              <span className="text-white font-medium">
+              <span className="text-foreground font-medium">
                 {confirmedOrder.shippingAddress.fullName}
               </span>
             </div>
-            <div className="flex justify-between text-white/60">
+            <div className="flex justify-between text-foreground/60">
               <span>Phone (Cambodia):</span>
-              <span className="text-white font-medium">
+              <span className="text-foreground font-medium">
                 {confirmedOrder.shippingAddress.phone}
               </span>
             </div>
-            <div className="flex justify-between text-white/60">
+            <div className="flex justify-between text-foreground/60">
               <span>Payment Mode:</span>
               <span className="text-[#D4AF37] font-semibold">
                 {confirmedOrder.paymentMethod === "ABA_QR"
@@ -160,8 +160,8 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   : "Cash on Delivery (COD)"}
               </span>
             </div>
-            <div className="flex justify-between border-t border-white/10 pt-2 font-bold text-sm">
-              <span className="text-white">Total Amount:</span>
+            <div className="flex justify-between border-t border-border pt-2 font-bold text-sm">
+              <span className="text-foreground">Total Amount:</span>
               <span className="text-[#D4AF37]">
                 ${confirmedOrder.totalAmount.toFixed(2)}
               </span>
@@ -250,8 +250,8 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 className={twMerge(
                   "p-4 rounded-sm border flex flex-col items-center gap-2 text-center transition-all",
                   paymentMethod === "ABA_QR"
-                    ? "bg-[#D4AF37]/15 border-[#D4AF37] text-white shadow-[0_0_15px_rgba(212,175,55,0.2)]"
-                    : "bg-[#111111] border-white/10 text-white/60 hover:border-white/30"
+                    ? "bg-[#D4AF37]/15 border-[#D4AF37] text-foreground shadow-[0_0_15px_rgba(212,175,55,0.2)]"
+                    : "bg-white border-border text-foreground/60 hover:border-white/30"
                 )}
               >
                 <QrCode
@@ -259,14 +259,14 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                     "w-6 h-6",
                     paymentMethod === "ABA_QR"
                       ? "text-[#D4AF37]"
-                      : "text-white/40"
+                      : "text-foreground/40"
                   )}
                 />
                 <div className="flex flex-col">
                   <span className="text-xs font-bold uppercase tracking-wider">
                     ABA PayWay QR
                   </span>
-                  <span className="text-[10px] text-white/50">
+                  <span className="text-[10px] text-foreground/50">
                     Instant Bank Transfer
                   </span>
                 </div>
@@ -278,8 +278,8 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 className={twMerge(
                   "p-4 rounded-sm border flex flex-col items-center gap-2 text-center transition-all",
                   paymentMethod === "COD"
-                    ? "bg-[#D4AF37]/15 border-[#D4AF37] text-white shadow-[0_0_15px_rgba(212,175,55,0.2)]"
-                    : "bg-[#111111] border-white/10 text-white/60 hover:border-white/30"
+                    ? "bg-[#D4AF37]/15 border-[#D4AF37] text-foreground shadow-[0_0_15px_rgba(212,175,55,0.2)]"
+                    : "bg-white border-border text-foreground/60 hover:border-white/30"
                 )}
               >
                 <Truck
@@ -287,14 +287,14 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                     "w-6 h-6",
                     paymentMethod === "COD"
                       ? "text-[#D4AF37]"
-                      : "text-white/40"
+                      : "text-foreground/40"
                   )}
                 />
                 <div className="flex flex-col">
                   <span className="text-xs font-bold uppercase tracking-wider">
                     Cash on Delivery
                   </span>
-                  <span className="text-[10px] text-white/50">
+                  <span className="text-[10px] text-foreground/50">
                     Pay When Order Arrives
                   </span>
                 </div>
@@ -303,15 +303,15 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
             {/* ABA QR Account Instructions */}
             {paymentMethod === "ABA_QR" && (
-              <div className="p-3.5 rounded-sm bg-[#171717] border border-white/10 flex items-center justify-between text-xs">
+              <div className="p-3.5 rounded-sm bg-gray-50 border border-border flex items-center justify-between text-xs">
                 <div className="flex flex-col gap-1">
-                  <span className="text-white font-semibold">
+                  <span className="text-foreground font-semibold">
                     ABA Bank Cambodia Account:
                   </span>
                   <span className="text-[#D4AF37] font-mono font-bold">
                     001 234 567 (DELIGHT FASHION CO., LTD)
                   </span>
-                  <span className="text-[11px] text-white/50">
+                  <span className="text-[11px] text-foreground/50">
                     Please scan QR or transfer and show reference upon delivery.
                   </span>
                 </div>
@@ -323,18 +323,18 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
           </div>
 
           {/* Order Summary & Submit */}
-          <div className="p-4 rounded-sm bg-[#111111] border border-white/10 flex flex-col gap-3">
-            <div className="flex justify-between text-xs text-white/70">
+          <div className="p-4 rounded-sm bg-white border border-border flex flex-col gap-3">
+            <div className="flex justify-between text-xs text-foreground/70">
               <span>Subtotal ({items.length} items)</span>
               <span>${subtotal.toFixed(2)}</span>
             </div>
-            <div className="flex justify-between text-xs text-white/70">
+            <div className="flex justify-between text-xs text-foreground/70">
               <span>Cambodia Delivery</span>
               <span className="text-[#D4AF37]">
                 {shippingFee === 0 ? "FREE" : `$${shippingFee.toFixed(2)}`}
               </span>
             </div>
-            <div className="flex justify-between text-sm font-extrabold text-white border-t border-white/10 pt-2">
+            <div className="flex justify-between text-sm font-extrabold text-foreground border-t border-border pt-2">
               <span>TOTAL TO PAY</span>
               <span className="text-lg text-[#D4AF37]">
                 ${totalAmount.toFixed(2)}
@@ -352,7 +352,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
               COMPLETE ORDER (${totalAmount.toFixed(2)})
             </Button>
 
-            <div className="flex items-center justify-center gap-1.5 text-[10px] text-white/40 pt-1">
+            <div className="flex items-center justify-center gap-1.5 text-[10px] text-foreground/40 pt-1">
               <ShieldCheck className="w-3.5 h-3.5 text-[#D4AF37]" />
               <span>
                 100% Encrypted &amp; Protected by Delight Fashion Security

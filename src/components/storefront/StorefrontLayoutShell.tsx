@@ -30,7 +30,7 @@ export const StorefrontLayoutShell: React.FC<StorefrontLayoutShellProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-[#0E0E0E] text-white flex flex-col selection:bg-[#D4AF37] selection:text-[#0A0A0A]">
+    <div className="min-h-screen bg-background text-foreground flex flex-col selection:bg-[#D4AF37] selection:text-[#0A0A0A]">
       <StorefrontHeader
         cartItemCount={itemCount}
         onOpenCart={() => setIsCartOpen(true)}

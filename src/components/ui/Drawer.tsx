@@ -67,15 +67,15 @@ export const Drawer: React.FC<DrawerProps> = ({
             )}
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-6 py-5 border-b border-white/10 shrink-0">
+            <div className="flex items-center justify-between px-6 py-5 border-b border-border shrink-0">
               {title ? (
-                <h3 className="text-base font-semibold tracking-widest text-white uppercase">
+                <h3 className="text-base font-semibold tracking-widest text-foreground uppercase">
                   {title}
                 </h3>
               ) : <div />}
               <button
                 onClick={onClose}
-                className="p-2 text-white/60 hover:text-[#D4AF37] hover:bg-white/5 rounded-sm transition-colors"
+                className="p-2 text-foreground/60 hover:text-[#D4AF37] hover:bg-black/5 rounded-sm transition-colors"
                 aria-label="Close drawer"
               >
                 <X className="w-5 h-5" />
@@ -87,7 +87,7 @@ export const Drawer: React.FC<DrawerProps> = ({
 
             {/* Footer */}
             {footer && (
-              <div className="p-6 border-t border-white/10 bg-[#0A0A0A]/90 backdrop-blur-md shrink-0">
+              <div className="p-6 border-t border-border bg-[#0A0A0A]/90 backdrop-blur-md shrink-0">
                 {footer}
               </div>
             )}

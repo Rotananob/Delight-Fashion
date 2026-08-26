@@ -35,20 +35,20 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variantStyles = {
       primary:
-        "bg-[#D4AF37] text-[#0A0A0A] hover:bg-[#E6C86E] hover:shadow-[0_0_20px_rgba(212,175,55,0.3)] font-semibold",
+        "bg-[#D4AF37] text-white hover:bg-[#E6C86E] hover:shadow-[0_0_20px_rgba(212,175,55,0.3)] font-semibold",
       gold:
-        "bg-gradient-to-r from-[#D4AF37] via-[#E6C86E] to-[#B59020] text-[#0A0A0A] hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] font-bold",
+        "bg-gradient-to-r from-[#D4AF37] via-[#E6C86E] to-[#B59020] text-white hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] font-bold",
       secondary:
-        "bg-white text-[#0A0A0A] hover:bg-gray-100 hover:shadow-lg font-semibold",
+        "bg-white border border-border text-foreground hover:bg-gray-50 hover:shadow-lg font-semibold",
       outline:
-        "border border-[#D4AF37]/50 text-[#D4AF37] hover:bg-[#D4AF37]/10 hover:border-[#D4AF37]",
-      ghost: "text-white/80 hover:text-[#D4AF37] hover:bg-white/5",
+        "border border-border text-foreground hover:bg-black/5",
+      ghost: "text-foreground/80 hover:text-foreground hover:bg-black/5",
     };
 
     const sizeStyles = {
-      sm: "text-xs px-3.5 py-2 rounded-sm gap-1.5",
-      md: "text-sm px-5 py-2.5 rounded-sm gap-2",
-      lg: "text-base px-7 py-3.5 rounded-sm gap-2.5 uppercase tracking-wider",
+      sm: "text-xs sm:text-sm px-4 py-2.5 rounded-sm gap-1.5 leading-normal font-khmer",
+      md: "text-sm sm:text-base px-6 py-3 rounded-sm gap-2 leading-normal font-khmer",
+      lg: "text-base sm:text-lg px-8 py-4 rounded-sm gap-2.5 uppercase tracking-wider leading-relaxed font-khmer",
     };
 
     return (
