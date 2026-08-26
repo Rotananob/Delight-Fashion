@@ -24,9 +24,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   const { toggleItem, isInWishlist } = useWishlist();
   const primaryImage =
-    product.images.find((img) => img.isPrimary) || product.images[0];
-  const firstSize = product.availableSizes[0] || "M";
-  const firstColor = product.availableColors[0] || "Black";
+    product.images?.find((img) => img.isPrimary) || 
+    (product.images?.length > 0 ? product.images[0] : null);
+  
+  const fallbackImageUrl = "/logo.jpg";
+  const firstSize = product.availableSizes?.[0] || "M";
+  const firstColor = product.availableColors?.[0] || "Black";
   const inWishlist = isInWishlist(product.id);
 
   return (
@@ -40,20 +43,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       <Card variant="hover" className="group flex flex-col h-full bg-white overflow-hidden">
         {/* Product Image Box */}
         <div className="relative aspect-[3/4] w-full bg-[#1A1A1A] overflow-hidden">
-          <Link href={`/products/${product.slug}`} className="block w-full h-full">
-            {primaryImage ? (
-              <Image
-                src={primaryImage.url}
-                alt={primaryImage.alt || product.title}
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center text-foreground/30 text-xs uppercase">
-                No Image
-              </div>
-            )}
+          <Link href={`/products/${product.slug}`} className="block w-full h-full relative">
+            <Image
+              src={primaryImage?.url || fallbackImageUrl}
+              alt={primaryImage?.alt || product.title}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover transition-transform duration-700 group-hover:scale-110"
+            />
           </Link>
 
           {/* Top Badges */}

@@ -1,58 +1,53 @@
 import { Product, Category } from "@/types";
-import { MOCK_PRODUCTS, MOCK_CATEGORIES } from "./mock/products";
 import { db } from "./firebase/client";
 import { collection, getDocs, query, where, doc, getDoc } from "firebase/firestore";
 
-const isFirebaseReady = (): boolean => {
-  const key = process.env.NEXT_PUBLIC_FIREBASE_API_KEY;
-  return Boolean(key && key !== "mock_api_key" && !key.includes("mock"));
-};
-
 /**
- * Fetches all categories. Uses Firestore if ready, otherwise falls back to MOCK_CATEGORIES.
+ * Fetches all categories strictly from Firestore.
  */
 export async function getCategories(): Promise<Category[]> {
-  if (isFirebaseReady()) {
-    try {
-      const snap = await getDocs(collection(db, "categories"));
-      if (!snap.empty) {
-        return snap.docs.map((d) => ({ id: d.id, ...d.data() } as Category));
-      }
-    } catch (error) {
-      console.warn("Firestore getCategories fallback to mock:", error);
+  try {
+    const snap = await getDocs(collection(db, "categories"));
+    if (!snap.empty) {
+      return snap.docs.map((d) => ({ id: d.id, ...d.data() } as Category));
     }
+  } catch (error) {
+    console.error("Error fetching categories from Firestore:", error);
   }
-  return MOCK_CATEGORIES;
+  return [];
 }
 
 /**
- * Fetches products with optional category or featured filter.
+ * Fetches products from Firestore with optional category, featured, or search filter.
  */
 export async function getProducts(options: {
   categorySlug?: string;
   featuredOnly?: boolean;
   searchQuery?: string;
 } = {}): Promise<Product[]> {
-  let products = [...MOCK_PRODUCTS];
+  let products: Product[] = [];
 
-  if (isFirebaseReady()) {
-    try {
-      let q = collection(db, "products");
-      const constraints = [where("status", "==", "active")];
-      const snap = await getDocs(query(q, ...constraints));
-      if (!snap.empty) {
-        products = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Product));
-      }
-    } catch (error) {
-      console.warn("Firestore getProducts fallback to mock:", error);
+  try {
+    let q = collection(db, "products");
+    const constraints = [where("status", "==", "active")];
+    const snap = await getDocs(query(q, ...constraints));
+    
+    if (!snap.empty) {
+      products = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Product));
     }
+  } catch (error) {
+    console.error("Error fetching products from Firestore:", error);
+    return [];
   }
 
-  // Filter by Category Slug
+  // Filter by Category Slug (Requires fetching categories first to get the ID)
   if (options.categorySlug) {
-    const category = MOCK_CATEGORIES.find((c) => c.slug === options.categorySlug);
+    const categories = await getCategories();
+    const category = categories.find((c) => c.slug === options.categorySlug);
     if (category) {
       products = products.filter((p) => p.categoryId === category.id);
+    } else {
+      return []; // Category not found
     }
   }
 
@@ -75,43 +70,35 @@ export async function getProducts(options: {
 }
 
 /**
- * Fetches a single product by slug.
+ * Fetches a single product by slug from Firestore.
  */
 export async function getProductBySlug(slug: string): Promise<Product | null> {
-  if (isFirebaseReady()) {
-    try {
-      const q = query(collection(db, "products"), where("slug", "==", slug), where("status", "==", "active"));
-      const snap = await getDocs(q);
-      if (!snap.empty) {
-        const docSnap = snap.docs[0];
-        return { id: docSnap.id, ...docSnap.data() } as Product;
-      }
-    } catch (error) {
-      console.warn("Firestore getProductBySlug fallback to mock:", error);
+  try {
+    const q = query(collection(db, "products"), where("slug", "==", slug), where("status", "==", "active"));
+    const snap = await getDocs(q);
+    if (!snap.empty) {
+      const docSnap = snap.docs[0];
+      return { id: docSnap.id, ...docSnap.data() } as Product;
     }
+  } catch (error) {
+    console.error("Error fetching product by slug from Firestore:", error);
   }
-
-  const found = MOCK_PRODUCTS.find((p) => p.slug === slug);
-  return found || null;
+  return null;
 }
 
 /**
- * Fetches a single product by ID.
+ * Fetches a single product by ID from Firestore.
  */
 export async function getProductById(id: string): Promise<Product | null> {
-  if (isFirebaseReady()) {
-    try {
-      const docRef = doc(db, "products", id);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        return { id: docSnap.id, ...docSnap.data() } as Product;
-      }
-    } catch (error) {
-      console.warn("Firestore getProductById fallback to mock:", error);
+  try {
+    const docRef = doc(db, "products", id);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return { id: docSnap.id, ...docSnap.data() } as Product;
     }
+  } catch (error) {
+    console.error("Error fetching product by ID from Firestore:", error);
   }
-
-  const found = MOCK_PRODUCTS.find((p) => p.id === id);
-  return found || null;
+  return null;
 }
 

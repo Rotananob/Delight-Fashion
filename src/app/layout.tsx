@@ -4,6 +4,7 @@ import "./globals.css";
 import { generateSeoMetadata } from "@/utils/seo";
 import { ClientProviders } from "@/components/providers/ClientProviders";
 import { UpdatePrompt } from "@/components/pwa/UpdatePrompt";
+import { VisitorTracker } from "@/components/storefront/VisitorTracker";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,6 +35,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${suwannaphum.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground transition-colors duration-300">
+        <VisitorTracker />
         <ClientProviders>{children}</ClientProviders>
         <UpdatePrompt />
       </body>

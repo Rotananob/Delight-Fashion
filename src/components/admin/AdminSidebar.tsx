@@ -36,7 +36,7 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
   const pathname = usePathname();
 
   const sidebarContent = (
-    <div className="flex flex-col h-full bg-[#0A0A0A] border-r border-border w-64 select-none">
+    <div className="flex flex-col h-full bg-white border-r border-border w-64 select-none">
       {/* Brand Header */}
       <div className="flex items-center justify-between px-6 py-5 border-b border-border">
         <Link href="/" className="flex items-center gap-2.5">

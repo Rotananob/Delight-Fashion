@@ -15,7 +15,7 @@ export const AdminHeader: React.FC<AdminHeaderProps> = ({
   unreadOrderCount = 0,
 }) => {
   return (
-    <header className="sticky top-0 z-20 w-full bg-[#0A0A0A]/90 backdrop-blur-md border-b border-border px-4 sm:px-6 py-3.5 flex items-center justify-between">
+    <header className="sticky top-0 z-20 w-full bg-white/90 backdrop-blur-md border-b border-border px-4 sm:px-6 py-3.5 flex items-center justify-between">
       {/* Left: Mobile Toggle & Breadcrumb */}
       <div className="flex items-center gap-3">
         <button
