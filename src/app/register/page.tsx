@@ -58,8 +58,8 @@ export default function RegisterPage() {
 
   return (
     <StorefrontLayoutShell>
-      <div className="min-h-screen bg-[#0E0E0E] flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-md w-full space-y-8 bg-[#111] p-8 rounded-sm border border-white/10 shadow-2xl relative">
+      <div className="min-h-screen bg-white flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-xl border border-gray-200 shadow-sm relative">
           
           <div className="flex flex-col items-center">
             <Image 
@@ -67,15 +67,15 @@ export default function RegisterPage() {
               alt="Delight Fashion Logo" 
               width={60}
               height={60}
-              className="w-16 h-16 object-contain rounded-full border border-[#D4AF37]/30 mb-4" 
+              className="w-16 h-16 object-contain rounded-full border border-gray-200 mb-4" 
             />
-            <h2 className="text-center text-3xl font-bold tracking-widest text-white uppercase font-sans">
-              CREATE <span className="text-[#D4AF37]">ACCOUNT</span>
+            <h2 className="text-center text-3xl font-bold tracking-wide text-black uppercase font-sans">
+              CREATE <span className="text-black">ACCOUNT</span>
             </h2>
           </div>
 
           {error && (
-            <div className="bg-red-500/10 border border-red-500/50 text-red-400 p-3 rounded-sm text-xs text-center">
+            <div className="bg-red-50 border border-red-200 text-red-600 p-3 rounded-sm text-xs text-center">
               {error}
             </div>
           )}
@@ -89,7 +89,7 @@ export default function RegisterPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                leftIcon={<Mail className="w-4 h-4" />}
+                leftIcon={<Mail className="w-4 h-4 text-gray-500" />}
               />
               <Input
                 label="Password"
@@ -98,37 +98,36 @@ export default function RegisterPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                leftIcon={<Lock className="w-4 h-4" />}
+                leftIcon={<Lock className="w-4 h-4 text-gray-500" />}
               />
             </div>
 
             <Button
               type="submit"
-              variant="gold"
+              variant="primary"
               size="lg"
               isLoading={isSubmitting}
-              className="w-full font-bold tracking-widest"
+              className="w-full font-bold tracking-wide"
             >
               CREATE ACCOUNT
             </Button>
           </form>
 
           <div className="relative flex py-5 items-center">
-            <div className="flex-grow border-t border-white/10"></div>
-            <span className="flex-shrink mx-4 text-white/40 text-xs uppercase tracking-widest">
+            <div className="flex-grow border-t border-gray-200"></div>
+            <span className="flex-shrink mx-4 text-gray-400 text-xs uppercase tracking-wide">
               OR
             </span>
-            <div className="flex-grow border-t border-white/10"></div>
+            <div className="flex-grow border-t border-gray-200"></div>
           </div>
 
           <Button
             variant="secondary"
-            size="lg"
             isLoading={isSubmitting}
             onClick={handleGoogleLogin}
-            className="w-full font-bold flex items-center justify-center gap-2 hover:bg-white/10"
+            className="w-full font-medium flex items-center justify-center gap-3 bg-white hover:bg-gray-50 text-black border border-gray-200 text-sm sm:text-base py-3 sm:py-3.5 font-khmer transition-all duration-300 shadow-sm rounded-lg"
           >
-            <svg className="w-5 h-5" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24">
               <path
                 fill="#4285F4"
                 d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17Z"
@@ -152,7 +151,7 @@ export default function RegisterPage() {
           <div className="pt-6 text-center">
             <Link
               href="/login"
-              className="text-sm text-white/60 hover:text-[#D4AF37] uppercase tracking-wider transition-colors"
+              className="text-sm text-gray-500 hover:text-black uppercase tracking-wide transition-colors"
             >
               Already have an account? Sign in
             </Link>

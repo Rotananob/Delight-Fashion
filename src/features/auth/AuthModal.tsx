@@ -60,29 +60,29 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
       <div className="flex flex-col gap-6 relative">
         
         {user ? (
-          <div className="p-5 rounded-sm bg-white border border-border flex flex-col gap-4 shadow-lg">
+          <div className="p-5 rounded-sm bg-white border border-gray-200 flex flex-col gap-4 shadow-sm">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#8B7322] text-[#0A0A0A] font-bold flex items-center justify-center text-lg shadow-inner shadow-black/50">
+              <div className="w-12 h-12 rounded-full bg-black text-white font-bold flex items-center justify-center text-lg">
                 {user.displayName.charAt(0).toUpperCase()}
               </div>
               <div className="flex flex-col">
-                <span className="text-base font-bold text-foreground uppercase tracking-wider">
+                <span className="text-base font-bold text-black uppercase tracking-wide">
                   {user.displayName}
                 </span>
-                <span className="text-sm text-foreground/50">{user.email}</span>
+                <span className="text-sm text-gray-500">{user.email}</span>
               </div>
             </div>
 
-            <div className="flex flex-col gap-3 mt-4 pt-4 border-t border-border">
+            <div className="flex flex-col gap-3 mt-4 pt-4 border-t border-gray-200">
               <Button
-                variant="gold"
+                variant="primary"
                 size="md"
                 leftIcon={<UserCheck className="w-4 h-4" />}
                 onClick={() => {
                   onClose();
                   window.location.href = "/profile";
                 }}
-                className="w-full justify-start pl-4 tracking-widest font-semibold"
+                className="w-full justify-start pl-4 tracking-wide font-semibold"
               >
                 ACCESS MY PROFILE
               </Button>
@@ -94,7 +94,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                   logout();
                   onClose();
                 }}
-                className="w-full justify-start pl-4 tracking-widest font-semibold"
+                className="w-full justify-start pl-4 tracking-wide font-semibold"
               >
                 SIGN OUT
               </Button>
@@ -103,7 +103,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
         ) : (
           <>
             {error && (
-              <div className="bg-red-500/10 border border-red-500/50 text-red-400 p-3 rounded-sm text-xs text-center">
+              <div className="bg-red-50 border border-red-200 text-red-600 p-3 rounded-sm text-xs text-center">
                 {error}
               </div>
             )}
@@ -116,7 +116,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                leftIcon={<Mail className="w-4 h-4" />}
+                leftIcon={<Mail className="w-4 h-4 text-gray-500" />}
               />
               <Input
                 label="Password"
@@ -125,25 +125,25 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                leftIcon={<Lock className="w-4 h-4" />}
+                leftIcon={<Lock className="w-4 h-4 text-gray-500" />}
               />
               <Button
                 type="submit"
-                variant="gold"
+                variant="primary"
                 size="md"
                 isLoading={isSubmitting}
-                className="w-full mt-2 font-bold tracking-widest"
+                className="w-full mt-2 font-bold tracking-wide"
               >
                 {isLoginView ? "SIGN IN" : "CREATE ACCOUNT"}
               </Button>
             </form>
 
             <div className="relative flex py-1 items-center">
-              <div className="flex-grow border-t border-border"></div>
-              <span className="flex-shrink mx-4 text-foreground/40 text-xs uppercase tracking-widest">
+              <div className="flex-grow border-t border-gray-200"></div>
+              <span className="flex-shrink mx-4 text-gray-400 text-xs uppercase tracking-wide">
                 OR
               </span>
-              <div className="flex-grow border-t border-border"></div>
+              <div className="flex-grow border-t border-gray-200"></div>
             </div>
 
             <Button
@@ -151,7 +151,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
               size="md"
               isLoading={isSubmitting}
               onClick={handleGoogleLogin}
-              className="w-full font-bold flex items-center justify-center gap-2 hover:bg-black/10"
+              className="w-full font-bold flex items-center justify-center gap-2"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24">
                 <path
@@ -178,7 +178,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
               <button
                 type="button"
                 onClick={() => setIsLoginView(!isLoginView)}
-                className="text-xs text-foreground/60 hover:text-[#D4AF37] uppercase tracking-wider transition-colors"
+                className="text-xs text-gray-500 hover:text-black uppercase tracking-wide transition-colors"
               >
                 {isLoginView 
                   ? "Don't have an account? Register" 

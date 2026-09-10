@@ -31,18 +31,18 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const baseStyles =
-      "inline-flex items-center justify-center font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-2 focus:ring-offset-[#0A0A0A] disabled:opacity-50 disabled:cursor-not-allowed select-none tracking-wide";
+      "inline-flex items-center justify-center font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 focus:ring-offset-white disabled:opacity-50 disabled:cursor-not-allowed select-none tracking-wide";
 
     const variantStyles = {
       primary:
-        "bg-[#D4AF37] text-white hover:bg-[#E6C86E] hover:shadow-[0_0_20px_rgba(212,175,55,0.3)] font-semibold",
+        "bg-black text-white hover:bg-gray-800 font-semibold",
       gold:
-        "bg-gradient-to-r from-[#D4AF37] via-[#E6C86E] to-[#B59020] text-white hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] font-bold",
+        "bg-black text-white hover:bg-gray-900 shadow-md font-bold",
       secondary:
-        "bg-white border border-border text-foreground hover:bg-gray-50 hover:shadow-lg font-semibold",
+        "bg-white border border-gray-200 text-black hover:bg-gray-50 font-semibold",
       outline:
-        "border border-border text-foreground hover:bg-black/5",
-      ghost: "text-foreground/80 hover:text-foreground hover:bg-black/5",
+        "border border-gray-200 text-black hover:bg-gray-100",
+      ghost: "text-gray-800 hover:text-black hover:bg-gray-100",
     };
 
     const sizeStyles = {
