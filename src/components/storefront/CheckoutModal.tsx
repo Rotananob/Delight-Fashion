@@ -45,11 +45,19 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("ABA_QR");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const [confirmedOrder, setConfirmedOrder] = useState<Order | null>(null);
 
   const handlePlaceOrder = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    if (paymentMethod === "ABA_QR") {
+      setIsProcessingPayment(true);
+      // Simulate ABA PayWay delay
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      setIsProcessingPayment(false);
+    }
 
     try {
       const res = await placeOrderAction({
@@ -93,7 +101,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
             note: `Order placed via ${paymentMethod}. Awaiting dispatch from Phnom Penh showroom.`,
           },
         ],
-        telegramNotified: false, // We will handle Telegram notifications in Phase 7
+        telegramNotified: false,
         createdAt: new Date().toISOString(),
       };
 
@@ -119,15 +127,21 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
       title={confirmedOrder ? "ORDER CONFIRMED" : "SECURE CAMBODIA CHECKOUT"}
       maxWidth="xl"
     >
-      {confirmedOrder ? (
+      {isProcessingPayment ? (
+        <div className="flex flex-col items-center justify-center py-12 gap-4">
+          <div className="w-12 h-12 border-4 border-gray-200 border-t-black rounded-full animate-spin"></div>
+          <h3 className="text-lg font-bold uppercase tracking-wider mt-4">Processing Payment</h3>
+          <p className="text-sm text-gray-500">Securely connecting to ABA PayWay...</p>
+        </div>
+      ) : confirmedOrder ? (
         /* Order Confirmed Luxury Success View */
         <div className="flex flex-col items-center text-center py-6 gap-5">
-          <div className="w-16 h-16 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37] flex items-center justify-center text-[#D4AF37] shadow-[0_0_30px_rgba(212,175,55,0.3)] animate-bounce">
+          <div className="w-16 h-16 rounded-full bg-black/15 border border-black flex items-center justify-center text-black shadow-[0_0_30px_rgba(212,175,55,0.3)] animate-bounce">
             <CheckCircle2 className="w-8 h-8" />
           </div>
 
           <div className="flex flex-col gap-1">
-            <span className="text-xs text-[#D4AF37] font-semibold uppercase tracking-[0.2em]">
+            <span className="text-xs text-black font-semibold uppercase tracking-[0.2em]">
               Thank You For Your Order
             </span>
             <h3 className="text-2xl font-bold uppercase tracking-wider text-foreground">
@@ -154,7 +168,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
             </div>
             <div className="flex justify-between text-foreground/60">
               <span>Payment Mode:</span>
-              <span className="text-[#D4AF37] font-semibold">
+              <span className="text-black font-semibold">
                 {confirmedOrder.paymentMethod === "ABA_QR"
                   ? "ABA Bank PayWay QR"
                   : "Cash on Delivery (COD)"}
@@ -162,7 +176,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
             </div>
             <div className="flex justify-between border-t border-border pt-2 font-bold text-sm">
               <span className="text-foreground">Total Amount:</span>
-              <span className="text-[#D4AF37]">
+              <span className="text-black">
                 ${confirmedOrder.totalAmount.toFixed(2)}
               </span>
             </div>
@@ -174,7 +188,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
           </div>
 
           <Button
-            variant="gold"
+            variant="primary"
             size="lg"
             onClick={resetAndClose}
             className="w-full max-w-sm mt-2 font-bold"
@@ -187,7 +201,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
         <form onSubmit={handlePlaceOrder} className="flex flex-col gap-6">
           {/* Shipping Details */}
           <div className="flex flex-col gap-3">
-            <h4 className="text-xs font-semibold uppercase tracking-widest text-[#D4AF37] border-l-2 border-[#D4AF37] pl-2.5">
+            <h4 className="text-xs font-semibold uppercase tracking-widest text-black border-l-2 border-black pl-2.5">
               1. Phnom Penh Delivery Address
             </h4>
 
@@ -239,7 +253,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
           {/* Payment Method Selector */}
           <div className="flex flex-col gap-3">
-            <h4 className="text-xs font-semibold uppercase tracking-widest text-[#D4AF37] border-l-2 border-[#D4AF37] pl-2.5">
+            <h4 className="text-xs font-semibold uppercase tracking-widest text-black border-l-2 border-black pl-2.5">
               2. Select Payment Method
             </h4>
 
@@ -250,7 +264,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 className={twMerge(
                   "p-4 rounded-sm border flex flex-col items-center gap-2 text-center transition-all",
                   paymentMethod === "ABA_QR"
-                    ? "bg-[#D4AF37]/15 border-[#D4AF37] text-foreground shadow-[0_0_15px_rgba(212,175,55,0.2)]"
+                    ? "bg-black/15 border-black text-foreground shadow-[0_0_15px_rgba(212,175,55,0.2)]"
                     : "bg-white border-border text-foreground/60 hover:border-white/30"
                 )}
               >
@@ -258,7 +272,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   className={twMerge(
                     "w-6 h-6",
                     paymentMethod === "ABA_QR"
-                      ? "text-[#D4AF37]"
+                      ? "text-black"
                       : "text-foreground/40"
                   )}
                 />
@@ -278,7 +292,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 className={twMerge(
                   "p-4 rounded-sm border flex flex-col items-center gap-2 text-center transition-all",
                   paymentMethod === "COD"
-                    ? "bg-[#D4AF37]/15 border-[#D4AF37] text-foreground shadow-[0_0_15px_rgba(212,175,55,0.2)]"
+                    ? "bg-black/15 border-black text-foreground shadow-[0_0_15px_rgba(212,175,55,0.2)]"
                     : "bg-white border-border text-foreground/60 hover:border-white/30"
                 )}
               >
@@ -286,7 +300,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   className={twMerge(
                     "w-6 h-6",
                     paymentMethod === "COD"
-                      ? "text-[#D4AF37]"
+                      ? "text-black"
                       : "text-foreground/40"
                   )}
                 />
@@ -308,7 +322,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   <span className="text-foreground font-semibold">
                     ABA Bank Cambodia Account:
                   </span>
-                  <span className="text-[#D4AF37] font-mono font-bold">
+                  <span className="text-black font-mono font-bold">
                     001 234 567 (DELIGHT FASHION CO., LTD)
                   </span>
                   <span className="text-[11px] text-foreground/50">
@@ -330,20 +344,20 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
             </div>
             <div className="flex justify-between text-xs text-foreground/70">
               <span>Cambodia Delivery</span>
-              <span className="text-[#D4AF37]">
+              <span className="text-black">
                 {shippingFee === 0 ? "FREE" : `$${shippingFee.toFixed(2)}`}
               </span>
             </div>
             <div className="flex justify-between text-sm font-extrabold text-foreground border-t border-border pt-2">
               <span>TOTAL TO PAY</span>
-              <span className="text-lg text-[#D4AF37]">
+              <span className="text-lg text-black">
                 ${totalAmount.toFixed(2)}
               </span>
             </div>
 
             <Button
               type="submit"
-              variant="gold"
+              variant="primary"
               size="lg"
               isLoading={isSubmitting}
               leftIcon={<Lock className="w-4 h-4" />}
@@ -353,7 +367,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
             </Button>
 
             <div className="flex items-center justify-center gap-1.5 text-[10px] text-foreground/40 pt-1">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#D4AF37]" />
+              <ShieldCheck className="w-3.5 h-3.5 text-black" />
               <span>
                 100% Encrypted &amp; Protected by Delight Fashion Security
               </span>

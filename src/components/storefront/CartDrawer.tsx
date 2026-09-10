@@ -54,7 +54,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               </div>
               <div className="flex justify-between text-foreground/70">
                 <span>Cambodia Shipping</span>
-                <span className="text-[#D4AF37] font-medium">
+                <span className="text-black font-medium">
                   {shippingFee === 0 ? "FREE" : `$${shippingFee.toFixed(2)}`}
                 </span>
               </div>
@@ -70,14 +70,14 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               <span className="text-sm font-bold uppercase tracking-wider text-foreground">
                 Total Amount
               </span>
-              <span className="text-xl font-extrabold text-[#D4AF37]">
+              <span className="text-xl font-extrabold text-black">
                 ${totalAmount.toFixed(2)}
               </span>
             </div>
 
             {/* Checkout Button */}
             <Button
-              variant="gold"
+              variant="primary"
               size="lg"
               onClick={() => {
                 onClose();
@@ -90,7 +90,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
             </Button>
 
             <div className="flex items-center justify-center gap-1.5 text-[10px] text-foreground/50">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#D4AF37]" />
+              <ShieldCheck className="w-3.5 h-3.5 text-black" />
               <span>COD &amp; ABA PayWay QR Supported Across Cambodia</span>
             </div>
           </div>
@@ -113,7 +113,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               className="flex gap-4 p-3 rounded-sm bg-white border border-border relative group"
             >
               {/* Image */}
-              <div className="w-20 h-24 bg-[#1A1A1A] rounded-sm overflow-hidden shrink-0">
+              <div className="w-20 h-24 bg-gray-100 rounded-sm overflow-hidden shrink-0">
                 <img
                   src={item.imageUrl}
                   alt={item.title}
@@ -138,12 +138,12 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 </div>
 
                 <div className="flex items-center justify-between pt-2">
-                  <span className="text-sm font-extrabold text-[#D4AF37]">
+                  <span className="text-sm font-extrabold text-black">
                     ${(item.price * item.quantity).toFixed(2)}
                   </span>
 
                   {/* Qty Counter */}
-                  <div className="flex items-center border border-white/15 rounded-sm overflow-hidden bg-[#0A0A0A]">
+                  <div className="flex items-center border border-gray-200 rounded-sm overflow-hidden bg-gray-50">
                     <button
                       type="button"
                       onClick={() =>
@@ -153,7 +153,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                           item.quantity - 1
                         )
                       }
-                      className="p-1 text-foreground/70 hover:text-[#D4AF37] hover:bg-black/5"
+                      className="p-1 text-foreground/70 hover:text-black hover:bg-black/5"
                     >
                       <Minus className="w-3 h-3" />
                     </button>
@@ -169,7 +169,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                           item.quantity + 1
                         )
                       }
-                      className="p-1 text-foreground/70 hover:text-[#D4AF37] hover:bg-black/5"
+                      className="p-1 text-foreground/70 hover:text-black hover:bg-black/5"
                     >
                       <Plus className="w-3 h-3" />
                     </button>

@@ -13,8 +13,8 @@ import { useWishlist } from "@/features/wishlist/WishlistContext";
 
 export interface ProductCardProps {
   product: Product;
-  onQuickView: (product: Product) => void;
-  onAddToCart: (product: Product, size: string, color: string) => void;
+  onQuickView?: (product: Product) => void;
+  onAddToCart?: (product: Product, size: string, color: string) => void;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({
@@ -56,7 +56,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           {/* Top Badges */}
           <div className="absolute top-3 left-3 flex flex-col gap-1.5 pointer-events-none z-10">
             {product.isFeatured && (
-              <Badge variant="primary" size="sm">
+              <Badge variant="dark" size="sm">
                 FEATURED
               </Badge>
             )}
@@ -93,7 +93,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               <Button
                 variant="secondary"
                 size="sm"
-                onClick={() => onQuickView(product)}
+                onClick={() => onQuickView?.(product)}
                 leftIcon={<Eye className="w-3.5 h-3.5" />}
                 className="flex-1 text-xs bg-white text-black border-gray-200"
               >
@@ -102,7 +102,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               <Button
                 variant="primary"
                 size="sm"
-                onClick={() => onAddToCart(product, firstSize, firstColor)}
+                onClick={() => onAddToCart?.(product, firstSize, firstColor)}
                 leftIcon={<ShoppingBag className="w-3.5 h-3.5" />}
                 className="flex-1 text-xs"
               >
@@ -148,7 +148,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             </div>
 
             <button
-              onClick={() => onAddToCart(product, firstSize, firstColor)}
+              onClick={() => onAddToCart?.(product, firstSize, firstColor)}
               className="lg:hidden p-2 rounded-sm bg-gray-100 text-black border border-gray-200 hover:bg-black hover:text-white transition-colors"
               aria-label="Add to cart"
             >

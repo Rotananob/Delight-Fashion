@@ -2,6 +2,10 @@
 
 import React, { createContext, useContext, useEffect, useState, useMemo } from "react";
 import { Product } from "@/types";
+import { useAuth } from "@/features/auth/AuthContext";
+import { db } from "@/services/firebase/client";
+import { collection, doc, getDocs, setDoc, deleteDoc } from "firebase/firestore";
+import { useRouter } from "next/navigation";
 
 export interface WishlistContextType {
   items: Product[];
@@ -16,59 +20,95 @@ const WishlistContext = createContext<WishlistContextType | undefined>(undefined
 
 export const WishlistProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [items, setItems] = useState<Product[]>([]);
-  const [isInitialized, setIsInitialized] = useState(false);
+  const { user } = useAuth();
+  const router = useRouter();
 
-  // Load from localStorage on mount
+  // Load from Firestore when user changes
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem("delight_wishlist");
-      if (stored) {
-        setItems(JSON.parse(stored));
-      }
-    } catch (err) {
-      console.warn("Failed to load wishlist from localStorage:", err);
+    if (!user) {
+      setItems([]);
+      return;
     }
-    setIsInitialized(true);
-  }, []);
 
-  // Save to localStorage whenever items change
-  useEffect(() => {
-    if (isInitialized) {
+    const loadWishlist = async () => {
       try {
-        localStorage.setItem("delight_wishlist", JSON.stringify(items));
+        const wishlistRef = collection(db, `users/${user.id}/wishlist`);
+        const snapshot = await getDocs(wishlistRef);
+        const loadedItems = snapshot.docs.map(doc => doc.data() as Product);
+        setItems(loadedItems);
       } catch (err) {
-        console.warn("Failed to save wishlist to localStorage:", err);
+        console.warn("Failed to load wishlist from Firestore:", err);
       }
-    }
-  }, [items, isInitialized]);
+    };
 
-  const addItem = (product: Product) => {
+    loadWishlist();
+  }, [user]);
+
+  const requireAuth = () => {
+    if (!user) {
+      alert("Please sign in to add items to your wishlist.");
+      router.push("/login");
+      return false;
+    }
+    return true;
+  }
+
+  const addItem = async (product: Product) => {
+    if (!requireAuth()) return;
+    
     setItems((prev) => {
       if (prev.some((item) => item.id === product.id)) return prev;
       return [...prev, product];
     });
+
+    try {
+      const docRef = doc(db, `users/${user!.id}/wishlist`, product.id);
+      await setDoc(docRef, product);
+    } catch (err) {
+      console.error("Failed to add to Firestore wishlist:", err);
+    }
   };
 
-  const removeItem = (productId: string) => {
+  const removeItem = async (productId: string) => {
+    if (!requireAuth()) return;
+
     setItems((prev) => prev.filter((item) => item.id !== productId));
+
+    try {
+      const docRef = doc(db, `users/${user!.id}/wishlist`, productId);
+      await deleteDoc(docRef);
+    } catch (err) {
+      console.error("Failed to remove from Firestore wishlist:", err);
+    }
   };
 
   const toggleItem = (product: Product) => {
-    setItems((prev) => {
-      const exists = prev.some((item) => item.id === product.id);
-      if (exists) {
-        return prev.filter((item) => item.id !== product.id);
-      }
-      return [...prev, product];
-    });
+    const exists = items.some((item) => item.id === product.id);
+    if (exists) {
+      removeItem(product.id);
+    } else {
+      addItem(product);
+    }
   };
 
   const isInWishlist = (productId: string) => {
     return items.some((item) => item.id === productId);
   };
 
-  const clearWishlist = () => {
+  const clearWishlist = async () => {
+    if (!requireAuth()) return;
+    
+    const previousItems = [...items];
     setItems([]);
+
+    try {
+      for (const item of previousItems) {
+        const docRef = doc(db, `users/${user!.id}/wishlist`, item.id);
+        await deleteDoc(docRef);
+      }
+    } catch (err) {
+      console.error("Failed to clear Firestore wishlist:", err);
+    }
   };
 
   const value = useMemo(
@@ -80,7 +120,7 @@ export const WishlistProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       isInWishlist,
       clearWishlist,
     }),
-    [items]
+    [items, user]
   );
 
   return (
