@@ -50,6 +50,15 @@ export async function createSessionAction(idToken: string) {
       if (role === "admin") {
         await adminAuth.setCustomUserClaims(decodedToken.uid, { admin: true });
       }
+
+      // Fire & Forget Telegram Notification for New User
+      import('@/services/telegramService').then(({ sendTelegramAlert }) => {
+        const message = `👤 <b>NEW USER REGISTRATION</b>\n\n` +
+          `<b>Name:</b> ${newUser.displayName}\n` +
+          `<b>Email:</b> ${newUser.email}\n` +
+          `<b>Role:</b> ${newUser.role.toUpperCase()}`;
+        sendTelegramAlert("Users", message);
+      }).catch(err => console.error('Failed to load telegramService:', err));
     }
 
     return { success: true };

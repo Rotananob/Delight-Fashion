@@ -97,28 +97,17 @@ export async function placeOrderAction(input: PlaceOrderInput) {
     });
 
     // Fire & Forget Telegram Notification
-    const botToken = process.env.TELEGRAM_BOT_TOKEN;
-    const chatId = process.env.TELEGRAM_SHOP_OWNER_CHAT_ID;
-    
-    if (botToken && chatId) {
-      const message = `🛍 *NEW ORDER #${shortCode}*\n\n` +
-        `👤 *Customer:* ${input.customerInfo.fullName}\n` +
-        `📞 *Phone:* ${input.customerInfo.phone}\n` +
-        `📍 *Address:* ${input.customerInfo.address}\n\n` +
-        `💰 *Total:* $${calculatedTotal.toFixed(2)}\n` +
-        `💳 *Payment:* ${input.paymentMethod.toUpperCase()}\n\n` +
-        `📦 *Items:*\n` + input.items.map(i => `- ${i.quantity}x ${i.title} (${i.size} - ${i.color})`).join('\n');
+    import('@/services/telegramService').then(({ sendTelegramAlert }) => {
+      const message = `🛍 <b>NEW ORDER #${shortCode}</b>\n\n` +
+        `👤 <b>Customer:</b> ${input.customerInfo.fullName}\n` +
+        `📞 <b>Phone:</b> ${input.customerInfo.phone}\n` +
+        `📍 <b>Address:</b> ${input.customerInfo.address}\n\n` +
+        `💰 <b>Total:</b> $${calculatedTotal.toFixed(2)}\n` +
+        `💳 <b>Payment:</b> ${input.paymentMethod.toUpperCase()}\n\n` +
+        `📦 <b>Items:</b>\n` + input.items.map(i => `- ${i.quantity}x ${i.title} (${i.size} - ${i.color})`).join('\n');
 
-      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: message,
-          parse_mode: 'Markdown'
-        })
-      }).catch(err => console.error('Telegram Notify Error:', err));
-    }
+      sendTelegramAlert("Orders", message);
+    }).catch(err => console.error('Failed to load telegramService:', err));
 
     // We don't revalidate paths here instantly because the checkout modal handles success UI
     // and the cart will be cleared on the client side.
