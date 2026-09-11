@@ -8,8 +8,9 @@ export const metadata = {
   title: "Print Invoice | Delight Fashion",
 };
 
-export default async function InvoicePage({ params }: { params: { id: string } }) {
-  const { id } = params;
+export default async function InvoicePage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params;
+  const { id } = resolvedParams;
   const res = await getAdminOrderByIdAction(id);
   
   if (!res.success || !res.order) {
