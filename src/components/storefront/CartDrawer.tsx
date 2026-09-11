@@ -84,7 +84,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 onProceedToCheckout();
               }}
               rightIcon={<ArrowRight className="w-4 h-4" />}
-              className="w-full font-bold shadow-[0_0_25px_rgba(212,175,55,0.3)]"
+              className="w-full font-bold shadow-lg"
             >
               PROCEED TO SECURE CHECKOUT
             </Button>

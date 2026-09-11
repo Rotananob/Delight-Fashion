@@ -136,7 +136,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
       ) : confirmedOrder ? (
         /* Order Confirmed Luxury Success View */
         <div className="flex flex-col items-center text-center py-6 gap-5">
-          <div className="w-16 h-16 rounded-full bg-black/15 border border-black flex items-center justify-center text-black shadow-[0_0_30px_rgba(212,175,55,0.3)] animate-bounce">
+          <div className="w-16 h-16 rounded-full bg-black/15 border border-black flex items-center justify-center text-black shadow-lg animate-bounce">
             <CheckCircle2 className="w-8 h-8" />
           </div>
 
@@ -264,7 +264,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 className={twMerge(
                   "p-4 rounded-sm border flex flex-col items-center gap-2 text-center transition-all",
                   paymentMethod === "ABA_QR"
-                    ? "bg-black/15 border-black text-foreground shadow-[0_0_15px_rgba(212,175,55,0.2)]"
+                    ? "bg-black/15 border-black text-foreground shadow-lg"
                     : "bg-white border-border text-foreground/60 hover:border-white/30"
                 )}
               >
@@ -292,7 +292,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 className={twMerge(
                   "p-4 rounded-sm border flex flex-col items-center gap-2 text-center transition-all",
                   paymentMethod === "COD"
-                    ? "bg-black/15 border-black text-foreground shadow-[0_0_15px_rgba(212,175,55,0.2)]"
+                    ? "bg-black/15 border-black text-foreground shadow-lg"
                     : "bg-white border-border text-foreground/60 hover:border-white/30"
                 )}
               >
@@ -361,7 +361,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
               size="lg"
               isLoading={isSubmitting}
               leftIcon={<Lock className="w-4 h-4" />}
-              className="w-full mt-2 font-bold shadow-[0_0_25px_rgba(212,175,55,0.3)]"
+              className="w-full mt-2 font-bold shadow-lg"
             >
               COMPLETE ORDER (${totalAmount.toFixed(2)})
             </Button>

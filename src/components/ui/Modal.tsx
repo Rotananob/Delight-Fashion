@@ -61,20 +61,20 @@ export const Modal: React.FC<ModalProps> = ({
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
             transition={{ type: "spring", duration: 0.4, bounce: 0.15 }}
             className={twMerge(
-              "relative w-full bg-[#0A0A0A] border border-[#D4AF37]/30 rounded-sm shadow-[0_0_50px_rgba(0,0,0,0.8)] overflow-hidden z-10",
+              "relative w-full bg-white border border-gray-200 rounded-lg shadow-2xl overflow-hidden z-10",
               maxWidthStyles[maxWidth],
               className
             )}
           >
             {/* Header */}
             {title && (
-              <div className="flex items-center justify-between px-6 py-4 border-b border-border">
-                <h3 className="text-lg font-semibold tracking-wider text-foreground uppercase">
+              <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-gray-50/50">
+                <h3 className="text-lg font-semibold tracking-wide text-black uppercase">
                   {title}
                 </h3>
                 <button
                   onClick={onClose}
-                  className="p-1.5 text-foreground/60 hover:text-[#D4AF37] hover:bg-black/5 rounded-sm transition-colors"
+                  className="p-1.5 text-gray-500 hover:text-black hover:bg-gray-200 rounded-md transition-colors"
                 >
                   <X className="w-5 h-5" />
                 </button>
