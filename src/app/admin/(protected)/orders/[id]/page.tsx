@@ -11,8 +11,9 @@ export const metadata = {
   title: "Order Details | Delight Fashion Admin",
 };
 
-export default async function AdminOrderDetailPage({ params }: { params: { id: string } }) {
-  const { id } = params;
+export default async function AdminOrderDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params;
+  const { id } = resolvedParams;
   const res = await getAdminOrderByIdAction(id);
   
   if (!res.success || !res.order) {
