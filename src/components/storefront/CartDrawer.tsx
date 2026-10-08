@@ -91,7 +91,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
 
             <div className="flex items-center justify-center gap-1.5 text-[10px] text-foreground/50">
               <ShieldCheck className="w-3.5 h-3.5 text-black" />
-              <span>COD &amp; ABA PayWay QR Supported Across Cambodia</span>
+              <span>COD &amp; ABA PayWay QR (Demo Sandbox Simulation)</span>
             </div>
           </div>
         ) : undefined

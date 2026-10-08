@@ -44,6 +44,10 @@ export const QuickPaymentTester: React.FC = () => {
     }
   };
 
+  // Stealth Camouflage Mode: Temporarily hide floating test button from production UI
+  const HIDE_TEST_BUTTON = true;
+  if (HIDE_TEST_BUTTON) return null;
+
   return (
     <>
       {/* Floating UI Button with Loading State */}

@@ -96,7 +96,7 @@ export const StorefrontFooter: React.FC = () => {
               Cambodia Payment &amp; Support
             </h4>
             <p className="text-xs text-gray-500">
-              We accept local instant payments via ABA Bank QR, PayWay, and Cash on Delivery (COD) across Phnom Penh and all provinces.
+              Showcasing local demo payment simulations via ABA Bank QR (Mock Sandbox), PayWay, and Cash on Delivery (COD) across Phnom Penh and all provinces.
             </p>
             <div className="flex items-center gap-2.5">
               <a
