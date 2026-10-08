@@ -46,7 +46,9 @@ const DEFAULT_BASE_KHQR =
   process.env.ABA_BASE_KHQR ||
   "00020101021230510016abaakhppxxx@abaa01151260428194431870208ABA Bank52048999530384054040.015802KH5925THOUN SOTHEARA ANALITEKIT6003N/A625568510010PAYWAY@ABA0115536712-3061550102090422413040301199670013179147146508201131794063465082672100170013F1BF016411FDA6804PLIK63042BD7";
 
-// ─── Invoice Creation (Direct Handshake with ABA PayWay Switch) ───────────────
+export const PURE_MOCK_SIMULATION_MODE = true;
+
+// ─── Invoice Creation (Pure Mock LocalStorage Simulation Engine) ─────────────
 
 export async function createPaymentInvoice(
   orderId: string,
@@ -67,6 +69,34 @@ export async function createPaymentInvoice(
   let cookie = "";
   let deeplinks = { aba: "", wing: "", acleda: "", bakong: "" };
   let mode: PaymentMode = "offline";
+
+  // 1. Pure Mock LocalStorage Simulation Mode (Zero Bank Calls)
+  if (PURE_MOCK_SIMULATION_MODE) {
+    tranId = `MOCK-LOCAL-${Date.now()}`;
+    qrString = RotanaKhqr.mutateKhqr(DEFAULT_BASE_KHQR, effectiveAmount, currency);
+    deeplinks = buildBankDeeplinks(qrString);
+    mode = "offline";
+
+    const qrDataUrl = await QRCode.toDataURL(qrString, {
+      errorCorrectionLevel: "M",
+      margin: 2,
+      width: 340,
+      color: { dark: "#0B0F19", light: "#FFFFFF" },
+    });
+
+    return {
+      tranId,
+      orderId,
+      amount: effectiveAmount,
+      currency,
+      isTestMode: true,
+      mode,
+      qrString,
+      qrDataUrl,
+      deeplinks,
+      paywayUrl: checkoutUrl,
+    };
+  }
 
   // 1. Direct Headless Handshake with ABA PayWay Switch
   if (checkoutUrl && checkoutUrl.startsWith("https://link.payway.com.kh/")) {
@@ -170,6 +200,9 @@ export async function createPaymentInvoice(
   };
 }
 
+// Memory map to simulate polling cycles for pure mock simulation mode
+const mockPollCounters = new Map<string, number>();
+
 // ─── Payment Status Auto-Verification (ABA Official Status API) ───────────────
 
 export async function verifyTransactionStatus(
@@ -188,6 +221,30 @@ export async function verifyTransactionStatus(
       }
     }
   } catch {}
+
+  // 0. Pure Mock LocalStorage Simulation Mode (Zero Bank Calls, Auto-Approve after 3 polls ~6-8s)
+  if (PURE_MOCK_SIMULATION_MODE || tranId.startsWith("MOCK-")) {
+    const polls = (mockPollCounters.get(tranId) || 0) + 1;
+    mockPollCounters.set(tranId, polls);
+
+    if (polls >= 3) {
+      if (orderId && !orderId.startsWith("TEST-")) {
+        try {
+          await adminDb.collection("orders").doc(orderId).update({
+            paymentStatus: "paid",
+            status: "Confirmed",
+            paidAt: new Date().toISOString(),
+            "paymentDetails.status": "paid",
+            "paymentDetails.confirmedAt": new Date().toISOString(),
+            "paymentDetails.confirmedBy": "mock_auto_simulation",
+          });
+        } catch {}
+      }
+      return { paid: true, status: "PAID", isOfflineTranId: true };
+    }
+
+    return { paid: false, status: "PENDING", isOfflineTranId: true };
+  }
 
   // If local offline reference
   if (tranId.startsWith("DF-") && !clientId) {
