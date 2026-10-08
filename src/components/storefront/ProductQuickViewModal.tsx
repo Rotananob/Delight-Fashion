@@ -210,7 +210,7 @@ export const ProductQuickViewModal: React.FC<ProductQuickViewModalProps> = ({
           <div className="flex items-center gap-2 text-[11px] text-foreground/50 justify-center">
             <Crown className="w-3.5 h-3.5 text-[#D4AF37]" />
             <span>
-              Phnom Penh Same-Day Delivery • Instant COD &amp; ABA PayWay QR (Demo Sandbox)
+              Phnom Penh Same-Day Delivery • Instant COD &amp; ABA PayWay QR
             </span>
           </div>
         </div>

@@ -351,10 +351,10 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 />
                 <div className="flex flex-col">
                   <span className="text-xs font-bold uppercase tracking-wider">
-                    ABA PayWay QR (Demo)
+                    ABA PayWay QR
                   </span>
                   <span className="text-[10px] text-foreground/50">
-                    UI Simulation (Mock Sandbox)
+                    Scan &amp; Pay via ABA Bank
                   </span>
                 </div>
               </button>
@@ -388,24 +388,22 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
               </button>
             </div>
 
-            {/* ABA QR Account Instructions with Mock Camouflage Notice */}
+            {/* ABA QR Account Instructions */}
             {paymentMethod === "ABA_QR" && (
-              <div className="p-3.5 rounded-sm bg-amber-50/50 border border-amber-200/60 flex flex-col gap-2 text-xs">
-                <div className="flex items-center justify-between">
-                  <div className="flex flex-col gap-0.5">
-                    <span className="text-foreground font-semibold">
-                      ABA Bank Cambodia (Demo Showcase):
-                    </span>
-                    <span className="text-black font-mono font-bold">
-                      001 234 567 (DELIGHT FASHION CO., LTD)
-                    </span>
-                  </div>
-                  <div className="w-10 h-10 rounded-sm bg-white border border-amber-200/40 p-1 shrink-0">
-                    <QrCode className="w-full h-full text-black" />
-                  </div>
+              <div className="p-3.5 rounded-sm bg-gray-50 border border-border flex items-center justify-between text-xs">
+                <div className="flex flex-col gap-1">
+                  <span className="text-foreground font-semibold">
+                    ABA Bank Cambodia Account:
+                  </span>
+                  <span className="text-black font-mono font-bold">
+                    001 234 567 (DELIGHT FASHION CO., LTD)
+                  </span>
+                  <span className="text-[11px] text-foreground/50">
+                    Instant KHQR transfer directly into Delight Fashion merchant account.
+                  </span>
                 </div>
-                <div className="text-[10px] text-amber-800 bg-amber-100/70 border border-amber-200/50 rounded px-2.5 py-1.5 leading-snug">
-                  ℹ️ <strong>Mock Data Prototype:</strong> Payment workflow & dynamic KHQR are for UI demonstration and developer sandbox testing (state saved in LocalStorage).
+                <div className="w-10 h-10 rounded-sm bg-white border border-border p-1 shrink-0">
+                  <QrCode className="w-full h-full text-black" />
                 </div>
               </div>
             )}

@@ -225,7 +225,7 @@ export const ProductDetailClient: React.FC<{ product: Product, relatedProducts?:
             </div>
             <div className="flex items-center gap-3 text-xs text-gray-500">
               <Check className="w-4 h-4 text-green-600" />
-              <span>COD & ABA PayWay (Demo Sandbox)</span>
+              <span>COD & ABA PayWay Accepted</span>
             </div>
           </div>
 
