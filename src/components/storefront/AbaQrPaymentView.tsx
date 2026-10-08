@@ -4,7 +4,6 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import type { PaymentInvoiceResult } from "@/services/paymentService";
 import {
   confirmPaymentManuallyAction,
-  checkPaymentStatusAction,
 } from "@/app/actions/paymentActions";
 import { db } from "@/services/firebase/client";
 import { doc, onSnapshot } from "firebase/firestore";
@@ -180,17 +179,26 @@ export const AbaQrPaymentView: React.FC<AbaQrPaymentViewProps> = ({
       attempts++;
 
       try {
-        const res = await checkPaymentStatusAction(
-          paymentData.orderId,
-          paymentData.tranId,
-          paymentData.clientId,
-          paymentData.token,
-          paymentData.cookie
-        );
+        const response = await fetch("/api/payway/check-status", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            orderId: paymentData.orderId,
+            tranId: paymentData.tranId,
+            clientId: paymentData.clientId,
+            token: paymentData.token,
+            cookie: paymentData.cookie,
+          }),
+        });
 
-        if (res.paid && active) {
-          markPaid();
-          return;
+        if (response.ok) {
+          const res = await response.json();
+          if (res.paid && active) {
+            markPaid();
+            return;
+          }
         }
       } catch {
         // Network glitch — retry next poll silently
