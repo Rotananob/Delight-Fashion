@@ -246,7 +246,11 @@ export const AbaQrPaymentView: React.FC<AbaQrPaymentViewProps> = ({
   const handleOpenBankApp = (bankKey: keyof typeof BANK_CONFIGS) => {
     const cfg = BANK_CONFIGS[bankKey];
     const userAgent = typeof navigator !== "undefined" ? navigator.userAgent : "";
-    const isIOS = /iPad|iPhone|iPod/.test(userAgent);
+    const isIOS =
+      /iPad|iPhone|iPod/.test(userAgent) ||
+      (typeof navigator !== "undefined" &&
+        navigator.platform === "MacIntel" &&
+        navigator.maxTouchPoints > 1);
     const isAndroid = /Android/.test(userAgent);
 
     const qrString = paymentData.qrString;
@@ -261,13 +265,9 @@ export const AbaQrPaymentView: React.FC<AbaQrPaymentViewProps> = ({
     }
 
     if (isIOS) {
-      // 1. On iOS: For ABA, if PayWay universal link exists, open it directly so iOS invokes ABA Mobile
-      if (bankKey === "aba" && paymentData.paywayUrl) {
-        window.location.href = paymentData.paywayUrl;
-        return;
-      }
-
-      // 2. Track whether the bank app successfully opened to avoid premature App Store redirect
+      // On iOS: Call native URL scheme directly (abamobilebank://, bakong://, acledamobile://, wingbank://)
+      const scheme = cfg.iosScheme(qrString);
+      const start = Date.now();
       let appOpened = false;
       const markOpened = () => {
         appOpened = true;
@@ -276,13 +276,11 @@ export const AbaQrPaymentView: React.FC<AbaQrPaymentViewProps> = ({
       window.addEventListener("blur", markOpened, { once: true });
       document.addEventListener("visibilitychange", markOpened, { once: true });
 
-      // 3. For Bakong, ACLEDA, Wing: Call iOS native URL scheme
-      const scheme = cfg.iosScheme(qrString);
-      const start = Date.now();
+      // Directly invoke the mobile app via scheme
       window.location.href = scheme;
 
-      // 4. Fallback: If user DOES NOT have the app installed, browser stays focused
-      // Redirect to the verified universal Apple App Store link after 2.2 seconds!
+      // Fallback: If user DOES NOT have the app installed, browser stays focused
+      // Redirect to the verified universal Apple App Store link after 2.5 seconds
       setTimeout(() => {
         window.removeEventListener("blur", markOpened);
         document.removeEventListener("visibilitychange", markOpened);
@@ -290,11 +288,11 @@ export const AbaQrPaymentView: React.FC<AbaQrPaymentViewProps> = ({
         if (!appOpened && typeof document !== "undefined" && document.hasFocus() && Date.now() - start < 3500) {
           window.location.href = fallbackStore;
         }
-      }, 2200);
+      }, 2500);
       return;
     }
 
-    // Desktop
+    // Desktop: Open PayWay link or App Store page
     if (bankKey === "aba" && paymentData.paywayUrl) {
       window.open(paymentData.paywayUrl, "_blank");
     } else {
