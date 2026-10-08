@@ -5,6 +5,7 @@ import { generateSeoMetadata } from "@/utils/seo";
 import { ClientProviders } from "@/components/providers/ClientProviders";
 import { UpdatePrompt } from "@/components/pwa/UpdatePrompt";
 import { VisitorTracker } from "@/components/storefront/VisitorTracker";
+import { QuickPaymentTester } from "@/components/storefront/QuickPaymentTester";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,6 +38,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-background text-foreground transition-colors duration-300">
         <VisitorTracker />
         <ClientProviders>{children}</ClientProviders>
+        <QuickPaymentTester />
         <UpdatePrompt />
       </body>
     </html>

@@ -102,6 +102,24 @@ export interface Order {
   shippingFee: number;
   totalAmount: number;
   paymentMethod: PaymentMethod;
+  paymentStatus?: "unpaid" | "awaiting_verification" | "awaiting_payment" | "paid";
+  paymentDetails?: {
+    tranId: string;
+    qrString: string;
+    qrDataUrl?: string;
+    deeplinks?: {
+      aba: string;
+      wing: string;
+      acleda: string;
+      bakong: string;
+    };
+    amount: number;
+    currency: "USD" | "KHR";
+    isTestMode?: boolean;
+    status: string;
+    createdAt?: string;
+    settledAt?: string;
+  };
   paymentReference?: string;
   status: OrderStatus;
   statusHistory?: OrderStatusHistoryItem[];

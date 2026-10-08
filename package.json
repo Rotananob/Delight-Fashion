@@ -4,7 +4,7 @@
   "description": "Delight Fashion - Premium Men's Fashion E-Commerce System in Phnom Penh, Cambodia",
   "private": true,
   "scripts": {
-    "dev": "next dev --webpack",
+    "dev": "next dev -H 0.0.0.0 --webpack",
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint"
@@ -21,9 +21,11 @@
     "js-cookie": "^3.0.8",
     "lucide-react": "^1.28.0",
     "next": "16.2.12",
+    "qrcode": "^1.5.4",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "recharts": "^3.10.1",
+    "rotana-khqr-deeplink": "^1.0.0",
     "server-only": "^0.0.1",
     "serwist": "^9.5.12",
     "sharp": "^0.35.3",
@@ -33,6 +35,7 @@
     "@tailwindcss/postcss": "^4",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
+    "@types/qrcode": "^1.5.6",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",

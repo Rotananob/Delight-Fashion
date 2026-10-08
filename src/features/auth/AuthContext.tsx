@@ -50,7 +50,7 @@ const MOCK_CUSTOMER: UserProfile = {
 const MOCK_ADMIN: UserProfile = {
   id: "mock_admin_owner_001",
   email: "owner@delightfashion.com.kh",
-  displayName: "Rotana (Shop Owner)",
+  displayName: "Thoun Sotheara (Shop Owner)",
   phone: "+855 12 999 888",
   role: "admin",
   createdAt: new Date().toISOString(),

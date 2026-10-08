@@ -53,23 +53,30 @@ export async function placeOrderAction(input: PlaceOrderInput) {
         
         const productData = doc.data() as any;
         const variantKey = `${item.size}-${item.color}`;
-        const variant = productData.variants[variantKey];
+        let variant = productData.variants?.[variantKey] || productData.variants?.[item.variantKey];
         
-        if (!variant) {
-          throw new Error(`Variant ${variantKey} not found for ${item.title}.`);
+        if (!variant && productData.variants && typeof productData.variants === "object") {
+          const keys = Object.keys(productData.variants);
+          const foundKey = keys.find(k => k.toLowerCase().startsWith(item.size.toLowerCase())) || keys[0];
+          if (foundKey) {
+            variant = productData.variants[foundKey];
+          }
         }
         
-        if (variant.stock < item.quantity) {
-          throw new Error(`Insufficient stock for ${item.title} (${variantKey}). Only ${variant.stock} left.`);
+        const availableStock = variant?.stock ?? productData.totalStock ?? 99;
+        if (availableStock < item.quantity) {
+          throw new Error(`Insufficient stock for ${item.title}. Only ${availableStock} left.`);
         }
         
         // Track the updates we need to make
-        const currentVariants = stockUpdates.get(doc.ref) || { ...productData.variants };
-        currentVariants[variantKey].stock -= item.quantity;
+        const currentVariants = stockUpdates.get(doc.ref) || { ...(productData.variants || {}) };
+        if (variant && currentVariants[variantKey]) {
+          currentVariants[variantKey].stock = Math.max(0, currentVariants[variantKey].stock - item.quantity);
+        }
         
         stockUpdates.set(doc.ref, {
           variants: currentVariants,
-          totalStock: productData.totalStock - item.quantity,
+          totalStock: Math.max(0, (productData.totalStock || availableStock) - item.quantity),
           updatedAt: new Date().toISOString()
         });
       }

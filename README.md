@@ -150,6 +150,92 @@ See `.env.example` for all required keys. Key namespaces include:
 
 ---
 
+---
+
+## 💳 ABA PayWay & KHQR Engine (Anti-Cloudflare WAF Architecture & Cloud Hosting Guide)
+
+Delight Fashion features a production-ready, zero-ban ABA PayWay & NBC KHQR payment engine that connects directly to real ABA bank accounts (`THOUN SOTHEARA ANALITEKIT` - Merchant ID `536712`) without requiring an expensive enterprise merchant gateway contract.
+
+### 🛡️ 1. Anti-Cloudflare WAF Handshake Architecture
+
+ABA PayWay protects its merchant links (`link.payway.com.kh`) and payment API (`pwapp.ababank.com`) using Cloudflare Web Application Firewall (WAF) with Bot Management. To ensure 100% uptime without 403 Forbidden blocks, our backend uses a specialized 3-stage handshake:
+
+```
+[Customer Browser / Mobile]
+       │
+       ▼ (1) Trigger Server Action (createPaymentAction)
+[Next.js Serverless Backend / Node.js]
+       │
+       ├─► (2) GET https://link.payway.com.kh/ABAPAYaA536712c
+       │       - Realistic Browser Headers (Chrome 131, km-KH, Sec-Ch-Ua)
+       │       - Capture Cloudflare Bot Cookie: `__cf_bm`
+       │       - Extract Session Tokens: `aba_data` & `request_time`
+       │
+       ├─► (3) Compute Cryptographic Digital Signature
+       │       - Payload: requestTime + abaData + JSON({ amount })
+       │       - Hash: crypto.createHash("sha512").digest("hex")
+       │
+       ├─► (4) POST https://pwapp.ababank.com/api/pw-app/v1/payment/gateway/list-payment-options
+       │       - Headers: Forward captured `__cf_bm` Cookie + Origin + Referer
+       │       - Body: { aba_data, additional_fields, hash, request_time }
+       │       - ABA returns: Official 270-char KHQR string, tranId, clientId, session token
+       │
+       └─► (5) Return High-Res QR (Data URL) + Cookie + Token to Frontend
+```
+
+### ⏱️ 2. Bank-Standard 3-Minute Expiry & Auto-Polling Engine
+
+- **3-Minute Strict Countdown (180s):** Dynamic KHQR sessions expire after exactly 3 minutes, matching the ABA Mobile & NBC standard.
+- **Auto-Poll Loop:** Runs every **3s ± 200ms Jitter** to mimic human behavior.
+- **Tab Visibility Detection:** Automatically pauses polling when the user switches or minimizes tabs to save server bandwidth and prevent bot flagging.
+- **Cloudflare Cookie Forwarding:** Every status polling request (`check-payment-status`) sends the original `__cf_bm` cookie along with a fresh SHA-512 device hash.
+- **One-Click Regenerate:** When the 3-minute timer expires, the QR blurs and displays a "Regenerate QR Code" button that seamlessly creates a fresh 3-minute session without re-entering checkout details.
+
+### 📱 3. Multi-Bank Universal Deeplinks & App Store Fallbacks
+
+To ensure smooth app-to-app checkout on both iPhone and Android:
+
+| Bank App | iOS Universal Link (No `/kh/` Region Lock) | iOS Scheme | Android Package Name (Google Play) |
+| :--- | :--- | :--- | :--- |
+| **ABA Mobile** | `https://apps.apple.com/app/aba-mobile-bank/id968860649` | Universal Link | `com.paygo24.ibank` |
+| **Bakong** | `https://apps.apple.com/app/bakong/id1440829141` | `bakong://open?qr=...` | `jp.co.soramitsu.bakong` |
+| **Wing Bank** | `https://apps.apple.com/app/wing-bank/id1113286385` | `wingbank://` | `com.wing.bankapp` |
+| **ACLEDA** | `https://apps.apple.com/app/acleda-mobile/id1196285236` | `acledamobile://?qr_code=...` | `com.acledabank.mobile` |
+
+> [!NOTE]
+> **Why Universal Store Links Matter:** Never use country-specific paths like `/kh/app/` in iOS store URLs. Most Cambodian iPhone users register Apple IDs in the US or Singapore. Hardcoding `/kh/` triggers Apple's *"This app is not supported in your current country/region"* error. Using `https://apps.apple.com/app/<name>/id<ID>` automatically routes to the user's active Apple ID store worldwide.
+
+---
+
+### 🌐 4. Cloud Production Hosting Guide
+
+When deploying Delight Fashion to cloud providers, configure the following settings:
+
+#### A. Vercel (Recommended)
+1. In the Vercel Dashboard, go to **Project Settings ➡️ Environment Variables**.
+2. Add all keys from `.env.local`:
+   - `PAYWAY_CHECKOUT_URL`: `https://link.payway.com.kh/ABAPAYaA536712c`
+   - `NEXT_PUBLIC_PAYMENT_TEST_MODE`: `false` (or `true` for $0.01 test)
+   - `NEXT_PUBLIC_TEST_AMOUNT_USD`: `0.01`
+   - `NEXT_PUBLIC_ABA_BANK_ACCOUNT_NUMBER`: `536712`
+   - `NEXT_PUBLIC_ABA_BANK_ACCOUNT_NAME`: `THOUN SOTHEARA ANALITEKIT`
+   - `FIREBASE_ADMIN_PROJECT_ID`, `FIREBASE_ADMIN_CLIENT_EMAIL`, `FIREBASE_ADMIN_PRIVATE_KEY`
+   - `NEXT_PUBLIC_FIREBASE_*` (Client SDK config)
+   - `NEXT_PUBLIC_CLOUDINARY_*` and `CLOUDINARY_*`
+   - `TELEGRAM_BOT_TOKEN` & `TELEGRAM_SHOP_OWNER_CHAT_ID`
+3. **Region Setting:** Under **Settings ➡️ Functions**, choose **Singapore (`sin1`)** as the deployment region. This gives ~30ms latency to Cambodian users and ABA servers.
+
+#### B. Render / Docker / Railway
+1. Use Node.js 18 LTS or 20 LTS.
+2. Ensure outgoing HTTPS (port 443) traffic is open.
+3. Configure identical Environment Variables in the service settings.
+
+#### C. Firebase App Hosting
+1. Store sensitive keys (Firebase Private Key, Cloudinary Secret, Telegram Token) in **Google Cloud Secret Manager**.
+2. Reference them in `apphosting.yaml`.
+
+---
+
 ## 🏛️ License & Authors
 
 **Delight Fashion Co., Ltd.** — Phnom Penh, Cambodia.  

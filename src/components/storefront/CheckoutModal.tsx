@@ -8,6 +8,9 @@ import { useCart } from "@/features/cart/CartContext";
 import { useAuth } from "@/features/auth/AuthContext";
 import { PaymentMethod, Order } from "@/types";
 import { placeOrderAction } from "@/app/actions/orderActions";
+import { createPaymentAction } from "@/app/actions/paymentActions";
+import { PaymentInvoiceResult } from "@/services/paymentService";
+import { AbaQrPaymentView } from "./AbaQrPaymentView";
 import {
   CheckCircle2,
   QrCode,
@@ -47,17 +50,15 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const [confirmedOrder, setConfirmedOrder] = useState<Order | null>(null);
+  const [activePayment, setActivePayment] = useState<{
+    paymentData: PaymentInvoiceResult;
+    orderCode: string;
+    orderObj: Order;
+  } | null>(null);
 
   const handlePlaceOrder = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-
-    if (paymentMethod === "ABA_QR") {
-      setIsProcessingPayment(true);
-      // Simulate ABA PayWay delay
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      setIsProcessingPayment(false);
-    }
 
     try {
       const res = await placeOrderAction({
@@ -78,6 +79,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
       const newOrder: Order = {
         id: res.orderId!,
+        orderCode: res.orderCode,
         customerId: user?.id || "guest_customer",
         customerEmail: email,
         shippingAddress: {
@@ -105,6 +107,25 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
         createdAt: new Date().toISOString(),
       };
 
+      // If ABA_QR, initialize dynamic KHQR & Deeplinks
+      if (paymentMethod === "ABA_QR") {
+        setIsProcessingPayment(true);
+        const paymentRes = await createPaymentAction(res.orderId!, totalAmount, "USD");
+        setIsProcessingPayment(false);
+
+        if (paymentRes.success && paymentRes.paymentData) {
+          setActivePayment({
+            paymentData: paymentRes.paymentData,
+            orderCode: res.orderCode || res.orderId!,
+            orderObj: newOrder,
+          });
+          return;
+        } else {
+          throw new Error(paymentRes.error || "Failed to initialize ABA QR code.");
+        }
+      }
+
+      // COD payment finishes immediately
       setConfirmedOrder(newOrder);
       clearCart();
       onOrderSuccess(newOrder);
@@ -112,11 +133,39 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
       alert(`Checkout failed: ${error.message}`);
     } finally {
       setIsSubmitting(false);
+      setIsProcessingPayment(false);
+    }
+  };
+
+  const handleRefreshPayment = async () => {
+    if (!activePayment) return;
+    setIsProcessingPayment(true);
+    try {
+      const paymentRes = await createPaymentAction(
+        activePayment.paymentData.orderId,
+        totalAmount,
+        "USD"
+      );
+      if (paymentRes.success && paymentRes.paymentData) {
+        setActivePayment((prev) =>
+          prev
+            ? {
+                ...prev,
+                paymentData: paymentRes.paymentData!,
+              }
+            : null
+        );
+      }
+    } catch (err: any) {
+      console.error("Failed to refresh payment:", err);
+    } finally {
+      setIsProcessingPayment(false);
     }
   };
 
   const resetAndClose = () => {
     setConfirmedOrder(null);
+    setActivePayment(null);
     onClose();
   };
 
@@ -124,15 +173,39 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
     <Modal
       isOpen={isOpen}
       onClose={resetAndClose}
-      title={confirmedOrder ? "ORDER CONFIRMED" : "SECURE CAMBODIA CHECKOUT"}
+      title={
+        activePayment
+          ? "ABA KHQR PAYMENT"
+          : confirmedOrder
+          ? "ORDER CONFIRMED"
+          : "SECURE CAMBODIA CHECKOUT"
+      }
       maxWidth="xl"
     >
       {isProcessingPayment ? (
         <div className="flex flex-col items-center justify-center py-12 gap-4">
           <div className="w-12 h-12 border-4 border-gray-200 border-t-black rounded-full animate-spin"></div>
-          <h3 className="text-lg font-bold uppercase tracking-wider mt-4">Processing Payment</h3>
-          <p className="text-sm text-gray-500">Securely connecting to ABA PayWay...</p>
+          <h3 className="text-lg font-bold uppercase tracking-wider mt-4">Generating KHQR & Deeplink</h3>
+          <p className="text-sm text-gray-500">Connecting to Delight Fashion Payment Engine...</p>
         </div>
+      ) : activePayment ? (
+        <AbaQrPaymentView
+          paymentData={activePayment.paymentData}
+          orderCode={activePayment.orderCode}
+          onPaymentSuccess={() => {
+            const finalOrder = {
+              ...activePayment.orderObj,
+              status: "Confirmed" as const,
+              paymentStatus: "paid" as const,
+            };
+            setConfirmedOrder(finalOrder);
+            setActivePayment(null);
+            clearCart();
+            onOrderSuccess(finalOrder);
+          }}
+          onCancel={() => setActivePayment(null)}
+          onRefresh={handleRefreshPayment}
+        />
       ) : confirmedOrder ? (
         /* Order Confirmed Luxury Success View */
         <div className="flex flex-col items-center text-center py-6 gap-5">
