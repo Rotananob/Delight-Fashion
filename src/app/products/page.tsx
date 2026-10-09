@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { StorefrontLayoutShell } from "@/components/storefront/StorefrontLayoutShell";
 import { getProducts, getCategories } from "@/services/productService";
 import { generateSeoMetadata } from "@/utils/seo";
@@ -69,20 +70,20 @@ export default async function ProductsPage({
               </h3>
               <ul className="flex flex-col gap-2">
                 <li>
-                  <a href="/products" className={`text-sm font-semibold uppercase tracking-wide transition-colors ${!params.category && !params.filter ? "text-black" : "text-gray-500 hover:text-black"}`}>
+                  <Link href="/products" className={`text-sm font-semibold uppercase tracking-wide transition-colors ${!params.category && !params.filter ? "text-black font-bold" : "text-gray-500 hover:text-black"}`}>
                     All Products
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/products?filter=new" className={`text-sm font-semibold uppercase tracking-wide transition-colors ${params.filter === "new" ? "text-black" : "text-gray-500 hover:text-black"}`}>
+                  <Link href="/products?filter=new" className={`text-sm font-semibold uppercase tracking-wide transition-colors ${params.filter === "new" ? "text-black font-bold" : "text-gray-500 hover:text-black"}`}>
                     New Arrivals
-                  </a>
+                  </Link>
                 </li>
                 {categories.map(c => (
                   <li key={c.id}>
-                    <a href={`/products?category=${c.slug}`} className={`text-sm font-semibold uppercase tracking-wide transition-colors ${params.category === c.slug ? "text-black" : "text-gray-500 hover:text-black"}`}>
+                    <Link href={`/products?category=${c.slug}`} className={`text-sm font-semibold uppercase tracking-wide transition-colors ${params.category === c.slug ? "text-black font-bold" : "text-gray-500 hover:text-black"}`}>
                       {c.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>

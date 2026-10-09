@@ -1,6 +1,6 @@
 import React from "react";
 import { redirect } from "next/navigation";
-import { getSessionServer } from "@/app/actions/authActions";
+import { getSessionAndUserServer } from "@/app/actions/authActions";
 import { AdminLayoutShell } from "@/components/admin/AdminLayoutShell";
 import { generateSeoMetadata } from "@/utils/seo";
 

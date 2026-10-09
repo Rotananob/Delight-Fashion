@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { Modal } from "@/components/ui/Modal";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -35,16 +36,29 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   const { items, subtotal, shippingFee, totalAmount, clearCart } = useCart();
   const { user } = useAuth();
 
-  const [fullName, setFullName] = useState(user?.displayName || "Sokha Vong");
-  const [phone, setPhone] = useState(user?.phone || "012 345 678");
-  const [email, setEmail] = useState(user?.email || "sokha.vong@gmail.com");
+  const [fullName, setFullName] = useState(user?.displayName || "");
+  const [phone, setPhone] = useState(user?.phone || "");
+  const [email, setEmail] = useState(user?.email || "");
   const [addressLine1, setAddressLine1] = useState(
-    user?.savedAddresses?.[0]?.addressLine1 || "St 271, Sangkat Tumnop Teuk"
+    user?.savedAddresses?.[0]?.addressLine1 || ""
   );
   const [district, setDistrict] = useState(
-    user?.savedAddresses?.[0]?.district || "Chamkar Mon"
+    user?.savedAddresses?.[0]?.district || ""
   );
-  const [city, setCity] = useState("Phnom Penh");
+  const [city, setCity] = useState(user?.savedAddresses?.[0]?.city || "Phnom Penh");
+
+  React.useEffect(() => {
+    if (user) {
+      if (user.displayName) setFullName(user.displayName);
+      if (user.phone) setPhone(user.phone);
+      if (user.email) setEmail(user.email);
+      if (user.savedAddresses?.[0]) {
+        if (user.savedAddresses[0].addressLine1) setAddressLine1(user.savedAddresses[0].addressLine1);
+        if (user.savedAddresses[0].district) setDistrict(user.savedAddresses[0].district);
+        if (user.savedAddresses[0].city) setCity(user.savedAddresses[0].city);
+      }
+    }
+  }, [user]);
 
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("ABA_QR");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -217,8 +231,8 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
             <span className="text-xs text-black font-semibold uppercase tracking-[0.2em]">
               Thank You For Your Order
             </span>
-            <h3 className="text-2xl font-bold uppercase tracking-wider text-foreground">
-              Order #{confirmedOrder.id}
+            <h3 className="text-2xl font-bold uppercase tracking-wider text-black">
+              Order #{confirmedOrder.orderCode || confirmedOrder.id.substring(confirmedOrder.id.length - 6).toUpperCase()}
             </h3>
           </div>
 
@@ -260,14 +274,23 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
             <span>Telegram notification sent to @DelightFashionKH</span>
           </div>
 
-          <Button
-            variant="primary"
-            size="lg"
-            onClick={resetAndClose}
-            className="w-full max-w-sm mt-2 font-bold"
-          >
-            CONTINUE SHOPPING
-          </Button>
+          <div className="w-full max-w-sm flex flex-col gap-2 mt-2">
+            <Link
+              href="/orders"
+              onClick={resetAndClose}
+              className="w-full py-3 bg-[#D4AF37] hover:bg-[#E6C86E] text-black font-bold text-xs uppercase tracking-wider rounded-sm text-center transition-colors shadow-sm"
+            >
+              TRACK / VIEW MY ORDERS
+            </Link>
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={resetAndClose}
+              className="w-full font-bold text-xs uppercase tracking-wider"
+            >
+              CONTINUE SHOPPING
+            </Button>
+          </div>
         </div>
       ) : (
         /* Checkout Form View */

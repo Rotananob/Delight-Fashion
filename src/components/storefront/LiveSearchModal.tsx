@@ -61,21 +61,21 @@ export const LiveSearchModal: React.FC<LiveSearchModalProps> = ({ isOpen, onClos
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-[#0A0A0A]/95 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="w-full border-b border-border p-4 sm:p-6 lg:p-8">
+    <div className="fixed inset-0 z-50 flex flex-col bg-white/98 backdrop-blur-md animate-in fade-in duration-200 text-black">
+      <div className="w-full border-b border-gray-200 p-4 sm:p-6 lg:p-8">
         <div className="max-w-7xl mx-auto flex items-center gap-4">
-          <SearchIcon className="w-6 h-6 text-foreground/50" />
+          <SearchIcon className="w-6 h-6 text-gray-400" />
           <input
             id="live-search-input"
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search products..."
-            className="flex-1 bg-transparent border-none outline-none text-xl sm:text-3xl text-foreground placeholder:text-foreground/30"
+            placeholder="Search products by name, tag, or style..."
+            className="flex-1 bg-transparent border-none outline-none text-xl sm:text-3xl text-black font-semibold placeholder:text-gray-300"
           />
           <button
             onClick={onClose}
-            className="p-2 text-foreground/70 hover:text-[#D4AF37] transition-colors rounded-full hover:bg-black/5"
+            className="p-2 text-gray-500 hover:text-black transition-colors rounded-full hover:bg-gray-100"
             aria-label="Close search"
           >
             <X className="w-8 h-8" />
@@ -86,9 +86,9 @@ export const LiveSearchModal: React.FC<LiveSearchModalProps> = ({ isOpen, onClos
       <div className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
         <div className="max-w-7xl mx-auto">
           {isLoading ? (
-            <div className="flex flex-col items-center justify-center py-20 text-foreground/50">
-              <Loader2 className="w-8 h-8 animate-spin mb-4" />
-              <p>Searching...</p>
+            <div className="flex flex-col items-center justify-center py-20 text-gray-400">
+              <Loader2 className="w-8 h-8 animate-spin mb-4 text-black" />
+              <p className="text-sm uppercase tracking-wider font-semibold">Searching collection...</p>
             </div>
           ) : results.length > 0 ? (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -99,13 +99,13 @@ export const LiveSearchModal: React.FC<LiveSearchModalProps> = ({ isOpen, onClos
               ))}
             </div>
           ) : query.trim() !== "" ? (
-            <div className="flex flex-col items-center justify-center py-20 text-foreground/50">
-              <p className="text-xl">No products found for "{query}"</p>
+            <div className="flex flex-col items-center justify-center py-20 text-gray-500">
+              <p className="text-xl font-bold uppercase tracking-wider text-black">No products found for "{query}"</p>
               <p className="text-sm mt-2">Try checking your spelling or using more general terms</p>
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center py-20 text-foreground/30">
-              <p className="text-xl">Start typing to search products</p>
+            <div className="flex flex-col items-center justify-center py-20 text-gray-400">
+              <p className="text-lg font-medium">Type a keyword to discover our collection</p>
             </div>
           )}
         </div>

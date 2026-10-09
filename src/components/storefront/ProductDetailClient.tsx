@@ -45,12 +45,10 @@ export const ProductDetailClient: React.FC<{ product: Product, relatedProducts?:
   const handleAddToCart = async () => {
     setIsAdding(true);
     // Simulate slight network delay for premium feel
-    await new Promise(r => setTimeout(r, 400));
+    await new Promise(r => setTimeout(r, 300));
     
     addItem(product, selectedSize, selectedColor, quantity);
-    
     setIsAdding(false);
-    alert("Added to Cart!"); // Basic feedback since Cart drawer isn't auto-toggling
   };
 
   return (

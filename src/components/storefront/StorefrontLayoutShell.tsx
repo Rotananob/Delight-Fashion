@@ -18,8 +18,7 @@ export interface StorefrontLayoutShellProps {
 export const StorefrontLayoutShell: React.FC<StorefrontLayoutShellProps> = ({
   children,
 }) => {
-  const { itemCount } = useCart();
-  const [isCartOpen, setIsCartOpen] = useState(false);
+  const { itemCount, isCartOpen, openCart, closeCart } = useCart();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
@@ -33,7 +32,7 @@ export const StorefrontLayoutShell: React.FC<StorefrontLayoutShellProps> = ({
     <div className="min-h-screen bg-background text-foreground flex flex-col selection:bg-black selection:text-white">
       <StorefrontHeader
         cartItemCount={itemCount}
-        onOpenCart={() => setIsCartOpen(true)}
+        onOpenCart={openCart}
         onOpenMobileMenu={() => setIsMobileMenuOpen(true)}
         onOpenAuthModal={() => setIsAuthOpen(true)}
         onOpenSearch={() => setIsSearchOpen(true)}
@@ -46,7 +45,7 @@ export const StorefrontLayoutShell: React.FC<StorefrontLayoutShellProps> = ({
       {/* Slide-over Drawers & Modals */}
       <CartDrawer
         isOpen={isCartOpen}
-        onClose={() => setIsCartOpen(false)}
+        onClose={closeCart}
         onProceedToCheckout={() => setIsCheckoutOpen(true)}
       />
 

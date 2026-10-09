@@ -58,9 +58,9 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                   {shippingFee === 0 ? "FREE" : `$${shippingFee.toFixed(2)}`}
                 </span>
               </div>
-              {subtotal < 100 && (
+              {subtotal > 0 && subtotal < 35 && (
                 <span className="text-[10px] text-foreground/40 italic">
-                  Add ${(100 - subtotal).toFixed(2)} more for Free Delivery in Phnom Penh!
+                  Add ${(35 - subtotal).toFixed(2)} more for Free Delivery across Phnom Penh!
                 </span>
               )}
             </div>

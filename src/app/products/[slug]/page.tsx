@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProductBySlug, getProducts } from "@/services/productService";
 import { StorefrontLayoutShell } from "@/components/storefront/StorefrontLayoutShell";
@@ -71,13 +72,13 @@ export default async function ProductDetailPage({
       <JsonLd data={schema} />
       
       {/* Breadcrumbs */}
-      <div className="border-b border-white/5 bg-[#0A0A0A]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center gap-2 text-[10px] uppercase tracking-widest font-semibold text-white/40">
-          <a href="/" className="hover:text-white transition-colors">Home</a>
+      <div className="border-b border-gray-200 bg-gray-50/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center gap-2 text-[10px] sm:text-xs uppercase tracking-wider font-semibold text-gray-400">
+          <Link href="/" className="hover:text-black transition-colors">Home</Link>
           <span>/</span>
-          <a href="/products" className="hover:text-white transition-colors">Products</a>
+          <Link href="/products" className="hover:text-black transition-colors">Products</Link>
           <span>/</span>
-          <span className="text-[#D4AF37]">{product.title}</span>
+          <span className="text-black font-bold truncate max-w-[200px] sm:max-w-none">{product.title}</span>
         </div>
       </div>
 

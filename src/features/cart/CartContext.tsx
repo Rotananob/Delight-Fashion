@@ -11,6 +11,10 @@ export interface CartContextType {
   subtotal: number;
   shippingFee: number;
   totalAmount: number;
+  isCartOpen: boolean;
+  setIsCartOpen: (open: boolean) => void;
+  openCart: () => void;
+  closeCart: () => void;
   addItem: (product: Product, size: string, color: string, qty?: number) => void;
   removeItem: (productId: string, variantKey: string) => void;
   updateQuantity: (productId: string, variantKey: string, qty: number) => void;
@@ -28,6 +32,10 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   const [items, setItems] = useState<OrderItem[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isCloudSynced, setIsCloudSynced] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const openCart = () => setIsCartOpen(true);
+  const closeCart = () => setIsCartOpen(false);
 
   // 1. Load from localStorage immediately on mount
   useEffect(() => {
@@ -170,6 +178,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
         },
       ];
     });
+
+    setIsCartOpen(true);
   };
 
   const removeItem = (productId: string, variantKey: string) => {
@@ -212,8 +222,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     (acc, curr) => acc + curr.price * curr.quantity,
     0
   );
-  // Free delivery in Phnom Penh / Cambodia for orders over $100, otherwise $3
-  const shippingFee = subtotal === 0 ? 0 : subtotal >= 100 ? 0 : 3.0;
+  // Free delivery in Cambodia for orders over $35, otherwise $1.50 (Phnom Penh standard)
+  const shippingFee = subtotal === 0 ? 0 : subtotal >= 35 ? 0 : 1.5;
   const totalAmount = subtotal + shippingFee;
 
   return (
@@ -224,6 +234,10 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
         subtotal,
         shippingFee,
         totalAmount,
+        isCartOpen,
+        setIsCartOpen,
+        openCart,
+        closeCart,
         addItem,
         removeItem,
         updateQuantity,

@@ -26,10 +26,28 @@ function FilterSidebarContent() {
   };
 
   return (
-    <div className="space-y-8 mt-10 border-t border-border pt-8">
+    <div className="space-y-8 mt-10 border-t border-gray-200 pt-8">
+      {/* Active Filter Clear */}
+      {(currentSize || currentColor) && (
+        <div className="flex items-center justify-between pb-2 border-b border-gray-100">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-gray-500">Filters Active</span>
+          <button
+            onClick={() => {
+              const params = new URLSearchParams(searchParams.toString());
+              params.delete("size");
+              params.delete("color");
+              router.push(`${pathname}?${params.toString()}`);
+            }}
+            className="text-xs text-rose-600 hover:underline uppercase font-bold tracking-wider"
+          >
+            Clear All
+          </button>
+        </div>
+      )}
+
       {/* Size Filter */}
       <div>
-        <h3 className="text-sm font-semibold uppercase tracking-wider mb-4">Size</h3>
+        <h3 className="text-xs font-bold uppercase tracking-wider text-black mb-3">Size</h3>
         <div className="flex flex-wrap gap-2">
           {SIZES.map((size) => {
             const isSelected = currentSize === size;
@@ -38,10 +56,10 @@ function FilterSidebarContent() {
                 key={size}
                 onClick={() => updateFilters("size", isSelected ? null : size)}
                 className={twMerge(
-                  "w-10 h-10 flex items-center justify-center border text-sm font-medium transition-colors",
+                  "w-10 h-10 flex items-center justify-center border text-xs font-bold uppercase transition-all rounded-sm",
                   isSelected
-                    ? "border-[#D4AF37] bg-[#D4AF37] text-black"
-                    : "border-white/20 hover:border-[#D4AF37] hover:text-[#D4AF37]"
+                    ? "border-black bg-black text-white shadow-sm"
+                    : "border-gray-200 text-black hover:border-black bg-white"
                 )}
               >
                 {size}
@@ -53,12 +71,12 @@ function FilterSidebarContent() {
 
       {/* Color Filter */}
       <div>
-        <h3 className="text-sm font-semibold uppercase tracking-wider mb-4">Color</h3>
-        <div className="flex flex-col gap-2">
+        <h3 className="text-xs font-bold uppercase tracking-wider text-black mb-3">Color</h3>
+        <div className="flex flex-col gap-2.5">
           {COLORS.map((color) => {
             const isSelected = currentColor === color;
             return (
-              <label key={color} className="flex items-center gap-3 cursor-pointer group">
+              <label key={color} className="flex items-center gap-3 cursor-pointer group select-none">
                 <input
                   type="checkbox"
                   checked={isSelected}
@@ -67,15 +85,15 @@ function FilterSidebarContent() {
                 />
                 <div
                   className={twMerge(
-                    "w-5 h-5 border rounded-sm flex items-center justify-center transition-colors",
+                    "w-4 h-4 border rounded-sm flex items-center justify-center transition-all",
                     isSelected
-                      ? "border-[#D4AF37] bg-[#D4AF37]"
-                      : "border-white/30 group-hover:border-[#D4AF37]"
+                      ? "border-black bg-black"
+                      : "border-gray-300 group-hover:border-black bg-white"
                   )}
                 >
                   {isSelected && (
                     <svg
-                      className="w-3 h-3 text-black"
+                      className="w-2.5 h-2.5 text-white"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -91,8 +109,8 @@ function FilterSidebarContent() {
                 </div>
                 <span
                   className={twMerge(
-                    "text-sm transition-colors",
-                    isSelected ? "text-[#D4AF37]" : "text-foreground/70 group-hover:text-foreground"
+                    "text-xs uppercase tracking-wide transition-colors",
+                    isSelected ? "text-black font-bold" : "text-gray-600 group-hover:text-black"
                   )}
                 >
                   {color}

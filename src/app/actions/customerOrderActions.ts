@@ -15,10 +15,12 @@ export async function getCustomerOrdersAction() {
     const snapshot = await adminDb
       .collection("orders")
       .where("customerId", "==", session.uid)
-      .orderBy("createdAt", "desc")
       .get();
 
-    const orders = snapshot.docs.map(doc => doc.data() as Order);
+    const orders = snapshot.docs
+      .map(doc => doc.data() as Order)
+      .sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+
     return { success: true, orders };
   } catch (error: any) {
     return { success: false, error: error.message };
