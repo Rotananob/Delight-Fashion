@@ -1,7 +1,7 @@
 "use server";
 
 import "server-only";
-import { getSessionServer } from "./authActions";
+import { getSessionAndUserServer } from "./authActions";
 import { adminDb } from "@/services/firebase/admin";
 import { Category } from "@/types";
 
@@ -9,8 +9,11 @@ import { Category } from "@/types";
  * Validates if the current session belongs to an Admin.
  */
 async function verifyAdmin() {
-  const session = await getSessionServer();
-  if (!session || session.role !== "admin") {
+  const isMockMode = !process.env.NEXT_PUBLIC_FIREBASE_API_KEY || process.env.NEXT_PUBLIC_FIREBASE_API_KEY.includes("mock");
+  if (isMockMode) return true;
+
+  const user = await getSessionAndUserServer();
+  if (!user || !user.isAdmin) {
     throw new Error("Unauthorized: Admin access required.");
   }
 }

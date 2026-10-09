@@ -9,7 +9,7 @@ import { twMerge } from "tailwind-merge";
 
 // Server Component for Admin Product List
 export default async function AdminProductsPage() {
-  const products = await getProducts(); // Fetches all products (active & drafts if admin, though our current service fetches all MOCK)
+  const products = await getProducts({ includeDrafts: true });
 
   return (
     <div className="flex flex-col gap-6">

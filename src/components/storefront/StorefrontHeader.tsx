@@ -140,6 +140,17 @@ export const StorefrontHeader: React.FC<StorefrontHeaderProps> = ({
             <span className="uppercase tracking-wide">{t('header.search')}</span>
           </button>
 
+          {user?.role === "admin" && (
+            <Link
+              href="/admin/dashboard"
+              className="flex items-center gap-1.5 px-2.5 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-wider bg-black text-[#D4AF37] border border-[#D4AF37]/60 rounded-sm hover:bg-[#D4AF37] hover:text-black transition-colors"
+              title="Open Admin Portal"
+            >
+              <Crown className="w-3.5 h-3.5" />
+              <span>Admin</span>
+            </Link>
+          )}
+
           <Link
             href={user ? "/profile" : "/login"}
             className="p-2 text-black/80 hover:text-black hover:bg-gray-100 rounded-sm transition-colors"

@@ -6,8 +6,9 @@ import { saveUserAddressAction, deleteUserAddressAction } from "@/app/actions/us
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
-import { MapPin, Plus, Edit, Trash2, X, Save, User } from "lucide-react";
+import { MapPin, Plus, Edit, Trash2, X, Save, User, Crown, ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export const ProfileManagerClient: React.FC<{ initialProfile: UserProfile }> = ({ initialProfile }) => {
   const router = useRouter();
@@ -111,6 +112,22 @@ export const ProfileManagerClient: React.FC<{ initialProfile: UserProfile }> = (
             </div>
           </div>
         </Card>
+
+        {initialProfile.role === "admin" && (
+          <div className="p-5 rounded-sm bg-[#0E0E0E] text-white border border-[#D4AF37]/50 flex flex-col gap-3 shadow-xl">
+            <div className="flex items-center gap-2 text-[#D4AF37] font-bold text-xs uppercase tracking-widest">
+              <Crown className="w-4 h-4 text-[#D4AF37]" /> Boutique Administrator
+            </div>
+            <p className="text-xs text-white/70 leading-relaxed">
+              You are signed in with Store Owner credentials. Manage product catalog, pricing, variants, and customer orders.
+            </p>
+            <Link href="/admin/dashboard" className="w-full mt-1">
+              <Button variant="gold" size="sm" className="w-full text-xs font-bold uppercase tracking-wider" rightIcon={<ArrowRight className="w-3.5 h-3.5" />}>
+                Go to Admin Dashboard
+              </Button>
+            </Link>
+          </div>
+        )}
       </div>
 
       {/* Main Content: Address Book */}

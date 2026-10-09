@@ -18,15 +18,15 @@ export default async function AdminLayout({
 
   // Only perform strict server-side Firebase verification if NOT in Mock Mode
   if (!isMockMode) {
-    const session = await getSessionServer();
-    if (!session) {
+    const user = await getSessionAndUserServer();
+    if (!user) {
       redirect("/admin/login");
     }
 
-    // Check custom claims for Admin Role
-    if (session.admin !== true) {
-      // User is logged in, but NOT an admin. Redirect to storefront.
-      redirect("/");
+    // Check custom claims, email whitelist, or DB role for Admin Role
+    if (!user.isAdmin) {
+      // User is logged in, but NOT an admin.
+      redirect("/admin/unauthorized");
     }
   }
 

@@ -104,6 +104,25 @@ export const ImageUploadWidget: React.FC<ImageUploadWidgetProps> = ({
     onChange(newImages);
   };
 
+  const [urlInput, setUrlInput] = useState("");
+
+  const handleAddUrl = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!urlInput.trim()) return;
+    if (images.length >= maxImages) {
+      alert(`You can only upload up to ${maxImages} images.`);
+      return;
+    }
+    const newImg: ProductImage = {
+      id: `img_url_${Date.now()}`,
+      url: urlInput.trim(),
+      alt: "Product image",
+      isPrimary: images.length === 0,
+    };
+    onChange([...images, newImg]);
+    setUrlInput("");
+  };
+
   return (
     <div className="flex flex-col gap-4">
       {/* Upload Dropzone */}
@@ -153,6 +172,26 @@ export const ImageUploadWidget: React.FC<ImageUploadWidgetProps> = ({
             </Button>
           </>
         )}
+      </div>
+
+      {/* Or Paste Direct Image URL */}
+      <div className="flex items-center gap-2">
+        <input
+          type="url"
+          value={urlInput}
+          onChange={(e) => setUrlInput(e.target.value)}
+          placeholder="Or paste external image URL (e.g. Unsplash, CDN)..."
+          className="flex-1 bg-white border border-border px-3 py-2 text-xs rounded-sm text-foreground outline-none focus:border-[#D4AF37]"
+        />
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          onClick={handleAddUrl}
+          disabled={!urlInput.trim() || images.length >= maxImages}
+        >
+          Add URL
+        </Button>
       </div>
 
       {/* Image Gallery */}

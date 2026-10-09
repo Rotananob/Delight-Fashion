@@ -41,8 +41,8 @@ export const MOCK_PRODUCTS: Product[] = [
     title: "Delight Royal Crest Heavyweight Tee",
     slug: "delight-royal-crest-heavyweight-tee",
     categoryId: "cat_tshirts",
-    price: 45.0,
-    compareAtPrice: 60.0,
+    price: 16.0,
+    compareAtPrice: 22.0,
     description:
       "Crafted from 280 GSM combed organic cotton with our subtle gold-foil embroidered crown emblem on the chest. Tailored relaxed fit designed for Phnom Penh's tropical climate.",
     images: [
@@ -77,7 +77,8 @@ export const MOCK_PRODUCTS: Product[] = [
     title: "Minimalist Silk-Blend Pocket T-Shirt",
     slug: "minimalist-silk-blend-pocket-tshirt",
     categoryId: "cat_tshirts",
-    price: 38.0,
+    price: 14.0,
+    compareAtPrice: 18.0,
     description:
       "An ultra-soft jersey cotton blend with 15% Mulberry silk for exceptional drape and breathability. Features a reinforced chest pocket with a subtle gold bar rivet.",
     images: [
@@ -105,8 +106,8 @@ export const MOCK_PRODUCTS: Product[] = [
     title: "Angkor Obsidian Bomber Jacket",
     slug: "angkor-obsidian-bomber-jacket",
     categoryId: "cat_jackets",
-    price: 145.0,
-    compareAtPrice: 180.0,
+    price: 38.0,
+    compareAtPrice: 48.0,
     description:
       "A masterpiece of luxury utility. Water-resistant matte nylon shell with custom gold-plated YKK zippers and breathable silk-satin inner lining.",
     images: [
@@ -139,7 +140,8 @@ export const MOCK_PRODUCTS: Product[] = [
     title: "Chamkar Mon Tailored Work Coat",
     slug: "chamkar-mon-tailored-work-coat",
     categoryId: "cat_jackets",
-    price: 120.0,
+    price: 32.0,
+    compareAtPrice: 42.0,
     description:
       "Minimalist chore jacket cut from premium Japanese twill. Clean structured collar and concealed horn buttons with gold internal piping.",
     images: [
@@ -165,8 +167,8 @@ export const MOCK_PRODUCTS: Product[] = [
     title: "Sangkat Pleated Trousers",
     slug: "sangkat-pleated-trousers",
     categoryId: "cat_pants",
-    price: 85.0,
-    compareAtPrice: 110.0,
+    price: 24.0,
+    compareAtPrice: 32.0,
     description:
       "High-rise double pleated trousers crafted from wrinkle-resistant wool-blend flannel. Designed to drape flawlessly over loafers or clean white sneakers.",
     images: [
@@ -194,7 +196,8 @@ export const MOCK_PRODUCTS: Product[] = [
     title: "Phnom Penh Linen Drawstring Trousers",
     slug: "phnom-penh-linen-drawstring-trousers",
     categoryId: "cat_pants",
-    price: 75.0,
+    price: 22.0,
+    compareAtPrice: 28.0,
     description:
       "Breathable 100% Normandy linen trousers with an elasticized drawstring waist and subtle gold aglets. Perfect for warm evening outings in Cambodia.",
     images: [
@@ -221,7 +224,8 @@ export const MOCK_PRODUCTS: Product[] = [
     title: "Bespoke Royal Oxford Dress Shirt",
     slug: "bespoke-royal-oxford-dress-shirt",
     categoryId: "cat_inner_work",
-    price: 95.0,
+    price: 25.0,
+    compareAtPrice: 35.0,
     description:
       "An executive workwear staple. Crisp 120-thread count Egyptian cotton with Mother of Pearl buttons and structured spread collar.",
     images: [
@@ -249,7 +253,8 @@ export const MOCK_PRODUCTS: Product[] = [
     title: "Silk-Modal Seamless Inner Tank (2-Pack)",
     slug: "silk-modal-seamless-inner-tank-2pack",
     categoryId: "cat_inner_work",
-    price: 48.0,
+    price: 12.0,
+    compareAtPrice: 16.0,
     description:
       "Ultra-thin breathable inner layers crafted from natural wood modal and silk fibers. Anti-odor treatment designed for daily comfort under jackets and shirts.",
     images: [

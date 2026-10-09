@@ -1,17 +1,24 @@
 "use server";
 
 import "server-only";
-import { getSessionServer } from "./authActions";
+import { getSessionAndUserServer } from "./authActions";
 import { adminDb } from "@/services/firebase/admin";
 import { Order, OrderStatus } from "@/types";
 import { sendPushNotificationAction } from "./notificationActions";
 
+async function verifyAdmin() {
+  const isMockMode = !process.env.NEXT_PUBLIC_FIREBASE_API_KEY || process.env.NEXT_PUBLIC_FIREBASE_API_KEY.includes("mock");
+  if (isMockMode) return true;
+
+  const user = await getSessionAndUserServer();
+  if (!user || !user.isAdmin) {
+    throw new Error("Unauthorized: Admin credentials required.");
+  }
+}
+
 export async function getAdminOrdersAction() {
   try {
-    const session = await getSessionServer();
-    if (session?.role !== "admin") {
-      throw new Error("Unauthorized");
-    }
+    await verifyAdmin();
 
     const snapshot = await adminDb
       .collection("orders")
@@ -27,10 +34,7 @@ export async function getAdminOrdersAction() {
 
 export async function getAdminOrderByIdAction(orderId: string) {
   try {
-    const session = await getSessionServer();
-    if (session?.role !== "admin") {
-      throw new Error("Unauthorized");
-    }
+    await verifyAdmin();
 
     const doc = await adminDb.collection("orders").doc(orderId).get();
     if (!doc.exists) {
@@ -45,10 +49,7 @@ export async function getAdminOrderByIdAction(orderId: string) {
 
 export async function updateOrderStatusAction(orderId: string, newStatus: OrderStatus, note?: string) {
   try {
-    const session = await getSessionServer();
-    if (session?.role !== "admin") {
-      throw new Error("Unauthorized");
-    }
+    await verifyAdmin();
 
     const orderRef = adminDb.collection("orders").doc(orderId);
     

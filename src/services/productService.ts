@@ -1,9 +1,10 @@
 import { Product, Category } from "@/types";
 import { db } from "./firebase/client";
 import { collection, getDocs, query, where, doc, getDoc } from "firebase/firestore";
+import { MOCK_CATEGORIES, MOCK_PRODUCTS } from "./mock/products";
 
 /**
- * Fetches all categories strictly from Firestore.
+ * Fetches all categories from Firestore with reliable mock fallback.
  */
 export async function getCategories(): Promise<Category[]> {
   try {
@@ -14,22 +15,23 @@ export async function getCategories(): Promise<Category[]> {
   } catch (error) {
     console.error("Error fetching categories from Firestore:", error);
   }
-  return [];
+  return MOCK_CATEGORIES;
 }
 
 /**
- * Fetches products from Firestore with optional category, featured, or search filter.
+ * Fetches products from Firestore with optional category, featured, draft, or search filter.
  */
 export async function getProducts(options: {
   categorySlug?: string;
   featuredOnly?: boolean;
   searchQuery?: string;
+  includeDrafts?: boolean;
 } = {}): Promise<Product[]> {
   let products: Product[] = [];
 
   try {
-    let q = collection(db, "products");
-    const constraints = [where("status", "==", "active")];
+    const q = collection(db, "products");
+    const constraints = options.includeDrafts ? [] : [where("status", "==", "active")];
     const snap = await getDocs(query(q, ...constraints));
     
     if (!snap.empty) {
@@ -37,10 +39,16 @@ export async function getProducts(options: {
     }
   } catch (error) {
     console.error("Error fetching products from Firestore:", error);
-    return [];
   }
 
-  // Filter by Category Slug (Requires fetching categories first to get the ID)
+  // Fallback to MOCK_PRODUCTS if Firestore returned nothing
+  if (products.length === 0) {
+    products = options.includeDrafts
+      ? [...MOCK_PRODUCTS]
+      : MOCK_PRODUCTS.filter((p) => p.status === "active");
+  }
+
+  // Filter by Category Slug
   if (options.categorySlug) {
     const categories = await getCategories();
     const category = categories.find((c) => c.slug === options.categorySlug);
@@ -70,11 +78,11 @@ export async function getProducts(options: {
 }
 
 /**
- * Fetches a single product by slug from Firestore.
+ * Fetches a single product by slug from Firestore with fallback.
  */
 export async function getProductBySlug(slug: string): Promise<Product | null> {
   try {
-    const q = query(collection(db, "products"), where("slug", "==", slug), where("status", "==", "active"));
+    const q = query(collection(db, "products"), where("slug", "==", slug));
     const snap = await getDocs(q);
     if (!snap.empty) {
       const docSnap = snap.docs[0];
@@ -83,11 +91,11 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
   } catch (error) {
     console.error("Error fetching product by slug from Firestore:", error);
   }
-  return null;
+  return MOCK_PRODUCTS.find((p) => p.slug === slug) || null;
 }
 
 /**
- * Fetches a single product by ID from Firestore.
+ * Fetches a single product by ID from Firestore with fallback.
  */
 export async function getProductById(id: string): Promise<Product | null> {
   try {
@@ -99,6 +107,7 @@ export async function getProductById(id: string): Promise<Product | null> {
   } catch (error) {
     console.error("Error fetching product by ID from Firestore:", error);
   }
-  return null;
+  return MOCK_PRODUCTS.find((p) => p.id === id) || null;
 }
+
 

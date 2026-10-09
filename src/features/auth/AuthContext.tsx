@@ -15,6 +15,7 @@ import {
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { createSessionAction, clearSessionAction } from "@/app/actions/authActions";
 import Cookies from "js-cookie";
+import { isUserAdminEmail } from "@/utils/admin";
 
 export interface AuthContextType {
   user: UserProfile | null;
@@ -89,17 +90,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     const unsubscribe = onAuthStateChanged(auth, async (fbUser: FirebaseUser | null) => {
       if (fbUser) {
         try {
+          const isAdminByEmail = isUserAdminEmail(fbUser.email);
           // Fetch profile from Firestore
           const userDoc = await getDoc(doc(db, "users", fbUser.uid));
           if (userDoc.exists()) {
-            setUser(userDoc.data() as UserProfile);
+            const data = userDoc.data() as UserProfile;
+            if (isAdminByEmail && data.role !== "admin") {
+              setUser({ ...data, role: "admin" });
+            } else {
+              setUser(data);
+            }
           } else {
             // Fallback if sync hasn't completed yet
             setUser({
               id: fbUser.uid,
               email: fbUser.email || "",
               displayName: fbUser.displayName || fbUser.email?.split("@")[0] || "User",
-              role: "customer",
+              role: isAdminByEmail ? "admin" : "customer",
               createdAt: new Date().toISOString(),
             });
           }
@@ -116,13 +123,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   }, [isMockMode]);
 
   const handleServerSession = async (fbUser: FirebaseUser) => {
-    const idToken = await fbUser.getIdToken();
-    const res = await createSessionAction(idToken);
-    if (!res.success) {
-      console.error("Failed to establish server session");
-    } else {
-      // Set a client-side indicator cookie (not secure, just for middleware routing)
-      Cookies.set("delight_has_session", "true", { expires: 5 });
+    try {
+      const idToken = await fbUser.getIdToken(true);
+      const res = await createSessionAction(idToken);
+      if (!res.success) {
+        console.error("Failed to establish server session:", res.error);
+      } else {
+        // Set a client-side indicator cookie (not secure, just for middleware routing)
+        Cookies.set("delight_has_session", "true", { expires: 5 });
+      }
+    } catch (e) {
+      console.error("handleServerSession error:", e);
     }
   };
 
@@ -136,10 +147,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     } else {
       try {
         const provider = new GoogleAuthProvider();
+        provider.setCustomParameters({ prompt: "select_account" });
         const result = await signInWithPopup(auth, provider);
         await handleServerSession(result.user);
-      } catch (error) {
+      } catch (error: any) {
         console.error("Google Auth Error:", error);
+        if (error?.code === "auth/popup-closed-by-user") {
+          setIsLoading(false);
+          return;
+        }
+        if (error?.code === "auth/unauthorized-domain") {
+          const domain = typeof window !== "undefined" ? window.location.hostname : "this domain";
+          alert(`Firebase Auth Error: Domain '${domain}' is not authorized. Please add it in Firebase Console > Authentication > Settings > Authorized domains.`);
+        } else if (error?.code === "auth/popup-blocked") {
+          alert("Popup was blocked by your browser. Please allow popups for this site to sign in with Google.");
+        } else {
+          alert(error?.message || "Google Sign-In failed.");
+        }
         throw error;
       }
     }

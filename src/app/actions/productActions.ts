@@ -1,7 +1,7 @@
 "use server";
 
 import "server-only";
-import { getSessionServer } from "./authActions";
+import { getSessionAndUserServer } from "./authActions";
 import { adminDb } from "@/services/firebase/admin";
 import { Product } from "@/types";
 import { revalidatePath } from "next/cache";
@@ -10,8 +10,8 @@ const verifyAdmin = async () => {
   const isMockMode = !process.env.NEXT_PUBLIC_FIREBASE_API_KEY || process.env.NEXT_PUBLIC_FIREBASE_API_KEY.includes("mock");
   if (isMockMode) return true; // Bypass strictly for UI development
 
-  const session = await getSessionServer();
-  if (!session || session.admin !== true) {
+  const user = await getSessionAndUserServer();
+  if (!user || !user.isAdmin) {
     throw new Error("Unauthorized: Admin credentials required.");
   }
   return true;

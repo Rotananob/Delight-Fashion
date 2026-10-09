@@ -50,8 +50,15 @@ export default function LoginPage() {
     try {
       await loginWithGoogle();
       router.push("/profile");
-    } catch (err: unknown) {
-      setError("Google authentication failed.");
+    } catch (err: any) {
+      if (err?.code === "auth/popup-closed-by-user") {
+        // Closed cleanly by user
+      } else if (err?.code === "auth/unauthorized-domain") {
+        const hostname = typeof window !== "undefined" ? window.location.hostname : "domain";
+        setError(`Firebase Auth Error: Domain '${hostname}' is not authorized. Add it to Firebase Console > Authentication > Settings > Authorized domains.`);
+      } else {
+        setError(err?.message || "Google authentication failed. Please try again.");
+      }
     } finally {
       setIsSubmitting(false);
     }

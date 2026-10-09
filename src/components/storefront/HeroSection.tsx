@@ -108,7 +108,7 @@ export const HeroSection: React.FC<{ onExploreClick?: () => void }> = () => {
                   </h3>
                 </div>
                 <div className="px-3 py-1.5 rounded-sm bg-white text-black font-bold text-sm">
-                  $38.00
+                  $14.00
                 </div>
               </div>
             </div>

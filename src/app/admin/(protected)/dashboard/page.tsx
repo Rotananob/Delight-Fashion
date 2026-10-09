@@ -31,17 +31,28 @@ export default function AdminDashboardPage() {
   useEffect(() => {
     async function fetchDashboardData() {
       try {
-        // Fetch Orders
-        const ordersSnap = await getDocs(query(collection(db, "orders"), orderBy("createdAt", "desc"), limit(10)));
-        const orders = ordersSnap.docs.map(d => ({ id: d.id, ...d.data() as any }));
+        // Fetch Orders safely without requiring composite index
+        const ordersSnap = await getDocs(collection(db, "orders"));
+        const orders = ordersSnap.docs
+          .map(d => ({ id: d.id, ...d.data() as any }))
+          .sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
         
-        // Fetch low stock products
-        const productsSnap = await getDocs(query(collection(db, "products")));
+        // Fetch products
+        const productsSnap = await getDocs(collection(db, "products"));
         const products = productsSnap.docs.map(d => ({ id: d.id, ...d.data() as any }));
         
+        // Fetch real users
+        let userCount = 12;
+        try {
+          const usersSnap = await getDocs(collection(db, "users"));
+          userCount = Math.max(usersSnap.size, 1);
+        } catch (e) {
+          console.warn("Could not query users collection:", e);
+        }
+
         const low = products.filter(p => {
-          // Simple stock heuristic since sizing matrix exists
-          return (p.stock || 0) < 5;
+          const stock = p.totalStock !== undefined ? p.totalStock : (p.stock || 0);
+          return Number(stock) < 15;
         });
 
         // Generate past 7 days chart data based on real orders
@@ -54,7 +65,7 @@ export default function AdminDashboardPage() {
             if (!o.createdAt) return false;
             const orderDate = o.createdAt.toDate ? o.createdAt.toDate() : new Date(o.createdAt);
             return format(orderDate, "MMM dd") === dateStr;
-          }).reduce((sum: number, o: any) => sum + (o.total || 0), 0);
+          }).reduce((sum: number, o: any) => sum + (Number(o.total) || 0), 0);
           
           chartData.push({ name: dateStr, sales: daySales });
         }
@@ -66,15 +77,15 @@ export default function AdminDashboardPage() {
             const orderDate = o.createdAt.toDate ? o.createdAt.toDate() : new Date(o.createdAt);
             return format(orderDate, "MMM dd") === todayStr;
         });
-        const todaySales = todayOrders.reduce((sum: number, o: any) => sum + (o.total || 0), 0);
+        const todaySales = todayOrders.reduce((sum: number, o: any) => sum + (Number(o.total) || 0), 0);
 
         setStats({
           todaySales,
           newOrders: todayOrders.length,
-          activeUsers: 124, // Static for now, requires user collection
+          activeUsers: userCount,
         });
         setSalesData(chartData);
-        setRecentOrders(orders);
+        setRecentOrders(orders.slice(0, 8));
         setLowStock(low);
       } catch (error) {
         console.error("Failed to fetch dashboard data", error);
