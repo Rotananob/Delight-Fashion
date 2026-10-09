@@ -10,7 +10,7 @@ import { isUserAdminEmail as isUserAdminEmailBase } from "@/utils/admin";
 const SESSION_COOKIE_NAME = "delight_session";
 const EXPIRES_IN = 1000 * 60 * 60 * 24 * 5; // 5 days
 
-export function isUserAdminEmail(email?: string | null): boolean {
+function isUserAdminEmail(email?: string | null): boolean {
   if (!email) return false;
   if (isUserAdminEmailBase(email)) return true;
   const clean = email.toLowerCase().trim();
