@@ -3,8 +3,6 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "@/components/ui/Card";
 import { DollarSign, ShoppingBag, Users, TrendingUp, AlertCircle } from "lucide-react";
-import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
-import { db } from "@/services/firebase/client";
 import {
   LineChart,
   Line,
@@ -15,6 +13,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { format, subDays } from "date-fns";
+import { getAdminDashboardStatsAction } from "@/app/actions/adminOrderActions";
 
 export default function AdminDashboardPage() {
   const [stats, setStats] = useState({
@@ -31,66 +30,27 @@ export default function AdminDashboardPage() {
   useEffect(() => {
     async function fetchDashboardData() {
       try {
-        // Fetch Orders safely without requiring composite index
-        const ordersSnap = await getDocs(collection(db, "orders"));
-        const orders = ordersSnap.docs
-          .map(d => ({ id: d.id, ...d.data() as any }))
-          .sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
-        
-        // Fetch products
-        const productsSnap = await getDocs(collection(db, "products"));
-        const products = productsSnap.docs.map(d => ({ id: d.id, ...d.data() as any }));
-        
-        // Fetch real users
-        let userCount = 12;
-        try {
-          const usersSnap = await getDocs(collection(db, "users"));
-          userCount = Math.max(usersSnap.size, 1);
-        } catch (e) {
-          console.warn("Could not query users collection:", e);
+        setIsLoading(true);
+        const res = await getAdminDashboardStatsAction();
+        if (res.success && res.stats) {
+          setStats(res.stats);
+          setSalesData(res.salesData || []);
+          setRecentOrders(res.recentOrders || []);
+          setLowStock(res.lowStock || []);
+        } else {
+          console.warn("Could not fetch dashboard stats from server action:", res.error);
+          setSalesData([
+            { name: format(subDays(new Date(), 6), "MMM dd"), sales: 0 },
+            { name: format(subDays(new Date(), 5), "MMM dd"), sales: 0 },
+            { name: format(subDays(new Date(), 4), "MMM dd"), sales: 0 },
+            { name: format(subDays(new Date(), 3), "MMM dd"), sales: 0 },
+            { name: format(subDays(new Date(), 2), "MMM dd"), sales: 0 },
+            { name: format(subDays(new Date(), 1), "MMM dd"), sales: 0 },
+            { name: format(new Date(), "MMM dd"), sales: 0 },
+          ]);
         }
-
-        const low = products.filter(p => {
-          const stock = p.totalStock !== undefined ? p.totalStock : (p.stock || 0);
-          return Number(stock) < 15;
-        });
-
-        // Generate past 7 days chart data based on real orders
-        const chartData = [];
-        for (let i = 6; i >= 0; i--) {
-          const d = subDays(new Date(), i);
-          const dateStr = format(d, "MMM dd");
-          // calculate sales for this day from orders
-          const daySales = orders.filter((o: any) => {
-            if (!o.createdAt) return false;
-            const orderDate = o.createdAt.toDate ? o.createdAt.toDate() : new Date(o.createdAt);
-            return format(orderDate, "MMM dd") === dateStr;
-          }).reduce((sum: number, o: any) => sum + (Number(o.total) || 0), 0);
-          
-          chartData.push({ name: dateStr, sales: daySales });
-        }
-
-        // Today's stats
-        const todayStr = format(new Date(), "MMM dd");
-        const todayOrders = orders.filter((o: any) => {
-            if (!o.createdAt) return false;
-            const orderDate = o.createdAt.toDate ? o.createdAt.toDate() : new Date(o.createdAt);
-            return format(orderDate, "MMM dd") === todayStr;
-        });
-        const todaySales = todayOrders.reduce((sum: number, o: any) => sum + (Number(o.total) || 0), 0);
-
-        setStats({
-          todaySales,
-          newOrders: todayOrders.length,
-          activeUsers: userCount,
-        });
-        setSalesData(chartData);
-        setRecentOrders(orders.slice(0, 8));
-        setLowStock(low);
       } catch (error) {
         console.error("Failed to fetch dashboard data", error);
-        
-        // Fallback chart data if Firebase is completely empty so it still looks nice
         setSalesData([
           { name: format(subDays(new Date(), 6), "MMM dd"), sales: 0 },
           { name: format(subDays(new Date(), 5), "MMM dd"), sales: 0 },
@@ -213,15 +173,21 @@ export default function AdminDashboardPage() {
             <div className="flex items-center justify-center h-40 text-sm text-foreground/40">Loading...</div>
           ) : recentOrders.length > 0 ? (
             <div className="space-y-4">
-              {recentOrders.map(order => (
+              {recentOrders.map((order) => (
                 <div key={order.id} className="flex justify-between items-center pb-4 border-b border-border last:border-0">
                   <div>
-                    <p className="font-semibold text-foreground text-sm">Order #{order.id.slice(0,6)}</p>
-                    <p className="text-xs text-foreground/60">{order.customerName}</p>
+                    <p className="font-semibold text-foreground text-sm">
+                      Order #{order.orderCode || order.id?.slice(0, 8)}
+                    </p>
+                    <p className="text-xs text-foreground/60">{order.customerName || order.customerEmail || "Guest Customer"}</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-bold text-[#D4AF37]">${order.total}</p>
-                    <span className="text-[10px] px-2 py-1 bg-black/5 text-foreground/60 rounded-full">{order.status}</span>
+                    <p className="font-bold text-[#D4AF37]">
+                      ${(Number(order.totalAmount || order.total) || 0).toFixed(2)}
+                    </p>
+                    <span className="text-[10px] px-2 py-0.5 bg-black/5 dark:bg-white/10 text-foreground/80 font-medium rounded-full">
+                      {order.status}
+                    </span>
                   </div>
                 </div>
               ))}
@@ -244,14 +210,16 @@ export default function AdminDashboardPage() {
               {lowStock.map(product => (
                 <div key={product.id} className="flex justify-between items-center pb-4 border-b border-border last:border-0">
                   <div className="flex items-center gap-3">
-                    <AlertCircle className="w-5 h-5 text-rose-500" />
+                    <AlertCircle className="w-5 h-5 text-rose-500 shrink-0" />
                     <div>
-                      <p className="font-semibold text-foreground text-sm">{product.title}</p>
-                      <p className="text-xs text-foreground/60">Category: {product.categoryId}</p>
+                      <p className="font-semibold text-foreground text-sm line-clamp-1">{product.title}</p>
+                      <p className="text-xs text-foreground/60">Category: {product.categoryId || "General"}</p>
                     </div>
                   </div>
-                  <div className="text-right">
-                    <p className="font-bold text-rose-500">{product.stock} left</p>
+                  <div className="text-right shrink-0">
+                    <p className="font-bold text-rose-500">
+                      {product.totalStock !== undefined ? product.totalStock : (product.stock ?? 0)} left
+                    </p>
                   </div>
                 </div>
               ))}

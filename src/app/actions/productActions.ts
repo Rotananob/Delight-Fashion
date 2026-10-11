@@ -77,3 +77,14 @@ export async function deleteProductAction(productId: string) {
     return { success: false, error: error.message };
   }
 }
+
+export async function searchProductsAction(searchQuery: string) {
+  try {
+    const { getProducts } = await import("@/services/productService");
+    const products = await getProducts({ searchQuery });
+    return { success: true, products };
+  } catch (error: any) {
+    console.error("Search products error:", error);
+    return { success: false, products: [] };
+  }
+}

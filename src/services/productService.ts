@@ -1,6 +1,6 @@
+import "server-only";
 import { Product, Category } from "@/types";
-import { db } from "./firebase/client";
-import { collection, getDocs, query, where, doc, getDoc } from "firebase/firestore";
+import { adminDb } from "./firebase/admin";
 import { MOCK_CATEGORIES, MOCK_PRODUCTS } from "./mock/products";
 
 /**
@@ -8,7 +8,7 @@ import { MOCK_CATEGORIES, MOCK_PRODUCTS } from "./mock/products";
  */
 export async function getCategories(): Promise<Category[]> {
   try {
-    const snap = await getDocs(collection(db, "categories"));
+    const snap = await adminDb.collection("categories").orderBy("orderIndex", "asc").get();
     if (!snap.empty) {
       return snap.docs.map((d) => ({ id: d.id, ...d.data() } as Category));
     }
@@ -30,9 +30,11 @@ export async function getProducts(options: {
   let products: Product[] = [];
 
   try {
-    const q = collection(db, "products");
-    const constraints = options.includeDrafts ? [] : [where("status", "==", "active")];
-    const snap = await getDocs(query(q, ...constraints));
+    let queryRef = adminDb.collection("products") as FirebaseFirestore.Query;
+    if (!options.includeDrafts) {
+      queryRef = queryRef.where("status", "==", "active");
+    }
+    const snap = await queryRef.get();
     
     if (!snap.empty) {
       products = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Product));
@@ -82,8 +84,7 @@ export async function getProducts(options: {
  */
 export async function getProductBySlug(slug: string): Promise<Product | null> {
   try {
-    const q = query(collection(db, "products"), where("slug", "==", slug));
-    const snap = await getDocs(q);
+    const snap = await adminDb.collection("products").where("slug", "==", slug).limit(1).get();
     if (!snap.empty) {
       const docSnap = snap.docs[0];
       return { id: docSnap.id, ...docSnap.data() } as Product;
@@ -99,9 +100,8 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
  */
 export async function getProductById(id: string): Promise<Product | null> {
   try {
-    const docRef = doc(db, "products", id);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
+    const docSnap = await adminDb.collection("products").doc(id).get();
+    if (docSnap.exists) {
       return { id: docSnap.id, ...docSnap.data() } as Product;
     }
   } catch (error) {

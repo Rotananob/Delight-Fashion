@@ -43,15 +43,24 @@ export async function placeOrderAction(input: PlaceOrderInput) {
       const stockUpdates = new Map();
 
       // 2. Validate Stock
+      const isNewDocMap = new Map<string, boolean>();
+
       for (let i = 0; i < input.items.length; i++) {
         const item = input.items[i];
         const doc = productDocs[i];
         
-        if (!doc.exists) {
-          throw new Error(`Product ${item.title} no longer exists.`);
+        let productData = doc.exists ? (doc.data() as any) : null;
+        if (!productData) {
+          const { MOCK_PRODUCTS } = await import("@/services/mock/products");
+          const fallback = MOCK_PRODUCTS.find(p => p.id === item.productId);
+          if (fallback) {
+            productData = { ...fallback };
+            isNewDocMap.set(doc.ref.path, true);
+          } else {
+            throw new Error(`Product ${item.title} is no longer available.`);
+          }
         }
         
-        const productData = doc.data() as any;
         const variantKey = `${item.size}-${item.color}`;
         let variant = productData.variants?.[variantKey] || productData.variants?.[item.variantKey];
         
@@ -75,15 +84,20 @@ export async function placeOrderAction(input: PlaceOrderInput) {
         }
         
         stockUpdates.set(doc.ref, {
+          ...(isNewDocMap.get(doc.ref.path) ? productData : {}),
           variants: currentVariants,
           totalStock: Math.max(0, (productData.totalStock || availableStock) - item.quantity),
           updatedAt: new Date().toISOString()
         });
       }
 
-      // 3. Write Stock Deductions
+      // 3. Write Stock Deductions (set if new doc, update if existing)
       for (const [ref, updateData] of stockUpdates.entries()) {
-        transaction.update(ref, updateData);
+        if (isNewDocMap.get(ref.path)) {
+          transaction.set(ref, updateData);
+        } else {
+          transaction.update(ref, updateData);
+        }
       }
 
       // 4. Create the Order Document
@@ -91,13 +105,21 @@ export async function placeOrderAction(input: PlaceOrderInput) {
         id: orderId,
         orderCode: `DF-${shortCode}`,
         customerId,
+        customerEmail: (input.customerInfo as any).email || session?.email || "guest@delightfashion.com.kh",
         items: input.items,
         customerInfo: input.customerInfo,
         paymentMethod: input.paymentMethod,
         shippingFee: input.shippingFee,
         subtotal: calculatedSubtotal,
         totalAmount: calculatedTotal,
-        status: "pending", // pending, processing, shipped, completed, cancelled
+        status: "Pending", // Pending, Confirmed, Shipping, Completed, Cancelled
+        statusHistory: [
+          {
+            status: "Pending",
+            timestamp: new Date().toISOString(),
+            note: `Order placed via ${input.paymentMethod.toUpperCase()}`,
+          },
+        ],
         paymentStatus: input.paymentMethod === "cod" ? "unpaid" : "awaiting_verification",
         createdAt: new Date().toISOString(),
       });

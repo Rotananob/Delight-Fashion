@@ -95,3 +95,76 @@ export async function updateOrderStatusAction(orderId: string, newStatus: OrderS
     return { success: false, error: error.message };
   }
 }
+
+export async function getAdminDashboardStatsAction() {
+  try {
+    await verifyAdmin();
+
+    // 1. Fetch Orders
+    const ordersSnap = await adminDb.collection("orders").get();
+    const orders = ordersSnap.docs
+      .map(d => ({ id: d.id, ...d.data() as any }))
+      .sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+
+    // 2. Fetch Products
+    const productsSnap = await adminDb.collection("products").get();
+    let products = productsSnap.docs.map(d => ({ id: d.id, ...d.data() as any }));
+    if (products.length === 0) {
+      const { MOCK_PRODUCTS } = await import("@/services/mock/products");
+      products = [...MOCK_PRODUCTS];
+    }
+
+    // 3. Fetch Users
+    let userCount = 1;
+    try {
+      const usersSnap = await adminDb.collection("users").get();
+      userCount = Math.max(usersSnap.size, 1);
+    } catch {}
+
+    const lowStock = products.filter(p => {
+      const stock = p.totalStock !== undefined ? p.totalStock : (p.stock || 0);
+      return Number(stock) < 15;
+    });
+
+    // 4. Generate 7-day sales breakdown
+    const now = new Date();
+    const chartData = [];
+    for (let i = 6; i >= 0; i--) {
+      const targetDate = new Date(now);
+      targetDate.setDate(now.getDate() - i);
+      const dateStr = targetDate.toLocaleDateString("en-US", { month: "short", day: "2-digit" });
+
+      const daySales = orders.filter((o: any) => {
+        if (!o.createdAt) return false;
+        const oDate = new Date(o.createdAt);
+        return oDate.toLocaleDateString("en-US", { month: "short", day: "2-digit" }) === dateStr;
+      }).reduce((sum: number, o: any) => sum + (Number(o.totalAmount || o.total || 0)), 0);
+
+      chartData.push({ name: dateStr, sales: daySales });
+    }
+
+    // Today's stats
+    const todayStr = now.toLocaleDateString("en-US", { month: "short", day: "2-digit" });
+    const todayOrders = orders.filter((o: any) => {
+      if (!o.createdAt) return false;
+      const oDate = new Date(o.createdAt);
+      return oDate.toLocaleDateString("en-US", { month: "short", day: "2-digit" }) === todayStr;
+    });
+    const todaySales = todayOrders.reduce((sum: number, o: any) => sum + (Number(o.totalAmount || o.total || 0)), 0);
+
+    return {
+      success: true,
+      stats: {
+        todaySales,
+        newOrders: todayOrders.length,
+        activeUsers: userCount,
+      },
+      salesData: chartData,
+      recentOrders: orders.slice(0, 8),
+      lowStock,
+    };
+  } catch (error: any) {
+    console.error("Dashboard stats error:", error);
+    return { success: false, error: error.message };
+  }
+}

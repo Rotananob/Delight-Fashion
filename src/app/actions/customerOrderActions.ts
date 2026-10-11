@@ -12,14 +12,35 @@ export async function getCustomerOrdersAction() {
       throw new Error("Unauthorized: Please sign in");
     }
 
-    const snapshot = await adminDb
+    const orderMap = new Map<string, Order>();
+
+    // 1. Fetch by customerId
+    const snapshotByUid = await adminDb
       .collection("orders")
       .where("customerId", "==", session.uid)
       .get();
 
-    const orders = snapshot.docs
-      .map(doc => doc.data() as Order)
-      .sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+    snapshotByUid.docs.forEach((doc) => {
+      orderMap.set(doc.id, { id: doc.id, ...doc.data() } as Order);
+    });
+
+    // 2. Fetch by customerEmail if available
+    if (session.email) {
+      try {
+        const snapshotByEmail = await adminDb
+          .collection("orders")
+          .where("customerEmail", "==", session.email.toLowerCase().trim())
+          .get();
+
+        snapshotByEmail.docs.forEach((doc) => {
+          orderMap.set(doc.id, { id: doc.id, ...doc.data() } as Order);
+        });
+      } catch {}
+    }
+
+    const orders = Array.from(orderMap.values()).sort(
+      (a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()
+    );
 
     return { success: true, orders };
   } catch (error: any) {

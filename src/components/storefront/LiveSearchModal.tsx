@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { X, Search as SearchIcon, Loader2 } from "lucide-react";
 import { Product } from "@/types";
-import { getProducts } from "@/services/productService";
+import { searchProductsAction } from "@/app/actions/productActions";
 import { ProductCard } from "./ProductCard";
 import { twMerge } from "tailwind-merge";
 
@@ -45,8 +45,8 @@ export const LiveSearchModal: React.FC<LiveSearchModalProps> = ({ isOpen, onClos
       }
       setIsLoading(true);
       try {
-        const products = await getProducts({ searchQuery: query });
-        setResults(products);
+        const res = await searchProductsAction(query);
+        setResults(res.products || []);
       } catch (error) {
         console.error("Search error:", error);
       } finally {
